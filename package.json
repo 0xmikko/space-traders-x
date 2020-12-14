@@ -1,0 +1,21 @@
+{
+  "name": "spafi",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "author": "Mikael Lazarev",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts": "^3.3.0",
+    "@typechain/truffle-v5": "^4.0.0",
+    "@typechain/web3-v1": "^2.0.0",
+    "ethereum-waffle": "^3.2.1",
+    "typechain": "^4.0.1"
+  },
+  "scripts": {
+    "gen": "yarn postinstall",
+    "generate-types": "typechain --target=truffle-v5 'build/contracts/*.json' && typechain --target=web3-v1 'build/contracts/*.json'",
+    "postinstall": "truffle compile && yarn generate-types",
+    "migrate": "tsc -p ./tsconfig.migrate.json --outDir ./migrations && truffle migrate",
+    "typecheck": "tsc --noEmit"
+  }
+}
