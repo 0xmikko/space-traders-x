@@ -4,6 +4,7 @@ pragma solidity ^0.6.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol";
 import "../interfaces/IBEP20.sol";
 import "../repository/AddressRepository.sol";
 import "../repository/PlanetRepository.sol";
@@ -23,7 +24,6 @@ contract ResourceToken is Context, IBEP20, Ownable {
 
   AddressRepository private _addressRepository;
   PlanetRepository private _planetRepository;
-  GameAddress private _gameAddress;
 
 
   constructor(address addressRepository, string memory name, string memory symbol) public {
@@ -178,6 +178,18 @@ contract ResourceToken is Context, IBEP20, Ownable {
     _mint(_msgSender(), amount);
     return true;
   }
+
+  /**
+   * @dev Burns `amount` tokens and  from account
+   * Requirements
+   *
+   * - `msg.sender` must be the token owner
+   */
+  function burn(address account, uint256 amount) public onlyOwner returns (bool) {
+    _burn(account, amount);
+    return true;
+  }
+
 
   /**
    * @dev Moves tokens `amount` from `sender` to `recipient`.
