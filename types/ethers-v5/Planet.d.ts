@@ -22,12 +22,21 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface PlanetInterface extends ethers.utils.Interface {
   functions: {
+    "addResourcePair(address,address)": FunctionFragment;
     "getCoordinates()": FunctionFragment;
     "getName()": FunctionFragment;
     "getResourceLiquidity(address)": FunctionFragment;
+    "getResourcePair(address,address)": FunctionFragment;
+    "owner()": FunctionFragment;
+    "renounceOwnership()": FunctionFragment;
     "swap(address,address,uint256,uint256)": FunctionFragment;
+    "transferOwnership(address)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "addResourcePair",
+    values: [string, string]
+  ): string;
   encodeFunctionData(
     functionFragment: "getCoordinates",
     values?: undefined
@@ -38,10 +47,27 @@ interface PlanetInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
+    functionFragment: "getResourcePair",
+    values: [string, string]
+  ): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "renounceOwnership",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "swap",
     values: [string, string, BigNumberish, BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "transferOwnership",
+    values: [string]
+  ): string;
 
+  decodeFunctionResult(
+    functionFragment: "addResourcePair",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "getCoordinates",
     data: BytesLike
@@ -51,9 +77,28 @@ interface PlanetInterface extends ethers.utils.Interface {
     functionFragment: "getResourceLiquidity",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "getResourcePair",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "renounceOwnership",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "swap", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "transferOwnership",
+    data: BytesLike
+  ): Result;
 
-  events: {};
+  events: {
+    "NewResourcePair(address,address)": EventFragment;
+    "OwnershipTransferred(address,address)": EventFragment;
+  };
+
+  getEvent(nameOrSignatureOrTopic: "NewResourcePair"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
 }
 
 export class Planet extends Contract {
@@ -70,6 +115,18 @@ export class Planet extends Contract {
   interface: PlanetInterface;
 
   functions: {
+    addResourcePair(
+      resource1: string,
+      resource2: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "addResourcePair(address,address)"(
+      resource1: string,
+      resource2: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
     getCoordinates(
       overrides?: CallOverrides
     ): Promise<[number, number] & { x: number; y: number }>;
@@ -92,6 +149,26 @@ export class Planet extends Contract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    getResourcePair(
+      resource1: string,
+      resource2: string,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    "getResourcePair(address,address)"(
+      resource1: string,
+      resource2: string,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    owner(overrides?: CallOverrides): Promise<[string]>;
+
+    "owner()"(overrides?: CallOverrides): Promise<[string]>;
+
+    renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
+
+    "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
+
     swap(
       resource1: string,
       resource2: string,
@@ -107,7 +184,29 @@ export class Planet extends Contract {
       amount2out: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
+
+    transferOwnership(
+      newOwner: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "transferOwnership(address)"(
+      newOwner: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
   };
+
+  addResourcePair(
+    resource1: string,
+    resource2: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  "addResourcePair(address,address)"(
+    resource1: string,
+    resource2: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
 
   getCoordinates(
     overrides?: CallOverrides
@@ -131,6 +230,26 @@ export class Planet extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  getResourcePair(
+    resource1: string,
+    resource2: string,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  "getResourcePair(address,address)"(
+    resource1: string,
+    resource2: string,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  owner(overrides?: CallOverrides): Promise<string>;
+
+  "owner()"(overrides?: CallOverrides): Promise<string>;
+
+  renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
+
+  "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
+
   swap(
     resource1: string,
     resource2: string,
@@ -147,7 +266,29 @@ export class Planet extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
+  transferOwnership(
+    newOwner: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  "transferOwnership(address)"(
+    newOwner: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
   callStatic: {
+    addResourcePair(
+      resource1: string,
+      resource2: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "addResourcePair(address,address)"(
+      resource1: string,
+      resource2: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     getCoordinates(
       overrides?: CallOverrides
     ): Promise<[number, number] & { x: number; y: number }>;
@@ -170,6 +311,26 @@ export class Planet extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getResourcePair(
+      resource1: string,
+      resource2: string,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    "getResourcePair(address,address)"(
+      resource1: string,
+      resource2: string,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    owner(overrides?: CallOverrides): Promise<string>;
+
+    "owner()"(overrides?: CallOverrides): Promise<string>;
+
+    renounceOwnership(overrides?: CallOverrides): Promise<void>;
+
+    "renounceOwnership()"(overrides?: CallOverrides): Promise<void>;
+
     swap(
       resource1: string,
       resource2: string,
@@ -185,11 +346,40 @@ export class Planet extends Contract {
       amount2out: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    transferOwnership(
+      newOwner: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "transferOwnership(address)"(
+      newOwner: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
-  filters: {};
+  filters: {
+    NewResourcePair(resource1: null, resource2: null): EventFilter;
+
+    OwnershipTransferred(
+      previousOwner: string | null,
+      newOwner: string | null
+    ): EventFilter;
+  };
 
   estimateGas: {
+    addResourcePair(
+      resource1: string,
+      resource2: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    "addResourcePair(address,address)"(
+      resource1: string,
+      resource2: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
     getCoordinates(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getCoordinates()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -208,6 +398,26 @@ export class Planet extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getResourcePair(
+      resource1: string,
+      resource2: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "getResourcePair(address,address)"(
+      resource1: string,
+      resource2: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    owner(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "owner()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    renounceOwnership(overrides?: Overrides): Promise<BigNumber>;
+
+    "renounceOwnership()"(overrides?: Overrides): Promise<BigNumber>;
+
     swap(
       resource1: string,
       resource2: string,
@@ -223,9 +433,31 @@ export class Planet extends Contract {
       amount2out: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>;
+
+    transferOwnership(
+      newOwner: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    "transferOwnership(address)"(
+      newOwner: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    addResourcePair(
+      resource1: string,
+      resource2: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "addResourcePair(address,address)"(
+      resource1: string,
+      resource2: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
     getCoordinates(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "getCoordinates()"(
@@ -246,6 +478,26 @@ export class Planet extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getResourcePair(
+      resource1: string,
+      resource2: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "getResourcePair(address,address)"(
+      resource1: string,
+      resource2: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "owner()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>;
+
+    "renounceOwnership()"(overrides?: Overrides): Promise<PopulatedTransaction>;
+
     swap(
       resource1: string,
       resource2: string,
@@ -259,6 +511,16 @@ export class Planet extends Contract {
       resource2: string,
       amount1out: BigNumberish,
       amount2out: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    transferOwnership(
+      newOwner: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "transferOwnership(address)"(
+      newOwner: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
   };

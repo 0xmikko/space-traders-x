@@ -84,6 +84,8 @@ export class Deployer {
     )) as Planet__factory;
 
     const addressRepository = await this.getAddressRepository();
+    await this.getStarshipRepository();
+
     const planet = (await planetArtifact.deploy(
       addressRepository.address,
       name,
@@ -107,19 +109,19 @@ export class Deployer {
   }
 
   async getIronToken(): Promise<ResourceToken> {
-    if (this._goldToken !== undefined) return this._goldToken;
-    this._goldToken = await this._deployResourceToken("ST-IRON", "STIRN");
+    if (this._ironToken !== undefined) return this._ironToken;
+    this._ironToken = await this._deployResourceToken("ST-IRON", "STIRN");
     const addressRepository = await this.getAddressRepository();
-    await addressRepository.setIronToken(this._goldToken.address);
-    return this._goldToken;
+    await addressRepository.setIronToken(this._ironToken.address);
+    return this._ironToken;
   }
 
   async getOilToken(): Promise<ResourceToken> {
-    if (this._goldToken !== undefined) return this._goldToken;
-    this._goldToken = await this._deployResourceToken("ST-FUEL", "STFUL");
+    if (this._oilToken !== undefined) return this._oilToken;
+    this._oilToken = await this._deployResourceToken("ST-FUEL", "STFUL");
     const addressRepository = await this.getAddressRepository();
-    await addressRepository.setOilToken(this._goldToken.address);
-    return this._goldToken;
+    await addressRepository.setOilToken(this._oilToken.address);
+    return this._oilToken;
   }
 
   async getTokenPair(planet: string, token1: string, token2: string): Promise<ResourcePair> {

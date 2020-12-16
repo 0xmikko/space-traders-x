@@ -22,7 +22,7 @@ describe("StarshipRepository", function () {
     deployer = new Deployer();
     starshipRepository = await deployer.getStarshipRepository();
     planet0address = (await deployer.addPlanet("Earth", 1, 1)).address;
-    userAccount = (await ethers.getSigners())[0].address;
+    userAccount = (await ethers.getSigners())[1].address;
   });
 
   it("isAccountExists", async function () {
