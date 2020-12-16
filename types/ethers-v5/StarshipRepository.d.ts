@@ -26,6 +26,7 @@ interface StarshipRepositoryInterface extends ethers.utils.Interface {
     "calculateFuelConsumption(address,uint256)": FunctionFragment;
     "calculateTimeToArrive(address,uint256)": FunctionFragment;
     "getAccountPlanet(address)": FunctionFragment;
+    "getAccountStartshipProperties(address)": FunctionFragment;
     "getLevelsLength()": FunctionFragment;
     "isAccountExists(address)": FunctionFragment;
     "moveToPlanet(address,address)": FunctionFragment;
@@ -57,6 +58,10 @@ interface StarshipRepositoryInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getAccountPlanet",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getAccountStartshipProperties",
     values: [string]
   ): string;
   encodeFunctionData(
@@ -107,6 +112,10 @@ interface StarshipRepositoryInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getAccountPlanet",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getAccountStartshipProperties",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -221,6 +230,28 @@ export class StarshipRepository extends Contract {
       account: string,
       overrides?: CallOverrides
     ): Promise<[string]>;
+
+    getAccountStartshipProperties(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [number, BigNumber, BigNumber] & {
+        level: number;
+        velocity: BigNumber;
+        fuelPerParsec: BigNumber;
+      }
+    >;
+
+    "getAccountStartshipProperties(address)"(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [number, BigNumber, BigNumber] & {
+        level: number;
+        velocity: BigNumber;
+        fuelPerParsec: BigNumber;
+      }
+    >;
 
     getLevelsLength(overrides?: CallOverrides): Promise<[number]>;
 
@@ -346,6 +377,28 @@ export class StarshipRepository extends Contract {
     overrides?: CallOverrides
   ): Promise<string>;
 
+  getAccountStartshipProperties(
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<
+    [number, BigNumber, BigNumber] & {
+      level: number;
+      velocity: BigNumber;
+      fuelPerParsec: BigNumber;
+    }
+  >;
+
+  "getAccountStartshipProperties(address)"(
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<
+    [number, BigNumber, BigNumber] & {
+      level: number;
+      velocity: BigNumber;
+      fuelPerParsec: BigNumber;
+    }
+  >;
+
   getLevelsLength(overrides?: CallOverrides): Promise<number>;
 
   "getLevelsLength()"(overrides?: CallOverrides): Promise<number>;
@@ -466,6 +519,28 @@ export class StarshipRepository extends Contract {
       account: string,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    getAccountStartshipProperties(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [number, BigNumber, BigNumber] & {
+        level: number;
+        velocity: BigNumber;
+        fuelPerParsec: BigNumber;
+      }
+    >;
+
+    "getAccountStartshipProperties(address)"(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [number, BigNumber, BigNumber] & {
+        level: number;
+        velocity: BigNumber;
+        fuelPerParsec: BigNumber;
+      }
+    >;
 
     getLevelsLength(overrides?: CallOverrides): Promise<number>;
 
@@ -617,6 +692,16 @@ export class StarshipRepository extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getAccountStartshipProperties(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "getAccountStartshipProperties(address)"(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getLevelsLength(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getLevelsLength()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -735,6 +820,16 @@ export class StarshipRepository extends Contract {
     ): Promise<PopulatedTransaction>;
 
     "getAccountPlanet(address)"(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getAccountStartshipProperties(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "getAccountStartshipProperties(address)"(
       account: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;

@@ -179,6 +179,11 @@ contract ResourceToken is Context, IBEP20, Ownable {
     return true;
   }
 
+   function mintTo(address account, uint256 amount) public onlyOwner returns (bool) {
+    _mint(account, amount);
+    return true;
+  }
+
   /**
    * @dev Burns `amount` tokens and  from account
    * Requirements

@@ -9,7 +9,7 @@ import "hardhat-typechain";
 import "@nomiclabs/hardhat-ethers";
 
 // TODO: reenable solidity-coverage when it works
-// import "solidity-coverage";
+import "solidity-coverage";
 
 const INFURA_API_KEY = process.env.INFURA_API_KEY || "";
 const RINKEBY_PRIVATE_KEY =

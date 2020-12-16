@@ -1,6 +1,5 @@
 import { waffle, ethers } from "hardhat";
 import { solidity } from "ethereum-waffle";
-const { deployContract } = waffle;
 
 import BigNumber from "bignumber.js";
 
@@ -15,10 +14,20 @@ import { Planet__factory } from "../types/ethers-v5/factories/Planet__factory";
 import { StarshipRepository__factory } from "../types/ethers-v5/factories/StarshipRepository__factory";
 import { StarshipRepository } from "../types/ethers-v5/StarshipRepository";
 
+import { ResourceToken } from "../types/ethers-v5/ResourceToken";
+import { ResourceToken__factory } from "../types/ethers-v5/factories/ResourceToken__factory";
+
+import { ResourcePair } from "../types/ethers-v5/ResourcePair";
+import { ResourcePair__factory } from "../types/ethers-v5/factories/ResourcePair__factory";
+
 export class Deployer {
   private _addressRepository: AddressRepository | undefined;
   private _planetRepository: PlanetRepository | undefined;
   private _starshipRepository: StarshipRepository | undefined;
+
+  private _goldToken: ResourceToken | undefined;
+  private _ironToken: ResourceToken | undefined;
+  private _oilToken: ResourceToken | undefined;
 
   async getAddressRepository(): Promise<AddressRepository> {
     if (this._addressRepository) return this._addressRepository;
@@ -87,5 +96,59 @@ export class Deployer {
     await planetRepository.addPlanet(planet.address);
 
     return planet;
+  }
+
+  async getGoldToken(): Promise<ResourceToken> {
+    if (this._goldToken !== undefined) return this._goldToken;
+    this._goldToken = await this._deployResourceToken("ST-GOLD", "STGLD");
+    const addressRepository = await this.getAddressRepository();
+    await addressRepository.setGoldToken(this._goldToken.address);
+    return this._goldToken;
+  }
+
+  async getIronToken(): Promise<ResourceToken> {
+    if (this._goldToken !== undefined) return this._goldToken;
+    this._goldToken = await this._deployResourceToken("ST-IRON", "STIRN");
+    const addressRepository = await this.getAddressRepository();
+    await addressRepository.setIronToken(this._goldToken.address);
+    return this._goldToken;
+  }
+
+  async getOilToken(): Promise<ResourceToken> {
+    if (this._goldToken !== undefined) return this._goldToken;
+    this._goldToken = await this._deployResourceToken("ST-FUEL", "STFUL");
+    const addressRepository = await this.getAddressRepository();
+    await addressRepository.setOilToken(this._goldToken.address);
+    return this._goldToken;
+  }
+
+  async getTokenPair(planet: string, token1: string, token2: string): Promise<ResourcePair> {
+    const resourcePairArtifact = (await ethers.getContractFactory(
+      "ResourcePair"
+    )) as ResourcePair__factory;
+    const pair = await resourcePairArtifact.deploy(planet, token1, token2);
+    await pair.deployed();
+    return pair;
+  }
+
+  private async _deployResourceToken(
+    name: string,
+    symbol: string
+  ): Promise<ResourceToken> {
+    const resourceTokenArtifact = (await ethers.getContractFactory(
+      "ResourceToken"
+    )) as ResourceToken__factory;
+    const addressRepository = await this.getAddressRepository();
+    
+    // Needed for token
+    await this.getPlanetRepository();
+
+    const token = (await resourceTokenArtifact.deploy(
+      addressRepository.address,
+      name,
+      symbol
+    )) as ResourceToken;
+    await token.deployed();
+    return token;
   }
 }

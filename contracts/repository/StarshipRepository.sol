@@ -42,7 +42,9 @@ contract StarshipRepository is Ownable {
 
     constructor(address addressRepository) public {
         _addressRepository = AddressRepository(addressRepository);
-        _planetRepository = PlanetRepository(_addressRepository.getPlanetRepository());
+        _planetRepository = PlanetRepository(
+            _addressRepository.getPlanetRepository()
+        );
     }
 
     // PUBLIC METHODS
@@ -71,24 +73,41 @@ contract StarshipRepository is Ownable {
 
     // Register new account
     function registerAccount(address account) external onlyOwner {
+        require(!isAccountExists(account), "Account is already exists");
+        require(getLevelsLength() > 0, "No startship levels set up");
+
         address startPlanet = _planetRepository.getPlanetByIndex(0);
         _accountsShip[account] = StarShip({
-            level: 1,
-            velocity: 500,
-            fuelPerParsec: 100,
+            level: 0,
+            velocity: _starshipLevels[0].velocity,
+            fuelPerParsec: _starshipLevels[0].fuelPerParsec,
             arrival: block.number,
             destination: startPlanet
         });
         emit NewStarShip(account);
     }
 
-    function isAccountExists(address account) external view returns (bool) {
-        return _accountsShip[account].level > 0;
+    function isAccountExists(address account) public view returns (bool) {
+        return _accountsShip[account].destination != address(0);
     }
 
     // Returns address of planet where account is or going
     function getAccountPlanet(address account) public view returns (address) {
         return _accountsShip[account].destination;
+    }
+
+    function getAccountStartshipProperties(address account)
+        public
+        view
+        returns (
+            uint8 level,
+            uint256 velocity,
+            uint256 fuelPerParsec
+        )
+    {
+        level = _accountsShip[account].level;
+        velocity = _accountsShip[account].velocity;
+        fuelPerParsec = _accountsShip[account].fuelPerParsec;
     }
 
     // Returns zero if account on the planet and blocks qty to arrive if not
@@ -103,8 +122,8 @@ contract StarshipRepository is Ownable {
         view
         returns (uint256)
     {
-        uint256 velocity = _accountsShip[account].velocity;
-        return distance.div(velocity);
+        uint256 fuelPerParsec = _accountsShip[account].fuelPerParsec;
+        return distance.div(fuelPerParsec);
     }
 
     // Calculates Time needed for distance
@@ -124,7 +143,7 @@ contract StarshipRepository is Ownable {
         onlyOwner
         returns (uint256 fuelConsumption)
     {
-        require(timeToArrive(account) == 0, "Account is on the way");
+        require(timeToArrive(account) == 0, "Starship is on the way");
 
         address currentPlanet = _accountsShip[account].destination;
         uint256 distance = _planetRepository.calculateDistance(

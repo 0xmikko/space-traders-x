@@ -22,6 +22,7 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface ResourcePairInterface extends ethers.utils.Interface {
   functions: {
+    "getLiquidity()": FunctionFragment;
     "getResourcePrice1()": FunctionFragment;
     "getResourcePrice2()": FunctionFragment;
     "owner()": FunctionFragment;
@@ -30,6 +31,10 @@ interface ResourcePairInterface extends ethers.utils.Interface {
     "transferOwnership(address)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "getLiquidity",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "getResourcePrice1",
     values?: undefined
@@ -52,6 +57,10 @@ interface ResourcePairInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "getLiquidity",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "getResourcePrice1",
     data: BytesLike
@@ -92,6 +101,24 @@ export class ResourcePair extends Contract {
   interface: ResourcePairInterface;
 
   functions: {
+    getLiquidity(
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        r1Liquidity: BigNumber;
+        r2Liquidity: BigNumber;
+      }
+    >;
+
+    "getLiquidity()"(
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        r1Liquidity: BigNumber;
+        r2Liquidity: BigNumber;
+      }
+    >;
+
     getResourcePrice1(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "getResourcePrice1()"(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -132,6 +159,18 @@ export class ResourcePair extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>;
   };
+
+  getLiquidity(
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & { r1Liquidity: BigNumber; r2Liquidity: BigNumber }
+  >;
+
+  "getLiquidity()"(
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & { r1Liquidity: BigNumber; r2Liquidity: BigNumber }
+  >;
 
   getResourcePrice1(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -174,6 +213,24 @@ export class ResourcePair extends Contract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    getLiquidity(
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        r1Liquidity: BigNumber;
+        r2Liquidity: BigNumber;
+      }
+    >;
+
+    "getLiquidity()"(
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        r1Liquidity: BigNumber;
+        r2Liquidity: BigNumber;
+      }
+    >;
+
     getResourcePrice1(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getResourcePrice1()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -223,6 +280,10 @@ export class ResourcePair extends Contract {
   };
 
   estimateGas: {
+    getLiquidity(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getLiquidity()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     getResourcePrice1(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getResourcePrice1()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -265,6 +326,10 @@ export class ResourcePair extends Contract {
   };
 
   populateTransaction: {
+    getLiquidity(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "getLiquidity()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     getResourcePrice1(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "getResourcePrice1()"(

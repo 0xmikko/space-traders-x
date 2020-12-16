@@ -47,7 +47,7 @@ contract ResourcePair is Ownable {
     }
 
     function getLiquidity()
-        internal
+        public
         view
         returns (uint256 r1Liquidity, uint256 r2Liquidity)
     {

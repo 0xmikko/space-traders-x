@@ -22,7 +22,6 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface SpaceTradersGameInterface extends ethers.utils.Interface {
   functions: {
-    "isRegistered()": FunctionFragment;
     "move(address)": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
@@ -31,10 +30,6 @@ interface SpaceTradersGameInterface extends ethers.utils.Interface {
     "upgradeShip()": FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: "isRegistered",
-    values?: undefined
-  ): string;
   encodeFunctionData(functionFragment: "move", values: [string]): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -51,10 +46,6 @@ interface SpaceTradersGameInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "isRegistered",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "move", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
@@ -92,10 +83,6 @@ export class SpaceTradersGame extends Contract {
   interface: SpaceTradersGameInterface;
 
   functions: {
-    isRegistered(overrides?: CallOverrides): Promise<[boolean]>;
-
-    "isRegistered()"(overrides?: CallOverrides): Promise<[boolean]>;
-
     move(
       dstPlanet: string,
       overrides?: Overrides
@@ -133,10 +120,6 @@ export class SpaceTradersGame extends Contract {
     "upgradeShip()"(overrides?: Overrides): Promise<ContractTransaction>;
   };
 
-  isRegistered(overrides?: CallOverrides): Promise<boolean>;
-
-  "isRegistered()"(overrides?: CallOverrides): Promise<boolean>;
-
   move(dstPlanet: string, overrides?: Overrides): Promise<ContractTransaction>;
 
   "move(address)"(
@@ -171,10 +154,6 @@ export class SpaceTradersGame extends Contract {
   "upgradeShip()"(overrides?: Overrides): Promise<ContractTransaction>;
 
   callStatic: {
-    isRegistered(overrides?: CallOverrides): Promise<boolean>;
-
-    "isRegistered()"(overrides?: CallOverrides): Promise<boolean>;
-
     move(dstPlanet: string, overrides?: CallOverrides): Promise<void>;
 
     "move(address)"(
@@ -217,10 +196,6 @@ export class SpaceTradersGame extends Contract {
   };
 
   estimateGas: {
-    isRegistered(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "isRegistered()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     move(dstPlanet: string, overrides?: Overrides): Promise<BigNumber>;
 
     "move(address)"(
@@ -256,10 +231,6 @@ export class SpaceTradersGame extends Contract {
   };
 
   populateTransaction: {
-    isRegistered(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "isRegistered()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     move(
       dstPlanet: string,
       overrides?: Overrides
