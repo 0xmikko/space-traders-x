@@ -42,6 +42,7 @@ contract StarshipRepository is Ownable {
 
     constructor(address addressRepository) public {
         _addressRepository = AddressRepository(addressRepository);
+        _planetRepository = PlanetRepository(_addressRepository.getPlanetRepository());
     }
 
     // PUBLIC METHODS

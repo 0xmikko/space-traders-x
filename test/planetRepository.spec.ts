@@ -2,8 +2,6 @@ import { waffle, ethers } from "hardhat";
 import { solidity } from "ethereum-waffle";
 const { deployContract } = waffle;
 
-import BigNumber from "bignumber.js";
-
 import { AddressRepository } from "../types/ethers-v5/AddressRepository";
 import { AddressRepository__factory } from "../types/ethers-v5/factories/AddressRepository__factory";
 
@@ -12,6 +10,8 @@ import { PlanetRepository__factory } from "../types/ethers-v5/factories/PlanetRe
 
 import { Planet } from "../types/ethers-v5/Planet";
 import { Planet__factory } from "../types/ethers-v5/factories/Planet__factory";
+
+import { Deployer } from "../scripts/deployer";
 
 const chai = require("chai");
 
@@ -22,32 +22,17 @@ describe("PlanetRepository", function () {
   let addressRepository: AddressRepository;
   let planetRepository: PlanetRepository;
   let planet1: Planet;
+  let deployer: Deployer;
 
-  let addressRepositoryArtifact: AddressRepository__factory;
-  let planetRepositoryArtifact: PlanetRepository__factory;
   let planetArtifact: Planet__factory;
 
-  before(async function () {
-    addressRepositoryArtifact = (await ethers.getContractFactory(
-      "AddressRepository"
-    )) as AddressRepository__factory;
-
-    planetRepositoryArtifact = (await ethers.getContractFactory(
-      "PlanetRepository"
-    )) as PlanetRepository__factory;
-
-    planetArtifact = (await ethers.getContractFactory(
-      "Planet"
-    )) as Planet__factory;
-  });
-
   beforeEach(async function () {
-    addressRepository = (await addressRepositoryArtifact.deploy()) as AddressRepository;
-
-    planetRepository = (await planetRepositoryArtifact.deploy()) as PlanetRepository;
-    planetRepository.deployed();
-
-    await addressRepository.setPlanetRepository(planetRepository.address);
+    deployer = new Deployer();
+    planetArtifact = (await ethers.getContractFactory(
+        "Planet"
+      )) as Planet__factory;
+    addressRepository = await deployer.getAddressRepository();
+    planetRepository = await deployer.getPlanetRepository();
     planet1 = (await planetArtifact.deploy(
       addressRepository.address,
       "Earth",
@@ -84,14 +69,8 @@ describe("PlanetRepository", function () {
 
   it("calculate distance for the same location", async function () {
     await planetRepository.addPlanet(planet1.address);
-    const planet2 = (await planetArtifact.deploy(
-      addressRepository.address,
-      "Mars",
-      1,
-      2
-    )) as Planet;
+    const planet2 = await deployer.addPlanet("Mars", 1, 2);
 
-    await planetRepository.addPlanet(planet2.address);
     expect(
       await planetRepository.calculateDistance(planet1.address, planet2.address)
     ).to.be.equal(0);
@@ -99,12 +78,7 @@ describe("PlanetRepository", function () {
 
   it("calculate distance for planet with bigger coord", async function () {
     await planetRepository.addPlanet(planet1.address);
-    const planet2 = (await planetArtifact.deploy(
-      addressRepository.address,
-      "Mars",
-      3,
-      6
-    )) as Planet;
+    const planet2 = await deployer.addPlanet("Mars", 3, 6);
 
     await planetRepository.addPlanet(planet2.address);
     expect(
@@ -114,12 +88,7 @@ describe("PlanetRepository", function () {
 
   it("calculate distance for planet with lesser coord", async function () {
     await planetRepository.addPlanet(planet1.address);
-    const planet2 = (await planetArtifact.deploy(
-      addressRepository.address,
-      "Mars",
-      0,
-      0
-    )) as Planet;
+    const planet2 = await deployer.addPlanet("Mars", 0, 0);
 
     await planetRepository.addPlanet(planet2.address);
     expect(

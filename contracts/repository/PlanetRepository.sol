@@ -22,9 +22,16 @@ contract PlanetRepository is Ownable {
         _;
     }
 
+    modifier planetIndexExists(uint8 index) {
+        require(
+            index < _planetsList.length,
+            "Planet with this index doesn't exists"
+        );
+        _;
+    }
+
     // Adds planet to Repository
     function addPlanet(address planet) external onlyOwner {
-
         _planets[planet] = Planet(planet);
         _planetsList.push(planet);
         emit NewPlanetAdded(planet);
@@ -34,17 +41,28 @@ contract PlanetRepository is Ownable {
         return _planetsList.length;
     }
 
-    function getPlanetByIndex(uint8 index) public view returns (address) {
+    function getPlanetByIndex(uint8 index)
+        public
+        view
+        planetIndexExists(index)
+        returns (address)
+    {
         return _planetsList[index];
     }
 
-    function getPlanetName(uint8 index) external view returns (string memory) {
+    function getPlanetName(uint8 index)
+        external
+        view
+        planetIndexExists(index)
+        returns (string memory)
+    {
         return _planets[getPlanetByIndex(index)].getName();
     }
 
     function getPlanetCoord(uint8 index)
         external
         view
+        planetIndexExists(index)
         returns (uint16 x, uint16 y)
     {
         return _planets[getPlanetByIndex(index)].getCoordinates();
