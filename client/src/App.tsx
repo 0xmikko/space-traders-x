@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";

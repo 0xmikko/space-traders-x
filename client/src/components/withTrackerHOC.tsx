@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
+ * Stackdrive. Self-order apps for business
+ * Copyright (c) 2020. Mikhail Lazarev
  */
 
 import React, {useEffect} from "react";

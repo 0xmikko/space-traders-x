@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 import Web3 from 'web3';
 
 export async function getContract(web3: Web3, artifact: any, address?: string) {

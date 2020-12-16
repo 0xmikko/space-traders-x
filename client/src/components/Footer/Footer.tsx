@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 import React from "react";
 import {Col, Container, Media, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
@@ -10,7 +5,7 @@ import CookieConsent from "react-cookie-consent";
 
 export function Footer() {
   return (
-    <footer className={"footer-container"}>
+    <footer className={"footer-container"} style={{backgroundColor: "#313652 !important"}}>
       <CookieConsent
         location="bottom"
         buttonText="Yes, I consent"
@@ -28,7 +23,7 @@ export function Footer() {
         🍪 We need to talk about cookies! 🍪
         <br />
         <span style={{fontSize: "13px", lineHeight: 1}}>
-          Juicer Protocol and its partners use cookies to operate the website
+          SpaceTraders and its partners use cookies to operate the website
           and platform, for analytical purposes, and for advertising/targeting
           purposes. You can learn more about our use of cookies in Our Privacy
           Policy. Using cookies helps us provide a better experience tailored to
@@ -39,19 +34,11 @@ export function Footer() {
         </span>
       </CookieConsent>
       <div className={"footer-content"} style={{color: "white"}}>
-        <Container style={{paddingTop: '30px', paddingBottom: "30px"}}>
+        <Container fluid style={{paddingTop: '30px', paddingBottom: "30px", textAlign: "center"}}>
             <Media>
-              <Link to="/">
-                <img
-                  src={"/logo.png"}
-                  height={50}
-                  alt={"Logo"}
-                  style={{marginBottom: "15px"}}
-                />
-              </Link>
               <Media.Body style={{marginLeft: "30px"}}>
               <p>
-                &copy; Copyright 2020 Juicer Protocol
+                &copy; Copyright 2020 SpaceTraders
                 <br />
                 All rights reserved
               </p>

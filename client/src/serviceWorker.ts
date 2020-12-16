@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 // This optional code is used to register a service worker.
 // register() is not called by default.
 

@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 import React, {useState} from "react";
 import {Button, Card, Form} from "react-bootstrap";
 import {Token} from "../../core/token";

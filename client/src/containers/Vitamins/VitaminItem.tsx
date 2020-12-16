@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 import React, {useEffect} from "react";
 import {Reserve} from "../../core/reserve";
 import {Col, Row} from "react-bootstrap";

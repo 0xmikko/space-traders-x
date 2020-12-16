@@ -1,13 +1,9 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 export const isDev = process.env.NODE_ENV === 'development';
 
 export const GANACHE_NETWORK_ID = 5777;
 export const KOVAN_NETWORK_ID = 42;
-export const REQUIRED_NETWORK = KOVAN_NETWORK_ID;
+export const BNB_NETWORK_ID = 0x61;
+export const REQUIRED_NETWORK = BNB_NETWORK_ID;
 
 export const BACKEND_ADDR = isDev
   ? 'http://localhost:8000'
