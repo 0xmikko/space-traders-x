@@ -38,6 +38,15 @@ contract AddressRepository is Ownable, AddressStorage {
         _setAddress(PLANET_REPOSITORY, _address);
     }
 
+    function getStarshipRepository() public view returns (address) {
+        return getAddress(STARSHIP_REPOSITORY);
+    }
+
+    function setStarshipRepository(address _address) public onlyOwner {
+        _setAddress(STARSHIP_REPOSITORY, _address);
+    }
+
+
     function getGoldToken() public view returns (address) {
         return getAddress(GOLD_TOKEN);
     }

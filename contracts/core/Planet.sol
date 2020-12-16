@@ -5,6 +5,8 @@ pragma solidity >=0.6.0 <0.8.0;
 import "../repository/AddressRepository.sol";
 import "../repository/PlanetRepository.sol";
 import "../repository/StarshipRepository.sol";
+import "../tokens/Resource.sol";
+import "./ResourcePair.sol";
 
 contract Planet {
 
@@ -16,9 +18,12 @@ contract Planet {
     PlanetRepository private _planetRepository;
     StarshipRepository private _starshipRepository;
 
+    mapping(address => mapping(address => address)) private _router;
+
     modifier onPlanetOnly {
         require(
-            address(this) == _starshipRepository.getaccountPlanet,
+            address(this) == _starshipRepository.getAccountPlanet(msg.sender) &&
+            _starshipRepository.timeToArrive(msg.sender) == 0,
             "Allowed only for users on planet"
         );
         _;
@@ -48,12 +53,18 @@ contract Planet {
         external
         view
         returns (uint256)
-    {}
+    {
+        return ResourceToken(resource).balanceOf(address(this));
+    }
 
-    function Swap(
-        uint256 resource1,
-        uint256 resource2,
-        uint256 amount
-    ) onPlanetOnly external {}
+    function swap(
+        address resource1,
+        address resource2,
+        uint256 amount1out,
+        uint256 amount2out
+    ) onPlanetOnly external {
+        ResourcePair pair = ResourcePair(_router[resource1][resource2]);
+        pair.swap(msg.sender, amount1out, amount2out);
+    }
 
 }

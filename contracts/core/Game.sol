@@ -25,7 +25,7 @@ contract SpaceTradersGame is Ownable {
         _;
     }
 
-    constructor(address addressRepository, string memory name, string memory symbol) public {
+    constructor(address addressRepository) public {
         _addressRepository = AddressRepository(addressRepository);
         _planetRepository = PlanetRepository(_addressRepository.getPlanetRepository());
         _starshipRepository = StarshipRepository(_addressRepository.getStarshipRepository());
@@ -37,13 +37,13 @@ contract SpaceTradersGame is Ownable {
 
     function startGame() external {
         require(!isRegistered(), "Account is already registered");
-        _starshipRepository.registeraccount(msg.sender);
+        _starshipRepository.registerAccount(msg.sender);
 
         // Mint tokens to new account
     }
 
     function isRegistered() public view returns (bool) {
-        return _planetRepository.getUserPlanet(msg.sender) == address(0);
+        return _starshipRepository.isAccountExists(msg.sender);
     }
 
     // Move user to new planet and chagre oil for that
@@ -53,7 +53,7 @@ contract SpaceTradersGame is Ownable {
     }
 
     function upgradeShip() external registeredAccountsOnly {
-        (uint256 goldCost, uint256 ironCost, uint256 oilCost) = _starshipRepository.upgradeShip(msg.sender);
+        (uint256 goldCost, uint256 ironCost, uint256 oilCost) = _starshipRepository.upgradeStarShip(msg.sender);
 
         _goldToken.burn(msg.sender, goldCost);
         _ironToken.burn(msg.sender, ironCost);

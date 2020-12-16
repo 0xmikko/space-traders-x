@@ -24,22 +24,31 @@ contract ResourcePair is Ownable {
         _resource2 = ResourceToken(resource2);
     }
 
-    function Swap(uint256 amount1out, uint256 amount2out) external onlyOwner {
+    function swap(address account, uint256 amount1out, uint256 amount2out) external onlyOwner {
+        require(amount1out >0 || amount2out>0, "Nothing to swap");
+        uint256 amount1in = amount2out.mul(getResourcePrice1());
+        uint256 amount2in = amount1out.mul(getResourcePrice2());
+        _resource1.transferFrom(account, _planet, amount1in);
+        _resource2.transferFrom(account, _planet, amount2in);
+
+        _resource1.transferFrom(_planet, account, amount1out);
+        _resource2.transferFrom(_planet, account, amount2out);
 
     }
 
-    function getResourcePrice1() external returns (uint256) {
+    function getResourcePrice1() public view returns (uint256) {
         (uint256 r1Liq, uint256 r2Liq) = getLiquidity();
         return r1Liq.div(r2Liq);
     }
 
-    function getResourcePrice2() external returns (uint256) {
+    function getResourcePrice2() public view returns (uint256) {
         (uint256 r1Liq, uint256 r2Liq) = getLiquidity();
         return r2Liq.div(r1Liq);
     }
 
     function getLiquidity()
         internal
+        view
         returns (uint256 r1Liquidity, uint256 r2Liquidity)
     {
         r1Liquidity = _resource1.balanceOf(_planet);
