@@ -127,4 +127,15 @@ describe("PlanetRepository", function () {
     ).to.be.equal(3);
   });
 
+  it("revert if planet doesn't", async function () {
+    await planetRepository.addPlanet(planet1.address);
+    const planet2FakeAddress = "0x279f6CEFEeAD43544e597B4c5Bd1D327D6D5ED1A";
+    await expect(
+      planetRepository.calculateDistance(planet1.address, planet2FakeAddress)
+    ).to.be.revertedWith("Planet doesn't exists");
+
+    await expect(
+      planetRepository.calculateDistance(planet2FakeAddress, planet1.address)
+    ).to.be.revertedWith("Planet doesn't exists");
+  });
 });
