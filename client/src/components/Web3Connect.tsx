@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 import React from "react";
 import {Container} from "react-bootstrap";
 import {Link} from "react-router-dom";
@@ -21,7 +16,7 @@ export function Web3Connect({error}: Web3ConnectProps): React.ReactElement {
       break;
     case "WRONG_NETWORK_ERROR":
       message =
-        "Sorry, this solution works on Kovan network only. Please, switch your metamsk and reload the page.";
+        "Sorry, this solution works on BNB network only. Please, switch your metamask and reload the page.";
       break;
   }
 

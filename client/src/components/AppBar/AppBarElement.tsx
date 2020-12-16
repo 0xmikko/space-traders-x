@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 import React from 'react';
 import {Link} from "react-router-dom";
 import {Nav} from "react-bootstrap";

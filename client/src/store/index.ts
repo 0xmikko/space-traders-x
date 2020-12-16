@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 import {applyMiddleware, compose, createStore} from 'redux';
 import reducer from './reducer';
 import thunk from 'redux-thunk';

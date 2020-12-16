@@ -1,0 +1,464 @@
+{
+  "contractName": "PriceRepositoryMock",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_reserve",
+          "type": "address"
+        }
+      ],
+      "name": "getReservePriceInETH",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.6.10+commit.00c0fcaf\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_reserve\",\"type\":\"address\"}],\"name\":\"getReservePriceInETH\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/mikhail/Coding/jucifi/contracts/mocks/PriceRepositoryMock.sol\":\"PriceRepositoryMock\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/mikhail/Coding/jucifi/contracts/core/IPriceRepository.sol\":{\"keccak256\":\"0xf05934721971ad5f9873b32bfe1ac5b666d8a74ae38b3bbe984104ce36efd9ec\",\"license\":\"agpl-3.0\",\"urls\":[\"bzz-raw://59acb68a29e05845ad2baea070ad24b1562bc95ae767c9fe5205db6799526eb3\",\"dweb:/ipfs/Qmac4ArGMhaNe56aKAnYGtGCXMNgm1XU612EpwWWpyUKUN\"]},\"/Users/mikhail/Coding/jucifi/contracts/mocks/PriceRepositoryMock.sol\":{\"keccak256\":\"0x038d51da34c5fc95e1c2f5078e2ac960a84868e0948e53d0628062da8babad56\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://838ca7aac0a721a8094809dba8f9cb3063fc35e3a2d87b07492f0176c140b5e3\",\"dweb:/ipfs/QmPyUkoQPXZYgEYpHgQQv3WzjKELfsmkxRN5KLQJ3B35Dx\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060c38061001f6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063b6d3a35d14602d575b600080fd5b606c60048036036020811015604157600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506082565b6040518082815260200191505060405180910390f35b60006001905091905056fea2646970667358221220743467a9dde5030cbc8fafbd942635579e5c04579e4bb30bcc42d94752fab7e864736f6c634300060a0033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c8063b6d3a35d14602d575b600080fd5b606c60048036036020811015604157600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506082565b6040518082815260200191505060405180910390f35b60006001905091905056fea2646970667358221220743467a9dde5030cbc8fafbd942635579e5c04579e4bb30bcc42d94752fab7e864736f6c634300060a0033",
+  "immutableReferences": {},
+  "sourceMap": "97:181:12:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "97:181:12:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;150:126;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;246:7;270:1;263:8;;150:126;;;:::o",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.10;\nimport \"../core/IPriceRepository.sol\";\n\ncontract PriceRepositoryMock is IPriceRepository {\n  function getReservePriceInETH(address _reserve)\n    external\n    override\n    view\n    returns (uint256)\n  {\n    return 1;\n  }\n}\n",
+  "sourcePath": "/Users/mikhail/Coding/jucifi/contracts/mocks/PriceRepositoryMock.sol",
+  "ast": {
+    "absolutePath": "/Users/mikhail/Coding/jucifi/contracts/mocks/PriceRepositoryMock.sol",
+    "exportedSymbols": {
+      "PriceRepositoryMock": [
+        1952
+      ]
+    },
+    "id": 1953,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1937,
+        "literals": [
+          "solidity",
+          "^",
+          "0.6",
+          ".10"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:24:12"
+      },
+      {
+        "absolutePath": "/Users/mikhail/Coding/jucifi/contracts/core/IPriceRepository.sol",
+        "file": "../core/IPriceRepository.sol",
+        "id": 1938,
+        "nodeType": "ImportDirective",
+        "scope": 1953,
+        "sourceUnit": 183,
+        "src": "57:38:12",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 1939,
+              "name": "IPriceRepository",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 182,
+              "src": "129:16:12",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_IPriceRepository_$182",
+                "typeString": "contract IPriceRepository"
+              }
+            },
+            "id": 1940,
+            "nodeType": "InheritanceSpecifier",
+            "src": "129:16:12"
+          }
+        ],
+        "contractDependencies": [
+          182
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1952,
+        "linearizedBaseContracts": [
+          1952,
+          182
+        ],
+        "name": "PriceRepositoryMock",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "baseFunctions": [
+              181
+            ],
+            "body": {
+              "id": 1950,
+              "nodeType": "Block",
+              "src": "257:19:12",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "hexValue": "31",
+                    "id": 1948,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "number",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "270:1:12",
+                    "subdenomination": null,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_rational_1_by_1",
+                      "typeString": "int_const 1"
+                    },
+                    "value": "1"
+                  },
+                  "functionReturnParameters": 1947,
+                  "id": 1949,
+                  "nodeType": "Return",
+                  "src": "263:8:12"
+                }
+              ]
+            },
+            "documentation": null,
+            "functionSelector": "b6d3a35d",
+            "id": 1951,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getReservePriceInETH",
+            "nodeType": "FunctionDefinition",
+            "overrides": {
+              "id": 1944,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "215:8:12"
+            },
+            "parameters": {
+              "id": 1943,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1942,
+                  "mutability": "mutable",
+                  "name": "_reserve",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1951,
+                  "src": "180:16:12",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1941,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "180:7:12",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "179:18:12"
+            },
+            "returnParameters": {
+              "id": 1947,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1946,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1951,
+                  "src": "246:7:12",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1945,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "246:7:12",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "245:9:12"
+            },
+            "scope": 1952,
+            "src": "150:126:12",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 1953,
+        "src": "97:181:12"
+      }
+    ],
+    "src": "32:247:12"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/mikhail/Coding/jucifi/contracts/mocks/PriceRepositoryMock.sol",
+    "exportedSymbols": {
+      "PriceRepositoryMock": [
+        1952
+      ]
+    },
+    "id": 1953,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1937,
+        "literals": [
+          "solidity",
+          "^",
+          "0.6",
+          ".10"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:24:12"
+      },
+      {
+        "absolutePath": "/Users/mikhail/Coding/jucifi/contracts/core/IPriceRepository.sol",
+        "file": "../core/IPriceRepository.sol",
+        "id": 1938,
+        "nodeType": "ImportDirective",
+        "scope": 1953,
+        "sourceUnit": 183,
+        "src": "57:38:12",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 1939,
+              "name": "IPriceRepository",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 182,
+              "src": "129:16:12",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_IPriceRepository_$182",
+                "typeString": "contract IPriceRepository"
+              }
+            },
+            "id": 1940,
+            "nodeType": "InheritanceSpecifier",
+            "src": "129:16:12"
+          }
+        ],
+        "contractDependencies": [
+          182
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1952,
+        "linearizedBaseContracts": [
+          1952,
+          182
+        ],
+        "name": "PriceRepositoryMock",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "baseFunctions": [
+              181
+            ],
+            "body": {
+              "id": 1950,
+              "nodeType": "Block",
+              "src": "257:19:12",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "hexValue": "31",
+                    "id": 1948,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "number",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "270:1:12",
+                    "subdenomination": null,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_rational_1_by_1",
+                      "typeString": "int_const 1"
+                    },
+                    "value": "1"
+                  },
+                  "functionReturnParameters": 1947,
+                  "id": 1949,
+                  "nodeType": "Return",
+                  "src": "263:8:12"
+                }
+              ]
+            },
+            "documentation": null,
+            "functionSelector": "b6d3a35d",
+            "id": 1951,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getReservePriceInETH",
+            "nodeType": "FunctionDefinition",
+            "overrides": {
+              "id": 1944,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "215:8:12"
+            },
+            "parameters": {
+              "id": 1943,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1942,
+                  "mutability": "mutable",
+                  "name": "_reserve",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1951,
+                  "src": "180:16:12",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1941,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "180:7:12",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "179:18:12"
+            },
+            "returnParameters": {
+              "id": 1947,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1946,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1951,
+                  "src": "246:7:12",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1945,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "246:7:12",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "245:9:12"
+            },
+            "scope": 1952,
+            "src": "150:126:12",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 1953,
+        "src": "97:181:12"
+      }
+    ],
+    "src": "32:247:12"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.6.10+commit.00c0fcaf.Emscripten.clang"
+  },
+  "networks": {
+    "42": {
+      "events": {},
+      "links": {},
+      "address": "0xb44424365bEe57F88A96611F7E1DD5701678d5eB",
+      "transactionHash": "0x481e10ca6a418bb0fb1d12b4a261acfbbd872e37390678166e2a116d4124e6f0"
+    },
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x80ADb1BBa578c75B1f7E9cf41ac80666FA9e3f3D",
+      "transactionHash": "0xdc9281745b9850dbb112a93d969ccac366b7173cb6343a42d7d83f7a75fd356d"
+    }
+  },
+  "schemaVersion": "3.2.5",
+  "updatedAt": "2020-10-22T22:43:29.093Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

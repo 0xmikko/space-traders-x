@@ -1,16 +1,11 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 import React from "react";
 import {withTracker} from "../components/withTrackerHOC";
 import {Redirect, Route, Switch} from "react-router";
 import {DepositListScreen} from "./Deposit/DepositListScreen";
-import {LoanListScreen} from "./Loan/LoanListScreen";
+import {FlyScreen} from "./Fly/FlyScreen";
 import {MarketListScreen} from "./Market/MarketListScreen";
 import {DepositNewScreen} from "./Deposit/DepositNewScreen";
-import {VitaminListScreen} from "./Vitamin/VitaminListScreen";
+import {StartGameScreen} from "./Start/StartGameScreen";
 
 export const Router = () => {
   return (
@@ -18,8 +13,8 @@ export const Router = () => {
       <Route exact path="/market" component={withTracker(MarketListScreen)} />
       <Route
         exact
-        path="/deposits/:id"
-        component={withTracker(DepositNewScreen)}
+        path="/fly/:name"
+        component={withTracker(FlyScreen)}
       />
       <Route
         exact
@@ -27,9 +22,8 @@ export const Router = () => {
         component={withTracker(DepositListScreen)}
       />
 
-      <Route exact path="/loans" component={withTracker(LoanListScreen)} />
-      <Route exact path="/vitamins" component={withTracker(VitaminListScreen)} />
-      <Redirect to={"/market"} />
+      <Route exact path="/" component={withTracker(StartGameScreen)} />
+      {/*} <Redirect to={"/market"} /> */}
     </Switch>
   );
 };

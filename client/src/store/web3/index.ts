@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 import Web3 from 'web3';
 import {RootState} from '../index';
 import {getContract} from '../../utils/getContract';
@@ -24,13 +19,6 @@ export type Web3Actions =
         web3: Web3;
         networkId: number;
         accounts: Array<string>;
-        poolService: PoolService;
-        poolServiceAddress: string;
-        reserveRepository: ReserveRepository;
-        providerRepository: ProviderRepository;
-          providerService: ProviderService;
-        aaveProvider: AaveProvider;
-        aaveLendingPool: IAaveLendingPool;
       };
     }
   | {

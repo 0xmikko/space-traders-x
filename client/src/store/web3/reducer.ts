@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 import Web3 from 'web3';
 import {Web3Actions, Web3Error} from './index';
 import {PoolService} from '../../../../types/web3-v1-contracts/PoolService';

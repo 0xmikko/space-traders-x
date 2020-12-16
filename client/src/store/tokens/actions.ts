@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 import {ThunkAction} from 'redux-thunk';
 import {RootState} from '../index';
 import {TokenActions} from './index';

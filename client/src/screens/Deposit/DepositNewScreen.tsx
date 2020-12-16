@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020. Space Traders
- * Authors: Mikael Lazarev, Ivan Fedorov
- */
-
 import React, {useEffect} from "react";
 import actions from "../../store/actions";
 import {useDispatch, useSelector} from "react-redux";
