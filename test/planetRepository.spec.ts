@@ -82,7 +82,7 @@ describe("PlanetRepository", function () {
     );
   });
 
-  it("getPlanetByIndex(0) test", async function () {
+  it("calculate distance for the same location", async function () {
     await planetRepository.addPlanet(planet1.address);
     const planet2 = (await planetArtifact.deploy(
       addressRepository.address,
@@ -96,4 +96,35 @@ describe("PlanetRepository", function () {
       await planetRepository.calculateDistance(planet1.address, planet2.address)
     ).to.be.equal(0);
   });
+
+  it("calculate distance for planet with bigger coord", async function () {
+    await planetRepository.addPlanet(planet1.address);
+    const planet2 = (await planetArtifact.deploy(
+      addressRepository.address,
+      "Mars",
+      3,
+      6
+    )) as Planet;
+
+    await planetRepository.addPlanet(planet2.address);
+    expect(
+      await planetRepository.calculateDistance(planet1.address, planet2.address)
+    ).to.be.equal(6);
+  });
+
+  it("calculate distance for planet with lesser coord", async function () {
+    await planetRepository.addPlanet(planet1.address);
+    const planet2 = (await planetArtifact.deploy(
+      addressRepository.address,
+      "Mars",
+      0,
+      0
+    )) as Planet;
+
+    await planetRepository.addPlanet(planet2.address);
+    expect(
+      await planetRepository.calculateDistance(planet1.address, planet2.address)
+    ).to.be.equal(3);
+  });
+
 });
