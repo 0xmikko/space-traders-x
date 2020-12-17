@@ -40,3 +40,9 @@ export async function finalDeploy() {
     });
   });
 }
+
+finalDeploy().then(() => process.exit(0))
+    .catch(error => {
+      console.error(error);
+      process.exit(1);
+    });
