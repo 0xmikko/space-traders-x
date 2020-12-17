@@ -4,26 +4,21 @@
  */
 
 import {RootState} from '../index';
-import {Game} from "../../core/game";
+import {Game, GameResources} from "../../core/game";
 
 
-export const gamesSelector = (state: RootState) => state.games;
+export const gamesSelector = (state: RootState) => state.game;
+
+
 
 export type GameActions =
   | {
-      type: 'GAMES_LIST';
-      payload: Array<Game>;
+      type: 'GAME_UPDATE_STATUS';
+      payload: boolean;
 
     }
   | {
-      type: 'GAMES_FAILED';
+      type: 'GAME_UPDATE_RESOURCES';
+      payload: GameResources
     };
 
-export interface AdditionalGameInfo {
-    description: string,
-    image: string,
-}
-
-export const additionalGameInfo : Record<string, AdditionalGameInfo> = {
-
-}

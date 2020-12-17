@@ -2,11 +2,17 @@
  * Copyright (c) 2020. Space Traders
  * Authors: Mikael Lazarev, Ivan Fedorov
  */
-export interface Game {
+
+
+export interface GameResources {
+    gold: number,
+    iron: number,
+    oil: number
+}
+
+export interface Game extends GameResources{
     isGameStarted: boolean,
     currentPlanet: string,
     timeToArrive: number,
-    gold: number,
-    number: number,
-    oil: number
+
 }

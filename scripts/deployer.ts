@@ -1,28 +1,29 @@
 // @ts-ignore
-import {ethers} from "hardhat";
+import { ethers } from "hardhat";
 
-import {AddressRepository} from "../types/ethers-v5/AddressRepository";
-import {AddressRepository__factory} from "../types/ethers-v5/factories/AddressRepository__factory";
+import { AddressRepository } from "../types/ethers-v5/AddressRepository";
+import { AddressRepository__factory } from "../types/ethers-v5/factories/AddressRepository__factory";
 
-import {PlanetRepository} from "../types/ethers-v5/PlanetRepository";
-import {PlanetRepository__factory} from "../types/ethers-v5/factories/PlanetRepository__factory";
+import { PlanetRepository } from "../types/ethers-v5/PlanetRepository";
+import { PlanetRepository__factory } from "../types/ethers-v5/factories/PlanetRepository__factory";
 
-import {Planet} from "../types/ethers-v5/Planet";
-import {Planet__factory} from "../types/ethers-v5/factories/Planet__factory";
-import {StarshipRepository__factory} from "../types/ethers-v5/factories/StarshipRepository__factory";
-import {StarshipRepository} from "../types/ethers-v5/StarshipRepository";
+import { Planet } from "../types/ethers-v5/Planet";
+import { Planet__factory } from "../types/ethers-v5/factories/Planet__factory";
+import { StarshipRepository__factory } from "../types/ethers-v5/factories/StarshipRepository__factory";
+import { StarshipRepository } from "../types/ethers-v5/StarshipRepository";
 
-import {ResourceToken} from "../types/ethers-v5/ResourceToken";
-import {ResourceToken__factory} from "../types/ethers-v5/factories/ResourceToken__factory";
+import { ResourceToken } from "../types/ethers-v5/ResourceToken";
+import { ResourceToken__factory } from "../types/ethers-v5/factories/ResourceToken__factory";
 
-import {ResourcePair} from "../types/ethers-v5/ResourcePair";
-import {ResourcePair__factory} from "../types/ethers-v5/factories/ResourcePair__factory";
+import { ResourcePair } from "../types/ethers-v5/ResourcePair";
+import { ResourcePair__factory } from "../types/ethers-v5/factories/ResourcePair__factory";
 
-import {SpaceTradersGame} from "../types/ethers-v5/SpaceTradersGame";
-import {SpaceTradersGame__factory} from "../types/ethers-v5/factories/SpaceTradersGame__factory";
-import {BigNumberish} from "ethers";
+import { SpaceTradersGame } from "../types/ethers-v5/SpaceTradersGame";
+import { SpaceTradersGame__factory } from "../types/ethers-v5/factories/SpaceTradersGame__factory";
+import { BigNumberish } from "ethers";
 
 export class Deployer {
+  private _show: boolean;
   private _addressRepository: AddressRepository | undefined;
   private _planetRepository: PlanetRepository | undefined;
   private _starshipRepository: StarshipRepository | undefined;
@@ -31,13 +32,19 @@ export class Deployer {
   private _ironToken: ResourceToken | undefined;
   private _oilToken: ResourceToken | undefined;
 
+  constructor(show: boolean = false) {
+    this._show = show;
+  }
+
   async getAddressRepository(): Promise<AddressRepository> {
     if (this._addressRepository) return this._addressRepository;
     const addressRepositoryArtifact = (await ethers.getContractFactory(
       "AddressRepository"
     )) as AddressRepository__factory;
+    if (this._show) console.log("Deploying addressRepository");
     this._addressRepository = (await addressRepositoryArtifact.deploy()) as AddressRepository;
     await this._addressRepository.deployed();
+
     return this._addressRepository;
   }
 
@@ -48,6 +55,7 @@ export class Deployer {
       "PlanetRepository"
     )) as PlanetRepository__factory;
 
+    if (this._show) console.log("Deploying planetRepository");
     this._planetRepository = (await planetRepositoryArtifact.deploy()) as PlanetRepository;
     await this._planetRepository.deployed();
 
@@ -60,6 +68,7 @@ export class Deployer {
 
   async getStarshipRepository(): Promise<StarshipRepository> {
     if (this._starshipRepository) return this._starshipRepository;
+    if (this._show) console.log("Deploying starshipRepository");
 
     const startshipRepositoryArtifact = (await ethers.getContractFactory(
       "StarshipRepository"
@@ -70,7 +79,9 @@ export class Deployer {
     await this.getPlanetRepository();
 
     this._starshipRepository = (await startshipRepositoryArtifact.deploy(
-      addressRepository.address
+      addressRepository.address, {
+          gasLimit: 30000000, // hardhat incorrectly estimates gas for this contract
+        }
     )) as StarshipRepository;
     await this._starshipRepository.deployed();
 
@@ -88,6 +99,7 @@ export class Deployer {
     const addressRepository = await this.getAddressRepository();
     await this.getStarshipRepository();
 
+    if (this._show) console.log("Deploying planet ", name);
     const planet = (await planetArtifact.deploy(
       addressRepository.address,
       name,
@@ -104,6 +116,8 @@ export class Deployer {
 
   async getGoldToken(): Promise<ResourceToken> {
     if (this._goldToken !== undefined) return this._goldToken;
+
+    if (this._show) console.log("Deploying goldToken");
     this._goldToken = await this._deployResourceToken("ST-GOLD", "STGLD");
     const addressRepository = await this.getAddressRepository();
     await addressRepository.setGoldToken(this._goldToken.address);
@@ -112,6 +126,8 @@ export class Deployer {
 
   async getIronToken(): Promise<ResourceToken> {
     if (this._ironToken !== undefined) return this._ironToken;
+
+    if (this._show) console.log("Deploying ironToken");
     this._ironToken = await this._deployResourceToken("ST-IRON", "STIRN");
     const addressRepository = await this.getAddressRepository();
     await addressRepository.setIronToken(this._ironToken.address);
@@ -120,6 +136,7 @@ export class Deployer {
 
   async getOilToken(): Promise<ResourceToken> {
     if (this._oilToken !== undefined) return this._oilToken;
+    if (this._show) console.log("Deploying oilToken");
     this._oilToken = await this._deployResourceToken("ST-FUEL", "STFUL");
     const addressRepository = await this.getAddressRepository();
     await addressRepository.setOilToken(this._oilToken.address);
@@ -134,6 +151,8 @@ export class Deployer {
     const resourcePairArtifact = (await ethers.getContractFactory(
       "ResourcePair"
     )) as ResourcePair__factory;
+
+    if (this._show) console.log("Deploying tokenPair");
     const pair = await resourcePairArtifact.deploy(planet, token1, token2);
     await pair.deployed();
     return pair;
@@ -149,7 +168,9 @@ export class Deployer {
     const startshipRepository = await this.getStarshipRepository();
     const levelsLength = await startshipRepository.getLevelsLength();
     if (levelsLength === 0) {
-      await startshipRepository.addStarshipLevel(100, 100, 100, 100, 100);
+      await startshipRepository.addStarshipLevel(100, 100, 100, 100, 100, {
+        gasLimit: 30000000, // hardhat incorrectly estimates gas for this contract
+      });
     }
   }
 
@@ -169,11 +190,15 @@ export class Deployer {
       "SpaceTradersGame"
     )) as SpaceTradersGame__factory;
 
+    if (this._show) console.log("Deploying Game...");
     const game = (await gameArtifact.deploy(
       addressRepository.address,
       initGold,
       initIron,
-      initOil
+      initOil,
+      {
+        gasLimit: 30000000, // hardhat incorrectly estimates gas for this contract
+      }
     )) as SpaceTradersGame;
     await game.deployed();
 

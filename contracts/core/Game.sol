@@ -11,9 +11,9 @@ import "./Planet.sol";
 
 contract SpaceTradersGame is Ownable {
     // Initial player values
-    uint256 INITIAL_GOLD;
-    uint256 INITIAL_IRON;
-    uint256 INITIAL_OIL;
+    uint256 private INITIAL_GOLD;
+    uint256 private INITIAL_IRON;
+    uint256 private INITIAL_OIL;
 
     // Resource tokens
     ResourceToken private _goldToken;
@@ -47,13 +47,15 @@ contract SpaceTradersGame is Ownable {
             _addressRepository.getStarshipRepository()
         );
 
-        _goldToken = ResourceToken(_addressRepository.getGoldToken());
-        _ironToken = ResourceToken(_addressRepository.getIronToken());
-        _oilToken = ResourceToken(_addressRepository.getOilToken());
-
         INITIAL_GOLD = initGold;
         INITIAL_IRON = initIron;
         INITIAL_OIL = initOil;
+    }
+
+    function connectTokens() onlyOwner external {
+        _goldToken = ResourceToken(_addressRepository.getGoldToken());
+        _ironToken = ResourceToken(_addressRepository.getIronToken());
+        _oilToken = ResourceToken(_addressRepository.getOilToken());
     }
 
     function startGame() external {

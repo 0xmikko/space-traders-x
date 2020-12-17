@@ -2,8 +2,8 @@ import { ThunkAction } from "redux-thunk";
 import { RootState } from "../index";
 import { Web3Actions } from "./index";
 import Web3 from "web3";
-import { REQUIRED_NETWORK } from "../../config";
-import { Game } from "../../../../types/web3-v1-contracts/Game";
+import {ADDRESS_REPOSITORY, REQUIRED_NETWORK} from "../../config";
+import { SpaceTradersGame } from "../../../../types/web3-v1-contracts/SpaceTradersGame";
 import { PlanetRepository } from "../../../../types/web3-v1-contracts/PlanetRepository";
 import { StarshipRepository } from "../../../../types/web3-v1-contracts/StarshipRepository";
 import { AddressRepository } from "../../../../types/web3-v1-contracts/AddressRepository";
@@ -17,9 +17,9 @@ declare global {
   }
 }
 
-const gameJson = require("../../contracts/Game.json");
-const planetRepositoryJson = require("../../contracts/PlanetRepository.json");
-const starshipRepositoryJson = require("../../contracts/StarshipRepository.json");
+const gameJson = require("../../contracts/core/Game.sol/SpaceTradersGame.json");
+const planetRepositoryJson = require("../../contracts/repository/PlanetRepository.sol/PlanetRepository.json");
+const starshipRepositoryJson = require("../../contracts/repository/StarshipRepository.sol/StarshipRepository.json");
 const addressRepositoryJson = require("../../contracts/AddressRepository.json");
 const resourceTokenJson = require("../../contracts/ResourceToken.json");
 
@@ -44,19 +44,31 @@ export const connectWeb3 = (): ThunkAction<
       return;
     }
 
-    const game = ((await getContract(web3, gameJson)) as unknown) as Game;
-    const planetRepository = ((await getContract(
-      web3,
-      planetRepositoryJson
-    )) as unknown) as PlanetRepository;
-    const starshipRepository = ((await getContract(
-      web3,
-      starshipRepositoryJson
-    )) as unknown) as StarshipRepository;
-    const addressRepository = ((await getContract(
-      web3,
-      addressRepositoryJson
+    const addressRepository = ((await new web3.eth.Contract(
+      addressRepositoryJson, ADDRESS_REPOSITORY
     )) as unknown) as AddressRepository;
+
+    const gameAddress = await addressRepository.methods.getGameService().call();
+    const game = ((await new web3.eth.Contract(
+      gameJson,
+      gameAddress
+    )) as unknown) as SpaceTradersGame;
+
+    const planetRepositoryAddress = await addressRepository.methods
+      .getPlanetRepository()
+      .call();
+    const planetRepository = ((await new web3.eth.Contract(
+      planetRepositoryJson,
+      planetRepositoryAddress
+    )) as unknown) as PlanetRepository;
+
+    const starshipRepositoryAddress = await addressRepository.methods
+      .getStarshipRepository()
+      .call();
+    const starshipRepository = ((await new web3.eth.Contract(
+      starshipRepositoryJson,
+      starshipRepositoryAddress
+    )) as unknown) as StarshipRepository;
 
     const goldTokenAddress = await addressRepository.methods
       .getGoldToken()

@@ -17,14 +17,15 @@ const INFURA_API_KEY = process.env.INFURA_API_KEY || "";
 const RINKEBY_PRIVATE_KEY =
   process.env.RINKEBY_PRIVATE_KEY! ||
   "0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3"; // well known private key
-const BINANCE_TESNET_PRIVATE_KEY = process.env.BINANCE_TESNET_PRIVATE_KEY ||
-    "0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3";// well known private keys
+const BINANCE_TESTNET_PRIVATE_KEY = process.env.BINANCE_TESTNET_PRIVATE_KEY ||"";
+
+
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   solidity: {
-    compilers: [{ version: "0.6.12", settings: {} }],
+    compilers: [{ version: "0.6.11", settings: {} }],
   },
   networks: {
     hardhat: {},
@@ -34,8 +35,8 @@ const config: HardhatUserConfig = {
       accounts: [RINKEBY_PRIVATE_KEY],
     },
     binanceTest: {
-      url: 'https://data-seed-prebsc-1-s1.binance.org:8545',
-      accounts: [BINANCE_TESNET_PRIVATE_KEY],
+      url: 'https://data-seed-prebsc-1-s2.binance.org:8545',
+      accounts: [BINANCE_TESTNET_PRIVATE_KEY],
     },
     coverage: {
       url: "http://127.0.0.1:8555", // Coverage launches its own ganache-cli client
