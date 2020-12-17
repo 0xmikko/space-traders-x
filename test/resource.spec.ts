@@ -15,6 +15,7 @@ import { Planet__factory } from "../types/ethers-v5/factories/Planet__factory";
 import { ResourceToken } from "./../types/ethers-v5/ResourceToken";
 import { Deployer } from "../scripts/deployer";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
+import { advanceBlockAtTime } from "./helper";
 
 const chai = require("chai");
 
@@ -61,6 +62,69 @@ describe("ResourceToken", function () {
     expect(await oilToken.totalSupply()).to.be.equal(10000);
     expect(await oilToken.totalMinted()).to.be.equal(100);
     expect(await oilToken.totalBurned()).to.be.equal(100);
+  });
+
+  it("calculates planet balance correctly", async () => {
+    const generatePerBlock = 100;
+    const initValue = 10000;
+    const { blockNumber } = await oilToken.addPlanet(
+      planet.address,
+      initValue,
+      generatePerBlock
+    );
+
+    const tx2 = await oilToken.mintTo(userAccount.address, 100);
+    const blockDif = tx2.blockNumber - blockNumber;
+
+    expect(blockDif).to.be.at.least(1);
+    expect(await oilToken.balanceOf(planet.address)).to.be.equal(
+      initValue + generatePerBlock * blockDif
+    );
+  });
+
+  it("calculates planet balance  after transfer user => planet correctly", async () => {
+    const generatePerBlock = 100;
+    const initValue = 10000;
+    const { blockNumber } = await oilToken.addPlanet(
+      planet.address,
+      initValue,
+      generatePerBlock
+    );
+
+    await oilToken.mintTo(userAccount.address, 199990);
+    const tx2 = await oilToken
+      .connect(userAccount)
+      .transfer(planet.address, 199990);
+    const blockDif = tx2.blockNumber - blockNumber;
+
+    expect(blockDif).to.be.at.least(1);
+    expect(await oilToken.balanceOf(planet.address)).to.be.equal(
+      initValue + generatePerBlock * blockDif + 199990
+    );
+  });
+
+  it("calculates planet balance  after transfer planet => user correctly", async () => {
+    const generatePerBlock = 100;
+    const initValue = 10000;
+
+    const fakePlanetAddress = (await ethers.getSigners())[2];
+    const { blockNumber } = await oilToken.addPlanet(
+      fakePlanetAddress.address,
+      initValue,
+      generatePerBlock
+    );
+
+    await oilToken.mintTo(userAccount.address, 199990);
+
+    const tx2 = await oilToken
+      .connect(fakePlanetAddress)
+      .transfer(userAccount.address, initValue);
+    const blockDif = tx2.blockNumber - blockNumber;
+
+    expect(blockDif).to.be.at.least(1);
+    expect(await oilToken.balanceOf(fakePlanetAddress.address)).to.be.equal(
+      generatePerBlock * blockDif
+    );
   });
 
   it("should generates tokens correctly", async () => {

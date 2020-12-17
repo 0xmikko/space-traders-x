@@ -13,8 +13,7 @@ contract ResourceToken is Context, IBEP20, Ownable {
     using SafeMath for uint256;
 
     struct PlanetFossil {
-        uint256 createdAtBlock;
-        uint256 initialValue;
+        uint256 updatedAtBlock;
         uint256 generatesPerBlock;
     }
 
@@ -39,7 +38,11 @@ contract ResourceToken is Context, IBEP20, Ownable {
     AddressRepository private _addressRepository;
 
     // EVENTS
-    event NewPlanetAdded(address planet, uint256 initValue, uint256 generatesPerBlock);
+    event NewPlanetAdded(
+        address planet,
+        uint256 initValue,
+        uint256 generatesPerBlock
+    );
 
     constructor(
         address addressRepository,
@@ -62,12 +65,15 @@ contract ResourceToken is Context, IBEP20, Ownable {
         uint256 generatePerBlock
     ) external onlyOwner {
         _planetGenerates[planet] = PlanetFossil({
-            createdAtBlock: block.number,
-            initialValue: initValue,
+            updatedAtBlock: block.number,
             generatesPerBlock: generatePerBlock
         });
 
-        _generatedAtLastUpdate = _generatedAtLastUpdate.add(calculatesTotalGenerateValue().add(initValue));
+        _balances[planet] = initValue;
+
+        _generatedAtLastUpdate = _generatedAtLastUpdate.add(
+            calculatesTotalGenerateValue().add(initValue)
+        );
         _blockLastUpdate = block.number;
         _currentGeneratePerBlock = _currentGeneratePerBlock.add(
             generatePerBlock
@@ -129,7 +135,19 @@ contract ResourceToken is Context, IBEP20, Ownable {
         view
         returns (uint256)
     {
-        return _balances[account];
+        uint256 generatedAtTime;
+        if (_planetGenerates[account].updatedAtBlock > 0) {
+            return _balanceOfPlanet(account);
+        }
+        return _balances[account].add(generatedAtTime);
+    }
+
+    function _balanceOfPlanet(address account) internal view returns (uint256) {
+        uint256 generatedAtTime = (
+            block.number.sub(_planetGenerates[account].updatedAtBlock)
+        )
+            .mul(_planetGenerates[account].generatesPerBlock);
+        return _balances[account].add(generatedAtTime);
     }
 
     function getCurrentGeneratePerBlock() external view returns (uint256) {
@@ -220,6 +238,26 @@ contract ResourceToken is Context, IBEP20, Ownable {
             )
         );
         return true;
+    }
+
+    function _transferPlanetUpdate(address sender, address recipient) internal {
+        // if planet is sender
+        if (_planetGenerates[sender].updatedAtBlock > 0) {
+            _updatePlanetBalance(sender);
+        }
+
+        if (_planetGenerates[recipient].updatedAtBlock > 0) {
+            _updatePlanetBalance(recipient);
+        }
+    }
+
+    function _updatePlanetBalance(address planet) internal {
+        require(
+            _planetGenerates[planet].updatedAtBlock > 0,
+            "Provided address is not planet"
+        );
+        _balances[planet] = _balanceOfPlanet(planet);
+        _planetGenerates[planet].updatedAtBlock = block.number;
     }
 
     /**
@@ -336,6 +374,8 @@ contract ResourceToken is Context, IBEP20, Ownable {
     ) internal {
         require(sender != address(0), "BEP20: transfer from the zero address");
         require(recipient != address(0), "BEP20: transfer to the zero address");
+
+         _transferPlanetUpdate(sender, recipient);  
 
         _balances[sender] = _balances[sender].sub(
             amount,
