@@ -15,7 +15,7 @@ export function PlanetCard({ data }: PlanetCardProps) {
 
   return (
     <>
-      <PlanetCardHeader setShow={setShowSpaceMap} />
+      <PlanetCardHeader setShow={setShowSpaceMap} data={data} />
       <PlanetDescription data={data} />
       <SpaceMapWidget show={showSpaceMap} setShow={setShowSpaceMap} />
     </>

@@ -8,7 +8,7 @@ export interface PlanetDescriptionProps {
 
 export function PlanetDescription({ data }: PlanetDescriptionProps) {
   return (
-    <React.Fragment>
+    <>
       <Row>
         <Col sm={7}>
           <img src={data.image} alt={data.name} className={"planet-desc-img"} />
@@ -19,6 +19,6 @@ export function PlanetDescription({ data }: PlanetDescriptionProps) {
           <p className={"planet-desc-text"}>{data.description}</p>
         </Col>
       </Row>
-    </React.Fragment>
+    </>
   );
 }

@@ -5,7 +5,7 @@ import {PlanetRatesWidget} from "./PlanetRatesWidget";
 
 export interface PlanetCardHeaderProps {
     setShow: (a: boolean) => void;
-    data?: Planet;
+    data: Planet;
 }
 
 export function PlanetCardHeader({setShow, data}: PlanetCardHeaderProps) {
@@ -13,7 +13,7 @@ export function PlanetCardHeader({setShow, data}: PlanetCardHeaderProps) {
         <React.Fragment>
             <Row>
                 <Col sm={9}>
-                    <h2 className={"planet-card-header"}>PLANET KUKAN</h2>
+                    <h2 className={"planet-card-header"}>{data.name}</h2>
                     <PlanetRatesWidget />
                 </Col>
                 <Col sm={3}>
