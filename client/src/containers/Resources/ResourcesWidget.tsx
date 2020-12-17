@@ -20,10 +20,10 @@ export function ResourcesWidget() {
         <ResourceItem type="gold" amount={gold} />
       </Col>
       <Col sm={3}>
-        <ResourceItem type="gold" amount={iron} />
+        <ResourceItem type="iron" amount={iron} />
       </Col>
       <Col sm={3}>
-        <ResourceItem type="oil" amount={oil} />
+        <ResourceItem type="fuel" amount={oil} />
       </Col>
     </Row>
   );
