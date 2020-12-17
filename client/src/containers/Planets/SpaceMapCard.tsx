@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
-import { Planet } from "../../core/planet";
-import { LoadingView } from "rn-web-components";
+import React from "react";
+import {useHistory} from "react-router-dom";
+import {Button} from "react-bootstrap";
+import {Planet} from "../../core/planet";
+import {LoadingView} from "rn-web-components";
 
 export interface SpaceMapCardProps {
   data?: Planet;

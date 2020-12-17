@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Button, Col, Input, Label, Row } from "reactstrap";
-import { ArrowDownUp } from "react-bootstrap-icons";
+import React, {useState} from "react";
+import {Button, Col, Input, Label, Row} from "reactstrap";
+import {ArrowDownUp} from "react-bootstrap-icons";
 
 export interface ExchangeFormProps {
   planet?: string;

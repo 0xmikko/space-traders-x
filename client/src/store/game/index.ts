@@ -3,8 +3,8 @@
  * Authors: Mikael Lazarev, Ivan Fedorov
  */
 
-import { RootState } from "../index";
-import { Game, GameResources } from "../../core/game";
+import {RootState} from "../index";
+import {GameResources} from "../../core/game";
 
 export const gameSelector = (state: RootState) => state.game;
 

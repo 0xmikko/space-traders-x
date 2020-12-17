@@ -1,6 +1,5 @@
 import React from "react";
-import {Col, Container, Media, Row} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Container, Media} from "react-bootstrap";
 import CookieConsent from "react-cookie-consent";
 
 export function Footer() {

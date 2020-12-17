@@ -1,14 +1,13 @@
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "../index";
-import { Web3Actions } from "./index";
+import {ThunkAction} from "redux-thunk";
+import {RootState} from "../index";
+import {Web3Actions} from "./index";
 import Web3 from "web3";
 import {ADDRESS_REPOSITORY, REQUIRED_NETWORK} from "../../config";
-import { SpaceTradersGame } from "../../../../types/web3-v1-contracts/SpaceTradersGame";
-import { PlanetRepository } from "../../../../types/web3-v1-contracts/PlanetRepository";
-import { StarshipRepository } from "../../../../types/web3-v1-contracts/StarshipRepository";
-import { AddressRepository } from "../../../../types/web3-v1-contracts/AddressRepository";
-import { ResourceToken } from "../../../../types/web3-v1-contracts/ResourceToken";
-import { getContract } from "../../utils/getContract";
+import {SpaceTradersGame} from "../../../../types/web3-v1-contracts/SpaceTradersGame";
+import {PlanetRepository} from "../../../../types/web3-v1-contracts/PlanetRepository";
+import {StarshipRepository} from "../../../../types/web3-v1-contracts/StarshipRepository";
+import {AddressRepository} from "../../../../types/web3-v1-contracts/AddressRepository";
+import {ResourceToken} from "../../../../types/web3-v1-contracts/ResourceToken";
 import {getPlanetsList} from "../planets/actions";
 
 declare global {

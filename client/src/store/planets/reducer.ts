@@ -1,5 +1,5 @@
-import { PlanetActions } from "./index";
-import { Planet } from "../../core/planet";
+import {PlanetActions} from "./index";
+import {Planet} from "../../core/planet";
 
 export interface PlanetState {
   data: Array<Planet>;

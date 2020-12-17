@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { Planet } from "../../core/planet";
-import { SpaceMapCard } from "./SpaceMapCard";
-import { useDispatch, useSelector } from "react-redux";
-import { planetsSelector } from "../../store/planets";
-import { LoadingView } from "rn-web-components";
-import { PlanetOnMap } from "./PlanetOnMap";
+import React, {useState} from "react";
+import {Modal} from "react-bootstrap";
+import {Planet} from "../../core/planet";
+import {SpaceMapCard} from "./SpaceMapCard";
+import {useDispatch, useSelector} from "react-redux";
+import {planetsSelector} from "../../store/planets";
+import {LoadingView} from "rn-web-components";
+import {PlanetOnMap} from "./PlanetOnMap";
 
 export interface SpaceMapProps {
   show: boolean;

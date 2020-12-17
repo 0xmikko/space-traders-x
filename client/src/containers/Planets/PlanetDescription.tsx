@@ -1,6 +1,6 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
-import { Planet } from "../../core/planet";
+import {Col, Row} from "react-bootstrap";
+import {Planet} from "../../core/planet";
 
 export interface PlanetDescriptionProps {
   data: Planet;

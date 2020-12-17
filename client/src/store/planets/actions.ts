@@ -1,7 +1,7 @@
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "../index";
-import { additionalPlanetInfo, PlanetActions } from "./index";
-import { Planet } from "../../core/planet";
+import {ThunkAction} from "redux-thunk";
+import {RootState} from "../index";
+import {additionalPlanetInfo, PlanetActions} from "./index";
+import {Planet} from "../../core/planet";
 
 export const getPlanetsList = (): ThunkAction<
   void,

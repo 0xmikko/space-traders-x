@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import actions from "../../store/actions";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 
 export function StartGameScreen(): React.ReactElement {
   const dispatch = useDispatch();

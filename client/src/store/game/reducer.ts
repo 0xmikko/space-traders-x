@@ -3,8 +3,8 @@
  * Authors: Mikael Lazarev, Ivan Fedorov
  */
 
-import { GameActions } from "./index";
-import { Game } from "../../core/game";
+import {GameActions} from "./index";
+import {Game} from "../../core/game";
 
 export interface GameState extends Game {}
 

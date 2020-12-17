@@ -4,10 +4,8 @@
  */
 
 import React from "react";
-import {Nav, Navbar, Button, Container, Row, Col} from "react-bootstrap";
+import {Container, Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
-
-import {AppBarElement} from "./AppBarElement";
 import {useSelector} from "react-redux";
 import {web3Selector} from "../../store/web3";
 import * as blockies from 'blockies-ts';

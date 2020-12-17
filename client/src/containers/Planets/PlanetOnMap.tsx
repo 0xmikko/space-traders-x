@@ -4,7 +4,7 @@
  */
 
 import React from "react";
-import { Planet } from "../../core/planet";
+import {Planet} from "../../core/planet";
 
 export interface PlanetOnMapProps {
   data: Planet;

@@ -3,10 +3,9 @@
  * Authors: Mikael Lazarev, Ivan Fedorov
  */
 
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "../index";
-import { GameActions } from "./index";
-import { Game } from "../../core/game";
+import {ThunkAction} from "redux-thunk";
+import {RootState} from "../index";
+import {GameActions} from "./index";
 
 export const isGameStarted = (): ThunkAction<
   void,
@@ -21,7 +20,7 @@ export const isGameStarted = (): ThunkAction<
   const isGameStarted = await starshipRepository.methods
     .isAccountExists(account)
     .call();
-  dispatch({type: 'GAME_UPDATE_STATUS', payload: isGameStarted})
+  dispatch({ type: "GAME_UPDATE_STATUS", payload: isGameStarted });
 };
 
 export const startGame = (): ThunkAction<
@@ -33,7 +32,7 @@ export const startGame = (): ThunkAction<
   const { accounts, game } = getState().web3;
   const account = accounts[0];
   if (account === undefined || game === undefined) return;
-  await game.methods.startGame().send({from: account});
+  await game.methods.startGame().send({ from: account });
   dispatch(isGameStarted());
 };
 
@@ -91,20 +90,21 @@ export const updateTimeToArrive = (): ThunkAction<
 };
 
 export const getCurrentPlanet = (): ThunkAction<
-    void,
-    RootState,
-    unknown,
-    GameActions
-    > => async (dispatch, getState) => {
+  void,
+  RootState,
+  unknown,
+  GameActions
+> => async (dispatch, getState) => {
   const { accounts, starshipRepository } = getState().web3;
 
   const account = accounts[0];
   if (account === undefined || starshipRepository === undefined) return;
 
-  const planetAddress = await starshipRepository.methods.getAccountPlanet(account).call()
+  const planetAddress = await starshipRepository.methods
+    .getAccountPlanet(account)
+    .call();
   dispatch({
-    type: 'GAME_CURRENT_PLANET',
+    type: "GAME_CURRENT_PLANET",
     payload: planetAddress,
-  })
-
+  });
 };
