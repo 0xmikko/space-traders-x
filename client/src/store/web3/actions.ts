@@ -20,8 +20,8 @@ declare global {
 const gameJson = require("../../contracts/core/Game.sol/SpaceTradersGame.json");
 const planetRepositoryJson = require("../../contracts/repository/PlanetRepository.sol/PlanetRepository.json");
 const starshipRepositoryJson = require("../../contracts/repository/StarshipRepository.sol/StarshipRepository.json");
-const addressRepositoryJson = require("../../contracts/AddressRepository.json");
-const resourceTokenJson = require("../../contracts/ResourceToken.json");
+const addressRepositoryJson = require("../../contracts/repository/AddressRepository.sol/AddressRepository.json");
+const resourceTokenJson = require("../../contracts/tokens/Resource.sol/ResourceToken.json");
 
 export const connectWeb3 = (): ThunkAction<
   void,

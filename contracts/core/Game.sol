@@ -33,12 +33,10 @@ contract SpaceTradersGame is Ownable {
         _;
     }
 
-    constructor(
-        address addressRepository,
+    function init(address addressRepository,
         uint256 initGold,
         uint256 initIron,
-        uint256 initOil
-    ) public {
+        uint256 initOil) onlyOwner external {
         _addressRepository = AddressRepository(addressRepository);
         _planetRepository = PlanetRepository(
             _addressRepository.getPlanetRepository()

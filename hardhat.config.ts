@@ -1,5 +1,5 @@
-import {config as dotEnvConfig} from "dotenv";
-import {HardhatUserConfig} from "hardhat/types";
+import { config as dotEnvConfig } from "dotenv";
+import { HardhatUserConfig } from "hardhat/types";
 
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-etherscan";
@@ -17,8 +17,8 @@ const INFURA_API_KEY = process.env.INFURA_API_KEY || "";
 const RINKEBY_PRIVATE_KEY =
   process.env.RINKEBY_PRIVATE_KEY! ||
   "0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3"; // well known private key
-const BINANCE_TESTNET_PRIVATE_KEY = process.env.BINANCE_TESTNET_PRIVATE_KEY ||"";
-
+const BINANCE_TESTNET_PRIVATE_KEY =
+  process.env.BINANCE_TESTNET_PRIVATE_KEY || "";
 
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 
@@ -35,7 +35,7 @@ const config: HardhatUserConfig = {
       accounts: [RINKEBY_PRIVATE_KEY],
     },
     binanceTest: {
-      url: 'https://data-seed-prebsc-1-s2.binance.org:8545',
+      url: "https://data-seed-prebsc-1-s1.binance.org:8545",
       accounts: [BINANCE_TESTNET_PRIVATE_KEY],
     },
     coverage: {

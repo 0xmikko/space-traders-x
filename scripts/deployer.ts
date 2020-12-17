@@ -79,9 +79,10 @@ export class Deployer {
     await this.getPlanetRepository();
 
     this._starshipRepository = (await startshipRepositoryArtifact.deploy(
-      addressRepository.address, {
-          gasLimit: 30000000, // hardhat incorrectly estimates gas for this contract
-        }
+      addressRepository.address,
+      {
+        gasLimit: 3000000, // hardhat incorrectly estimates gas for this contract
+      }
     )) as StarshipRepository;
     await this._starshipRepository.deployed();
 
@@ -169,7 +170,7 @@ export class Deployer {
     const levelsLength = await startshipRepository.getLevelsLength();
     if (levelsLength === 0) {
       await startshipRepository.addStarshipLevel(100, 100, 100, 100, 100, {
-        gasLimit: 30000000, // hardhat incorrectly estimates gas for this contract
+        gasLimit: 3000000, // hardhat incorrectly estimates gas for this contract
       });
     }
   }
@@ -191,16 +192,9 @@ export class Deployer {
     )) as SpaceTradersGame__factory;
 
     if (this._show) console.log("Deploying Game...");
-    const game = (await gameArtifact.deploy(
-      addressRepository.address,
-      initGold,
-      initIron,
-      initOil,
-      {
-        gasLimit: 30000000, // hardhat incorrectly estimates gas for this contract
-      }
-    )) as SpaceTradersGame;
+    const game = (await gameArtifact.deploy()) as SpaceTradersGame;
     await game.deployed();
+    await game.init(addressRepository.address, initGold, initIron, initOil);
 
     //
     console.log("Transferring ownership to Game...");

@@ -29,6 +29,7 @@
   "scripts": {
     "build": "yarn clean && yarn compile",
     "deploy-bintest": "yarn clean && yarn compile && yarn deploy --network binanceTest",
+    "deploy-rinkeby": "yarn clean && yarn compile && yarn deploy --network rinkeby",
     "deploy": "npx hardhat run ./scripts/finalDeploy.ts",
     "gen-web3": "yarn clean && yarn compile && typechain --target=web3-v1 'artifacts/contracts/*.json'",
     "clean": "npx hardhat clean",

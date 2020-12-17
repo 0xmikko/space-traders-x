@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 import {RootState} from '../index';
-import {Game} from "../../../../types/web3-v1-contracts/Game";
+import {SpaceTradersGame} from "../../../../types/web3-v1-contracts/SpaceTradersGame";
 import {PlanetRepository} from "../../../../types/web3-v1-contracts/PlanetRepository";
 import {StarshipRepository} from "../../../../types/web3-v1-contracts/StarshipRepository";
 import {ResourceToken} from "../../../../types/web3-v1-contracts/ResourceToken";
@@ -16,7 +16,7 @@ export type Web3Actions =
         web3: Web3;
         networkId: number;
         accounts: Array<string>;
-          game?: Game;
+          game?: SpaceTradersGame;
           planetRepository?: PlanetRepository;
           starshipRepository?: StarshipRepository;
 

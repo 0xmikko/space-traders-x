@@ -38,7 +38,10 @@ export async function finalDeploy() {
       p.initIron,
       p.generatesIron,
       p.initOil,
-      p.generatesOil
+      p.generatesOil,
+      {
+        gasLimit: 8000000, // hardhat incorrectly estimates gas for this contract
+      }
     );
   }
 

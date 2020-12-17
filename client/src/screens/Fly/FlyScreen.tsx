@@ -1,29 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, {useState} from "react";
 
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  Modal,
-  Tooltip,
-} from "react-bootstrap";
-import { Layout } from "../Layout";
+import {Container, Row} from "react-bootstrap";
+import {Layout} from "../Layout";
+import {useDispatch, useSelector} from "react-redux";
+import {gameSelector} from "../../store/game";
 
 export function FlyScreen(): React.ReactElement {
-  let { name } = useParams();
-  const planetClassName = name === "DION ZJ97" ? "dion" : name.toLowerCase();
+  const dispatch = useDispatch();
 
-  const [blocksCount, setBlocksCount] = useState(5);
+  const { timeToArrive } = useSelector(gameSelector);
+
+  const name = "DION ZJ97";
+  const planetClassName = (name === "DION ZJ97") ? "dion" : name;
 
   return (
     <Layout>
       <Container fluid style={{ maxWidth: "92%" }}>
         <Row>
           <h1 className={"flyheading"}>
-            FLYING TO {name} in {blocksCount} blocks
+            FLYING TO {name} in {timeToArrive} blocks
           </h1>
           <img
             src={"/img/flyarrow.png"}
