@@ -1,6 +1,4 @@
 import React from "react";
-import {Container} from "react-bootstrap";
-import {Link} from "react-router-dom";
 import {Web3Error} from "../store/web3";
 
 export interface Web3ConnectProps {
