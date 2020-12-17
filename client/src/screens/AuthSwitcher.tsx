@@ -1,15 +1,16 @@
-import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import {FailureView, LoadingView} from "rn-web-components";
-import {web3Selector} from "../store/web3";
-import {Router} from "./Router";
+import { FailureView, LoadingView } from "rn-web-components";
+import { web3Selector } from "../store/web3";
+import { Router } from "./Router";
 import actions from "../store/actions";
-import {Web3Connect} from "../components/Web3Connect";
+import { Web3Connect } from "../components/Web3Connect";
+import {StartGameSwitcher} from "./StartGameSwitcher";
 
-export const AuthSwitcher: React.FC = () => {
+export function AuthSwitcher(): React.ReactElement {
   const dispatch = useDispatch();
-  const {status, error} = useSelector(web3Selector);
+  const { status, error } = useSelector(web3Selector);
 
   useEffect(() => {
     console.log("STATUS", status);
@@ -29,8 +30,8 @@ export const AuthSwitcher: React.FC = () => {
     case "WEB3_STARTUP":
       return <LoadingView />;
     case "WEB3_CONNECTED":
-      return <Router />;
+      return <StartGameSwitcher />;
     case "NO_WEB3":
       return <Web3Connect error={error || "CONNECTION_ERROR"} />;
   }
-};
+}

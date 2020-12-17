@@ -33,6 +33,8 @@ export function SpaceMapWidget({
               className={"spacemap-close"}
               onClick={() => setShow(false)}
             />
+
+
             <div className={"spacemap-vicrion"}>
               <div>
                 <img

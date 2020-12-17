@@ -23,6 +23,17 @@ export const isGameStarted = (): ThunkAction<
     .call();
 };
 
+export const startGame = (): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  GameActions
+> => async (dispatch, getState) => {
+  const { game } = getState().web3;
+  if (game === undefined) return;
+  await game.methods.startGame().send();
+};
+
 export const updateResources = (): ThunkAction<
   void,
   RootState,
@@ -53,3 +64,25 @@ export const updateResources = (): ThunkAction<
   });
 };
 
+export const move = (
+  planet: string
+): ThunkAction<void, RootState, unknown, GameActions> => async (
+  dispatch,
+  getState
+) => {
+  const { game } = getState().web3;
+  if (game === undefined) return;
+  await game.methods.move(planet).send();
+};
+
+export const updateTimeToArrive = (): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  GameActions
+> => async (dispatch, getState) => {
+  const { accounts, starshipRepository } = getState().web3;
+  const account = accounts[0];
+  if (account === undefined || starshipRepository === undefined) return;
+  await starshipRepository.methods.timeToArrive(account);
+};

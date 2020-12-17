@@ -6,12 +6,15 @@
 import { GameActions } from "./index";
 import { Game } from "../../core/game";
 
-export interface GameState {
-  data: Array<Game>;
-}
+export interface GameState extends Game {}
 
 const initialState: GameState = {
-  data: [],
+  isGameStarted: false,
+  currentPlanet: "",
+  gold: 0,
+  iron: 0,
+  oil: 0,
+  timeToArrive: 0,
 };
 
 export default function createReducer(
@@ -19,13 +22,15 @@ export default function createReducer(
   action: GameActions
 ): GameState {
   switch (action.type) {
-    case "GAMES_LIST":
+    case "GAME_UPDATE_STATUS":
       return {
-        data: action.payload,
+        ...state,
+        isGameStarted: action.payload
       };
-    case "GAMES_FAILED":
+    case "GAME_UPDATE_RESOURCES":
       return {
-        data: [],
+        ...state,
+        ...action.payload
       };
   }
 

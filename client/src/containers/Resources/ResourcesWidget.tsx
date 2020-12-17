@@ -1,27 +1,30 @@
-import React from "react";
-import {Col, Row} from "react-bootstrap";
-import {Resource} from "../../core/resource";
-import {ResourceItem} from "./ResourceItem";
+import React, { useEffect } from "react";
+import { Col, Row } from "react-bootstrap";
+import { ResourceItem } from "./ResourceItem";
+import { useDispatch, useSelector } from "react-redux";
+import { gameSelector } from "../../store/game";
+import actions from "../../store/actions";
 
-export interface ResourcesWidgetProps {
-    data?: Array<Resource>;
-}
+export function ResourcesWidget() {
+  const dispatch = useDispatch();
+  const { gold, iron, oil } = useSelector(gameSelector);
 
-export function ResourcesWidget({data}: ResourcesWidgetProps) {
-    return (
-        <React.Fragment>
-            <Row>
-                <Col sm={3}></Col>
-                <Col sm={3}>
-                    <ResourceItem data={{type: "gold", amount: 100}} />
-                </Col>
-                <Col sm={3}>
-                    <ResourceItem data={{type: "iron", amount: 100}} />
-                </Col>
-                <Col sm={3}>
-                    <ResourceItem data={{type: "fuel", amount: 100}} />
-                </Col>
-            </Row>
-        </React.Fragment>
-    );
+  useEffect(() => {
+    dispatch(actions.game.updateResources());
+  }, []);
+
+  return (
+    <Row>
+      <Col sm={3}></Col>
+      <Col sm={3}>
+        <ResourceItem type="gold" amount={gold} />
+      </Col>
+      <Col sm={3}>
+        <ResourceItem type="gold" amount={iron} />
+      </Col>
+      <Col sm={3}>
+        <ResourceItem type="oil" amount={oil} />
+      </Col>
+    </Row>
+  );
 }
