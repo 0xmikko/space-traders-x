@@ -45,12 +45,12 @@ export const connectWeb3 = (): ThunkAction<
     }
 
     const addressRepository = ((await new web3.eth.Contract(
-      addressRepositoryJson, ADDRESS_REPOSITORY
+      addressRepositoryJson.abi, ADDRESS_REPOSITORY
     )) as unknown) as AddressRepository;
 
     const gameAddress = await addressRepository.methods.getGameService().call();
     const game = ((await new web3.eth.Contract(
-      gameJson,
+      gameJson.abi,
       gameAddress
     )) as unknown) as SpaceTradersGame;
 
@@ -58,7 +58,7 @@ export const connectWeb3 = (): ThunkAction<
       .getPlanetRepository()
       .call();
     const planetRepository = ((await new web3.eth.Contract(
-      planetRepositoryJson,
+      planetRepositoryJson.abi,
       planetRepositoryAddress
     )) as unknown) as PlanetRepository;
 
@@ -66,7 +66,7 @@ export const connectWeb3 = (): ThunkAction<
       .getStarshipRepository()
       .call();
     const starshipRepository = ((await new web3.eth.Contract(
-      starshipRepositoryJson,
+      starshipRepositoryJson.abi,
       starshipRepositoryAddress
     )) as unknown) as StarshipRepository;
 
@@ -74,7 +74,7 @@ export const connectWeb3 = (): ThunkAction<
       .getGoldToken()
       .call();
     const goldToken = ((await new web3.eth.Contract(
-      resourceTokenJson,
+      resourceTokenJson.abi,
       goldTokenAddress
     )) as unknown) as ResourceToken;
 
@@ -82,7 +82,7 @@ export const connectWeb3 = (): ThunkAction<
       .getGoldToken()
       .call();
     const ironToken = ((await new web3.eth.Contract(
-      resourceTokenJson,
+      resourceTokenJson.abi,
       ironTokenAddress
     )) as unknown) as ResourceToken;
 
@@ -90,7 +90,7 @@ export const connectWeb3 = (): ThunkAction<
       .getGoldToken()
       .call();
     const oilToken = ((await new web3.eth.Contract(
-      resourceTokenJson,
+      resourceTokenJson.abi,
       oilTokenAddress
     )) as unknown) as ResourceToken;
 

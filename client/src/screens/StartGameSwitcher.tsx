@@ -1,14 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-import { FailureView, LoadingView } from "rn-web-components";
-import { web3Selector } from "../store/web3";
-import { Router } from "./Router";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import actions from "../store/actions";
-import { Web3Connect } from "../components/Web3Connect";
-import { gameSelector } from "../store/game";
-import { Button } from "react-bootstrap";
-import { StartGameScreen } from "./Start/StartGameScreen";
+import {gameSelector} from "../store/game";
+import {StartGameScreen} from "./Start/StartGameScreen";
+import {FlySwitcher} from "./FlySwitcher";
 
 export function StartGameSwitcher(): React.ReactElement {
   const dispatch = useDispatch();
@@ -18,7 +13,7 @@ export function StartGameSwitcher(): React.ReactElement {
     dispatch(actions.game.isGameStarted());
   }, []);
   if (isGameStarted) {
-    return <Router />;
+    return <FlySwitcher />;
   } else {
     return <StartGameScreen />;
   }

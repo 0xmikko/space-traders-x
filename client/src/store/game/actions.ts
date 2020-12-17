@@ -21,6 +21,7 @@ export const isGameStarted = (): ThunkAction<
   const isGameStarted = await starshipRepository.methods
     .isAccountExists(account)
     .call();
+  dispatch({type: 'GAME_UPDATE_STATUS', payload: isGameStarted})
 };
 
 export const startGame = (): ThunkAction<
@@ -29,9 +30,11 @@ export const startGame = (): ThunkAction<
   unknown,
   GameActions
 > => async (dispatch, getState) => {
-  const { game } = getState().web3;
-  if (game === undefined) return;
-  await game.methods.startGame().send();
+  const { accounts, game } = getState().web3;
+  const account = accounts[0];
+  if (account === undefined || game === undefined) return;
+  await game.methods.startGame().send({from: account});
+  dispatch(isGameStarted());
 };
 
 export const updateResources = (): ThunkAction<
