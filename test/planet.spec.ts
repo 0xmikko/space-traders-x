@@ -1,4 +1,4 @@
-import { priceToNumber } from "./../.history/test/helper_20201217095015";
+import { priceToNumber } from "./helper";
 import { waffle, ethers } from "hardhat";
 import { solidity } from "ethereum-waffle";
 

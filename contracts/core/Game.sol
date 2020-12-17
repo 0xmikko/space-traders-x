@@ -7,12 +7,13 @@ import "../repository/AddressRepository.sol";
 import "../repository/PlanetRepository.sol";
 import "../repository/StarshipRepository.sol";
 import "../tokens/Resource.sol";
+import "./Planet.sol";
 
 contract SpaceTradersGame is Ownable {
-    // CONSTANTS
-    uint256 constant INITIAL_GOLD = 1000;
-    uint256 constant INITIAL_IRON = 0;
-    uint256 constant INITIAL_OIL = 0;
+    // Initial player values
+    uint256 INITIAL_GOLD;
+    uint256 INITIAL_IRON;
+    uint256 INITIAL_OIL;
 
     // Resource tokens
     ResourceToken private _goldToken;
@@ -27,12 +28,17 @@ contract SpaceTradersGame is Ownable {
     modifier registeredAccountsOnly {
         require(
             _starshipRepository.isAccountExists(msg.sender),
-            "You should register before usign this method"
+            "Game: Account is not registered"
         );
         _;
     }
 
-    constructor(address addressRepository) public {
+    constructor(
+        address addressRepository,
+        uint256 initGold,
+        uint256 initIron,
+        uint256 initOil
+    ) public {
         _addressRepository = AddressRepository(addressRepository);
         _planetRepository = PlanetRepository(
             _addressRepository.getPlanetRepository()
@@ -44,6 +50,10 @@ contract SpaceTradersGame is Ownable {
         _goldToken = ResourceToken(_addressRepository.getGoldToken());
         _ironToken = ResourceToken(_addressRepository.getIronToken());
         _oilToken = ResourceToken(_addressRepository.getOilToken());
+
+        INITIAL_GOLD = initGold;
+        INITIAL_IRON = initIron;
+        INITIAL_OIL = initOil;
     }
 
     function startGame() external {
@@ -75,4 +85,40 @@ contract SpaceTradersGame is Ownable {
         _oilToken.burn(msg.sender, oilCost);
     }
 
+    // Setup game functions for owner only access
+    function addPlanet(
+        string memory name,
+        uint16 x,
+        uint16 y,
+        uint256 initGold,
+        uint256 generatesGold,
+        uint256 initIron,
+        uint256 generatesIron,
+        uint256 initOil,
+        uint256 generatesOil
+    ) external onlyOwner {
+        Planet planet = new Planet(address(_addressRepository), name, x, y);
+
+        _planetRepository.addPlanet(address(planet));
+
+        _goldToken.addPlanet(address(planet), initGold, generatesGold);
+        _ironToken.addPlanet(address(planet), initIron, generatesIron);
+        _oilToken.addPlanet(address(planet), initOil, generatesOil);
+    }
+
+    function addStarshipLevel(
+        uint256 velocity,
+        uint256 fuelPerParsec,
+        uint256 gold,
+        uint256 iron,
+        uint256 oil
+    ) external onlyOwner {
+        _starshipRepository.addStarshipLevel(
+            velocity,
+            fuelPerParsec,
+            gold,
+            iron,
+            oil
+        );
+    }
 }

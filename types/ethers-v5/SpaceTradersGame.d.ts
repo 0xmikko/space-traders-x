@@ -22,6 +22,8 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface SpaceTradersGameInterface extends ethers.utils.Interface {
   functions: {
+    "addPlanet(string,uint16,uint16,uint256,uint256,uint256,uint256,uint256,uint256)": FunctionFragment;
+    "addStarshipLevel(uint256,uint256,uint256,uint256,uint256)": FunctionFragment;
     "move(address)": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
@@ -30,6 +32,30 @@ interface SpaceTradersGameInterface extends ethers.utils.Interface {
     "upgradeShip()": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "addPlanet",
+    values: [
+      string,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "addStarshipLevel",
+    values: [
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish
+    ]
+  ): string;
   encodeFunctionData(functionFragment: "move", values: [string]): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -46,6 +72,11 @@ interface SpaceTradersGameInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
 
+  decodeFunctionResult(functionFragment: "addPlanet", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "addStarshipLevel",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "move", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
@@ -83,6 +114,50 @@ export class SpaceTradersGame extends Contract {
   interface: SpaceTradersGameInterface;
 
   functions: {
+    addPlanet(
+      name: string,
+      x: BigNumberish,
+      y: BigNumberish,
+      initGold: BigNumberish,
+      generatesGold: BigNumberish,
+      initIron: BigNumberish,
+      generatesIron: BigNumberish,
+      initOil: BigNumberish,
+      generatesOil: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "addPlanet(string,uint16,uint16,uint256,uint256,uint256,uint256,uint256,uint256)"(
+      name: string,
+      x: BigNumberish,
+      y: BigNumberish,
+      initGold: BigNumberish,
+      generatesGold: BigNumberish,
+      initIron: BigNumberish,
+      generatesIron: BigNumberish,
+      initOil: BigNumberish,
+      generatesOil: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    addStarshipLevel(
+      velocity: BigNumberish,
+      fuelPerParsec: BigNumberish,
+      gold: BigNumberish,
+      iron: BigNumberish,
+      oil: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "addStarshipLevel(uint256,uint256,uint256,uint256,uint256)"(
+      velocity: BigNumberish,
+      fuelPerParsec: BigNumberish,
+      gold: BigNumberish,
+      iron: BigNumberish,
+      oil: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
     move(
       dstPlanet: string,
       overrides?: Overrides
@@ -120,6 +195,50 @@ export class SpaceTradersGame extends Contract {
     "upgradeShip()"(overrides?: Overrides): Promise<ContractTransaction>;
   };
 
+  addPlanet(
+    name: string,
+    x: BigNumberish,
+    y: BigNumberish,
+    initGold: BigNumberish,
+    generatesGold: BigNumberish,
+    initIron: BigNumberish,
+    generatesIron: BigNumberish,
+    initOil: BigNumberish,
+    generatesOil: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  "addPlanet(string,uint16,uint16,uint256,uint256,uint256,uint256,uint256,uint256)"(
+    name: string,
+    x: BigNumberish,
+    y: BigNumberish,
+    initGold: BigNumberish,
+    generatesGold: BigNumberish,
+    initIron: BigNumberish,
+    generatesIron: BigNumberish,
+    initOil: BigNumberish,
+    generatesOil: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  addStarshipLevel(
+    velocity: BigNumberish,
+    fuelPerParsec: BigNumberish,
+    gold: BigNumberish,
+    iron: BigNumberish,
+    oil: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  "addStarshipLevel(uint256,uint256,uint256,uint256,uint256)"(
+    velocity: BigNumberish,
+    fuelPerParsec: BigNumberish,
+    gold: BigNumberish,
+    iron: BigNumberish,
+    oil: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
   move(dstPlanet: string, overrides?: Overrides): Promise<ContractTransaction>;
 
   "move(address)"(
@@ -154,6 +273,50 @@ export class SpaceTradersGame extends Contract {
   "upgradeShip()"(overrides?: Overrides): Promise<ContractTransaction>;
 
   callStatic: {
+    addPlanet(
+      name: string,
+      x: BigNumberish,
+      y: BigNumberish,
+      initGold: BigNumberish,
+      generatesGold: BigNumberish,
+      initIron: BigNumberish,
+      generatesIron: BigNumberish,
+      initOil: BigNumberish,
+      generatesOil: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "addPlanet(string,uint16,uint16,uint256,uint256,uint256,uint256,uint256,uint256)"(
+      name: string,
+      x: BigNumberish,
+      y: BigNumberish,
+      initGold: BigNumberish,
+      generatesGold: BigNumberish,
+      initIron: BigNumberish,
+      generatesIron: BigNumberish,
+      initOil: BigNumberish,
+      generatesOil: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    addStarshipLevel(
+      velocity: BigNumberish,
+      fuelPerParsec: BigNumberish,
+      gold: BigNumberish,
+      iron: BigNumberish,
+      oil: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "addStarshipLevel(uint256,uint256,uint256,uint256,uint256)"(
+      velocity: BigNumberish,
+      fuelPerParsec: BigNumberish,
+      gold: BigNumberish,
+      iron: BigNumberish,
+      oil: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     move(dstPlanet: string, overrides?: CallOverrides): Promise<void>;
 
     "move(address)"(
@@ -196,6 +359,50 @@ export class SpaceTradersGame extends Contract {
   };
 
   estimateGas: {
+    addPlanet(
+      name: string,
+      x: BigNumberish,
+      y: BigNumberish,
+      initGold: BigNumberish,
+      generatesGold: BigNumberish,
+      initIron: BigNumberish,
+      generatesIron: BigNumberish,
+      initOil: BigNumberish,
+      generatesOil: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    "addPlanet(string,uint16,uint16,uint256,uint256,uint256,uint256,uint256,uint256)"(
+      name: string,
+      x: BigNumberish,
+      y: BigNumberish,
+      initGold: BigNumberish,
+      generatesGold: BigNumberish,
+      initIron: BigNumberish,
+      generatesIron: BigNumberish,
+      initOil: BigNumberish,
+      generatesOil: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    addStarshipLevel(
+      velocity: BigNumberish,
+      fuelPerParsec: BigNumberish,
+      gold: BigNumberish,
+      iron: BigNumberish,
+      oil: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    "addStarshipLevel(uint256,uint256,uint256,uint256,uint256)"(
+      velocity: BigNumberish,
+      fuelPerParsec: BigNumberish,
+      gold: BigNumberish,
+      iron: BigNumberish,
+      oil: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
     move(dstPlanet: string, overrides?: Overrides): Promise<BigNumber>;
 
     "move(address)"(
@@ -231,6 +438,50 @@ export class SpaceTradersGame extends Contract {
   };
 
   populateTransaction: {
+    addPlanet(
+      name: string,
+      x: BigNumberish,
+      y: BigNumberish,
+      initGold: BigNumberish,
+      generatesGold: BigNumberish,
+      initIron: BigNumberish,
+      generatesIron: BigNumberish,
+      initOil: BigNumberish,
+      generatesOil: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "addPlanet(string,uint16,uint16,uint256,uint256,uint256,uint256,uint256,uint256)"(
+      name: string,
+      x: BigNumberish,
+      y: BigNumberish,
+      initGold: BigNumberish,
+      generatesGold: BigNumberish,
+      initIron: BigNumberish,
+      generatesIron: BigNumberish,
+      initOil: BigNumberish,
+      generatesOil: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    addStarshipLevel(
+      velocity: BigNumberish,
+      fuelPerParsec: BigNumberish,
+      gold: BigNumberish,
+      iron: BigNumberish,
+      oil: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "addStarshipLevel(uint256,uint256,uint256,uint256,uint256)"(
+      velocity: BigNumberish,
+      fuelPerParsec: BigNumberish,
+      gold: BigNumberish,
+      iron: BigNumberish,
+      oil: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
     move(
       dstPlanet: string,
       overrides?: Overrides

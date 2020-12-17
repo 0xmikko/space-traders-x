@@ -1,24 +1,26 @@
-import { waffle, ethers } from "hardhat";
-import { solidity } from "ethereum-waffle";
+// @ts-ignore
+import {ethers} from "hardhat";
 
-import BigNumber from "bignumber.js";
+import {AddressRepository} from "../types/ethers-v5/AddressRepository";
+import {AddressRepository__factory} from "../types/ethers-v5/factories/AddressRepository__factory";
 
-import { AddressRepository } from "../types/ethers-v5/AddressRepository";
-import { AddressRepository__factory } from "../types/ethers-v5/factories/AddressRepository__factory";
+import {PlanetRepository} from "../types/ethers-v5/PlanetRepository";
+import {PlanetRepository__factory} from "../types/ethers-v5/factories/PlanetRepository__factory";
 
-import { PlanetRepository } from "../types/ethers-v5/PlanetRepository";
-import { PlanetRepository__factory } from "../types/ethers-v5/factories/PlanetRepository__factory";
+import {Planet} from "../types/ethers-v5/Planet";
+import {Planet__factory} from "../types/ethers-v5/factories/Planet__factory";
+import {StarshipRepository__factory} from "../types/ethers-v5/factories/StarshipRepository__factory";
+import {StarshipRepository} from "../types/ethers-v5/StarshipRepository";
 
-import { Planet } from "../types/ethers-v5/Planet";
-import { Planet__factory } from "../types/ethers-v5/factories/Planet__factory";
-import { StarshipRepository__factory } from "../types/ethers-v5/factories/StarshipRepository__factory";
-import { StarshipRepository } from "../types/ethers-v5/StarshipRepository";
+import {ResourceToken} from "../types/ethers-v5/ResourceToken";
+import {ResourceToken__factory} from "../types/ethers-v5/factories/ResourceToken__factory";
 
-import { ResourceToken } from "../types/ethers-v5/ResourceToken";
-import { ResourceToken__factory } from "../types/ethers-v5/factories/ResourceToken__factory";
+import {ResourcePair} from "../types/ethers-v5/ResourcePair";
+import {ResourcePair__factory} from "../types/ethers-v5/factories/ResourcePair__factory";
 
-import { ResourcePair } from "../types/ethers-v5/ResourcePair";
-import { ResourcePair__factory } from "../types/ethers-v5/factories/ResourcePair__factory";
+import {SpaceTradersGame} from "../types/ethers-v5/SpaceTradersGame";
+import {SpaceTradersGame__factory} from "../types/ethers-v5/factories/SpaceTradersGame__factory";
+import {BigNumberish} from "ethers";
 
 export class Deployer {
   private _addressRepository: AddressRepository | undefined;
@@ -124,7 +126,11 @@ export class Deployer {
     return this._oilToken;
   }
 
-  async getTokenPair(planet: string, token1: string, token2: string): Promise<ResourcePair> {
+  async getTokenPair(
+    planet: string,
+    token1: string,
+    token2: string
+  ): Promise<ResourcePair> {
     const resourcePairArtifact = (await ethers.getContractFactory(
       "ResourcePair"
     )) as ResourcePair__factory;
@@ -134,17 +140,53 @@ export class Deployer {
   }
 
   async registerUser(address: string) {
-      const starshipRepository = await this.getStarshipRepository();
-      await this.addTestStarshipLevel();
-      await starshipRepository.registerAccount(address);
+    const starshipRepository = await this.getStarshipRepository();
+    await this.addTestStarshipLevel();
+    await starshipRepository.registerAccount(address);
   }
 
   async addTestStarshipLevel() {
-      const startshipRepository = await this.getStarshipRepository();
-      const levelsLength = await startshipRepository.getLevelsLength();
-      if (levelsLength === 0) {
-          await startshipRepository.addStarshipLevel(100, 100, 100, 100, 100);
-      }
+    const startshipRepository = await this.getStarshipRepository();
+    const levelsLength = await startshipRepository.getLevelsLength();
+    if (levelsLength === 0) {
+      await startshipRepository.addStarshipLevel(100, 100, 100, 100, 100);
+    }
+  }
+
+  async getGame(
+    initGold: BigNumberish,
+    initIron: BigNumberish,
+    initOil: BigNumberish
+  ): Promise<SpaceTradersGame> {
+    const addressRepository = await this.getAddressRepository();
+    const planetRepository = await this.getPlanetRepository();
+    const starshipRepository = await this.getStarshipRepository();
+    const goldToken = await this.getGoldToken();
+    const ironToken = await this.getIronToken();
+    const oilToken = await this.getOilToken();
+
+    const gameArtifact = (await ethers.getContractFactory(
+      "SpaceTradersGame"
+    )) as SpaceTradersGame__factory;
+
+    const game = (await gameArtifact.deploy(
+      addressRepository.address,
+      initGold,
+      initIron,
+      initOil
+    )) as SpaceTradersGame;
+    await game.deployed();
+
+    //
+    console.log("Transferring ownership to Game...");
+    await goldToken.transferOwnership(game.address);
+    await ironToken.transferOwnership(game.address);
+    await oilToken.transferOwnership(game.address);
+
+    await planetRepository.transferOwnership(game.address);
+    await starshipRepository.transferOwnership(game.address);
+
+    return game;
   }
 
   private async _deployResourceToken(
@@ -155,7 +197,7 @@ export class Deployer {
       "ResourceToken"
     )) as ResourceToken__factory;
     const addressRepository = await this.getAddressRepository();
-    
+
     // Needed for token
     await this.getPlanetRepository();
 
