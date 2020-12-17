@@ -3,6 +3,7 @@
 pragma solidity >=0.6.0 <0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "hardhat/console.sol";
 
 import "../repository/AddressRepository.sol";
 import "../repository/PlanetRepository.sol";
@@ -14,6 +15,8 @@ contract Planet is Ownable {
     string private _name;
     uint16 private _x;
     uint16 private _y;
+
+    uint256 constant MAX_UINT256 = uint256(-1);
 
     AddressRepository private _addressRepository;
     StarshipRepository private _starshipRepository;
@@ -77,6 +80,11 @@ contract Planet is Ownable {
             resource2
         );
         _router[resource1][resource2] = address(pair);
+
+        // ToDo: Check approvals
+        ResourceToken(resource1).approve(address(pair), MAX_UINT256);
+        ResourceToken(resource2).approve(address(pair), MAX_UINT256);
+
         emit NewResourcePair(resource1, resource2);
     }
 
@@ -86,7 +94,9 @@ contract Planet is Ownable {
         returns (address)
     {
         (resource1, resource2) = orderAddresses(resource1, resource2);
-        return _router[resource1][resource2];
+        address pair = _router[resource1][resource2];
+        require(pair != address(0), "Token pair wasn't found");
+        return pair;
     }
 
     function swap(
@@ -95,13 +105,47 @@ contract Planet is Ownable {
         uint256 amount1out,
         uint256 amount2out
     ) external onPlanetOnly {
+        uint256 amount1in;
+        uint256 amount2in;
         ResourcePair pair = ResourcePair(getResourcePair(resource1, resource2));
 
         if (resource1 < resource2) {
-            pair.swap(msg.sender, amount1out, amount2out);
+            (amount1in, amount2in) = pair.swap(
+                msg.sender,
+                amount1out,
+                amount2out
+            );
         } else {
-            pair.swap(msg.sender, amount2out, amount1out);
+            (amount1in, amount2in) = pair.swap(
+                msg.sender,
+                amount2out,
+                amount1out
+            );
         }
+
+        ResourceToken(resource1).transferFrom(
+            msg.sender,
+            address(this),
+            amount1in
+        );
+        ResourceToken(resource2).transferFrom(
+            msg.sender,
+            address(this),
+            amount2in
+        );
+    }
+
+    // Returns the price of first resource in pair
+    function getResourcePrice(address resource1, address resource2)
+        public
+        view
+        returns (uint256)
+    {
+        ResourcePair pair = ResourcePair(getResourcePair(resource1, resource2));
+        if (resource1 < resource2) {
+            return pair.getResourcePrice1();
+        }
+        return pair.getResourcePrice2();
     }
 
     function orderAddresses(address a1, address a2)

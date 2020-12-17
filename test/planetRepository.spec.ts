@@ -23,11 +23,14 @@ describe("PlanetRepository", function () {
 
   beforeEach(async function () {
     deployer = new Deployer();
+  
+    addressRepository = await deployer.getAddressRepository();
+    planetRepository = await deployer.getPlanetRepository();
+    await deployer.getStarshipRepository();
+
     planetArtifact = (await ethers.getContractFactory(
         "Planet"
       )) as Planet__factory;
-    addressRepository = await deployer.getAddressRepository();
-    planetRepository = await deployer.getPlanetRepository();
     planet1 = (await planetArtifact.deploy(
       addressRepository.address,
       "Earth",

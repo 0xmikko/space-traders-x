@@ -22,6 +22,8 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface AddressRepositoryInterface extends ethers.utils.Interface {
   functions: {
+    "c_0x3b2f0c43(bytes32)": FunctionFragment;
+    "c_0xc99a04f0(bytes32)": FunctionFragment;
     "getAddress(bytes32)": FunctionFragment;
     "getGoldToken()": FunctionFragment;
     "getIronToken()": FunctionFragment;
@@ -40,6 +42,14 @@ interface AddressRepositoryInterface extends ethers.utils.Interface {
     "transferOwnership(address)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "c_0x3b2f0c43",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "c_0xc99a04f0",
+    values: [BytesLike]
+  ): string;
   encodeFunctionData(
     functionFragment: "getAddress",
     values: [BytesLike]
@@ -99,6 +109,14 @@ interface AddressRepositoryInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "c_0x3b2f0c43",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "c_0xc99a04f0",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "getAddress", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getGoldToken",
@@ -179,6 +197,26 @@ export class AddressRepository extends Contract {
   interface: AddressRepositoryInterface;
 
   functions: {
+    c_0x3b2f0c43(
+      c__0x3b2f0c43: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[void]>;
+
+    "c_0x3b2f0c43(bytes32)"(
+      c__0x3b2f0c43: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[void]>;
+
+    c_0xc99a04f0(
+      c__0xc99a04f0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[void]>;
+
+    "c_0xc99a04f0(bytes32)"(
+      c__0xc99a04f0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[void]>;
+
     getAddress(key: BytesLike, overrides?: CallOverrides): Promise<[string]>;
 
     "getAddress(bytes32)"(
@@ -288,6 +326,26 @@ export class AddressRepository extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>;
   };
+
+  c_0x3b2f0c43(
+    c__0x3b2f0c43: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<void>;
+
+  "c_0x3b2f0c43(bytes32)"(
+    c__0x3b2f0c43: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<void>;
+
+  c_0xc99a04f0(
+    c__0xc99a04f0: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<void>;
+
+  "c_0xc99a04f0(bytes32)"(
+    c__0xc99a04f0: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<void>;
 
   getAddress(key: BytesLike, overrides?: CallOverrides): Promise<string>;
 
@@ -399,6 +457,26 @@ export class AddressRepository extends Contract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    c_0x3b2f0c43(
+      c__0x3b2f0c43: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "c_0x3b2f0c43(bytes32)"(
+      c__0x3b2f0c43: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    c_0xc99a04f0(
+      c__0xc99a04f0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "c_0xc99a04f0(bytes32)"(
+      c__0xc99a04f0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     getAddress(key: BytesLike, overrides?: CallOverrides): Promise<string>;
 
     "getAddress(bytes32)"(
@@ -505,6 +583,26 @@ export class AddressRepository extends Contract {
   };
 
   estimateGas: {
+    c_0x3b2f0c43(
+      c__0x3b2f0c43: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "c_0x3b2f0c43(bytes32)"(
+      c__0x3b2f0c43: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    c_0xc99a04f0(
+      c__0xc99a04f0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "c_0xc99a04f0(bytes32)"(
+      c__0xc99a04f0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getAddress(key: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
     "getAddress(bytes32)"(
@@ -604,6 +702,26 @@ export class AddressRepository extends Contract {
   };
 
   populateTransaction: {
+    c_0x3b2f0c43(
+      c__0x3b2f0c43: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "c_0x3b2f0c43(bytes32)"(
+      c__0x3b2f0c43: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    c_0xc99a04f0(
+      c__0xc99a04f0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "c_0xc99a04f0(bytes32)"(
+      c__0xc99a04f0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getAddress(
       key: BytesLike,
       overrides?: CallOverrides

@@ -22,6 +22,7 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface SpaceTradersGameInterface extends ethers.utils.Interface {
   functions: {
+    "c_0x806e0e1a(bytes32)": FunctionFragment;
     "move(address)": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
@@ -30,6 +31,10 @@ interface SpaceTradersGameInterface extends ethers.utils.Interface {
     "upgradeShip()": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "c_0x806e0e1a",
+    values: [BytesLike]
+  ): string;
   encodeFunctionData(functionFragment: "move", values: [string]): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -46,6 +51,10 @@ interface SpaceTradersGameInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "c_0x806e0e1a",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "move", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
@@ -83,6 +92,16 @@ export class SpaceTradersGame extends Contract {
   interface: SpaceTradersGameInterface;
 
   functions: {
+    c_0x806e0e1a(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[void]>;
+
+    "c_0x806e0e1a(bytes32)"(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[void]>;
+
     move(
       dstPlanet: string,
       overrides?: Overrides
@@ -120,6 +139,16 @@ export class SpaceTradersGame extends Contract {
     "upgradeShip()"(overrides?: Overrides): Promise<ContractTransaction>;
   };
 
+  c_0x806e0e1a(
+    c__0x806e0e1a: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<void>;
+
+  "c_0x806e0e1a(bytes32)"(
+    c__0x806e0e1a: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<void>;
+
   move(dstPlanet: string, overrides?: Overrides): Promise<ContractTransaction>;
 
   "move(address)"(
@@ -154,6 +183,16 @@ export class SpaceTradersGame extends Contract {
   "upgradeShip()"(overrides?: Overrides): Promise<ContractTransaction>;
 
   callStatic: {
+    c_0x806e0e1a(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "c_0x806e0e1a(bytes32)"(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     move(dstPlanet: string, overrides?: CallOverrides): Promise<void>;
 
     "move(address)"(
@@ -196,6 +235,16 @@ export class SpaceTradersGame extends Contract {
   };
 
   estimateGas: {
+    c_0x806e0e1a(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "c_0x806e0e1a(bytes32)"(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     move(dstPlanet: string, overrides?: Overrides): Promise<BigNumber>;
 
     "move(address)"(
@@ -231,6 +280,16 @@ export class SpaceTradersGame extends Contract {
   };
 
   populateTransaction: {
+    c_0x806e0e1a(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "c_0x806e0e1a(bytes32)"(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     move(
       dstPlanet: string,
       overrides?: Overrides

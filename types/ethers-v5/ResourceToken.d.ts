@@ -26,6 +26,7 @@ interface ResourceTokenInterface extends ethers.utils.Interface {
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "burn(address,uint256)": FunctionFragment;
+    "c_0xf37461ee(bytes32)": FunctionFragment;
     "decimals()": FunctionFragment;
     "decreaseAllowance(address,uint256)": FunctionFragment;
     "getOwner()": FunctionFragment;
@@ -54,6 +55,10 @@ interface ResourceTokenInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "burn",
     values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "c_0xf37461ee",
+    values: [BytesLike]
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
@@ -98,6 +103,10 @@ interface ResourceTokenInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "c_0xf37461ee",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "decreaseAllowance",
@@ -198,6 +207,16 @@ export class ResourceToken extends Contract {
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
+
+    c_0xf37461ee(
+      c__0xf37461ee: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[void]>;
+
+    "c_0xf37461ee(bytes32)"(
+      c__0xf37461ee: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[void]>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
@@ -353,6 +372,16 @@ export class ResourceToken extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
+  c_0xf37461ee(
+    c__0xf37461ee: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<void>;
+
+  "c_0xf37461ee(bytes32)"(
+    c__0xf37461ee: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<void>;
+
   decimals(overrides?: CallOverrides): Promise<number>;
 
   "decimals()"(overrides?: CallOverrides): Promise<number>;
@@ -506,6 +535,16 @@ export class ResourceToken extends Contract {
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    c_0xf37461ee(
+      c__0xf37461ee: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "c_0xf37461ee(bytes32)"(
+      c__0xf37461ee: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -674,6 +713,16 @@ export class ResourceToken extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>;
 
+    c_0xf37461ee(
+      c__0xf37461ee: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "c_0xf37461ee(bytes32)"(
+      c__0xf37461ee: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
     "decimals()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -827,6 +876,16 @@ export class ResourceToken extends Contract {
       account: string,
       amount: BigNumberish,
       overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    c_0xf37461ee(
+      c__0xf37461ee: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "c_0xf37461ee(bytes32)"(
+      c__0xf37461ee: BytesLike,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;

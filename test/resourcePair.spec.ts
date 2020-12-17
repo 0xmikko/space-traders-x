@@ -67,5 +67,5 @@ describe("ResourcePair", function () {
     ).to.be.equal(100);
   });
 
-
+ 
 });

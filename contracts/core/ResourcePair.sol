@@ -3,6 +3,7 @@
 pragma solidity >=0.6.0 <0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "hardhat/console.sol";
 import "../tokens/Resource.sol";
 
 contract ResourcePair is Ownable {
@@ -24,13 +25,16 @@ contract ResourcePair is Ownable {
         _resource2 = ResourceToken(resource2);
     }
 
-    function swap(address account, uint256 amount1out, uint256 amount2out) external onlyOwner {
-        require(amount1out >0 || amount2out>0, "Nothing to swap");
-        uint256 amount1in = amount2out.mul(getResourcePrice1()).div(1e18);
-        uint256 amount2in = amount1out.mul(getResourcePrice2()).div(1e18);
-        _resource1.transferFrom(account, _planet, amount1in);
-        _resource2.transferFrom(account, _planet, amount2in);
-
+    function swap(
+        address account,
+        uint256 amount1out,
+        uint256 amount2out
+    ) external onlyOwner returns (uint256 amount1in, uint256 amount2in) {
+        
+        require(amount1out > 0 || amount2out > 0, "Nothing to swap");
+        amount1in = amount2out.mul(getResourcePrice1()).div(1e18);
+        amount2in = amount1out.mul(getResourcePrice2()).div(1e18);
+       
         _resource1.transferFrom(_planet, account, amount1out);
         _resource2.transferFrom(_planet, account, amount2out);
 

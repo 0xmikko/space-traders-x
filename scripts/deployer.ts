@@ -133,6 +133,21 @@ export class Deployer {
     return pair;
   }
 
+  async registerUser(address: string) {
+      const starshipRepository = await this.getStarshipRepository();
+      await this.addTestStarshipLevel();
+      await starshipRepository.registerAccount(address);
+      console.log(await starshipRepository.getAccountPlanet(address));
+  }
+
+  async addTestStarshipLevel() {
+      const startshipRepository = await this.getStarshipRepository();
+      const levelsLength = await startshipRepository.getLevelsLength();
+      if (levelsLength === 0) {
+          await startshipRepository.addStarshipLevel(100, 100, 100, 100, 100);
+      }
+  }
+
   private async _deployResourceToken(
     name: string,
     symbol: string
