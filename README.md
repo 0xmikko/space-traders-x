@@ -1,12 +1,17 @@
 # About
 
-Start your journey into the world of DeFi with SpaceTraders! Dive into fully realized crypto galactic, move between diferent planets, trade resources and earn BSC tokens! 
+Start your journey into the world of DeFi with SpaceTraders! Dive into fully realized crypto galactic, move between diferent planets, trade resources and earn GOLD tokens! 
 
 # Rules 
 
 To start the game, you need connect your BSC-account througt Metamask browser Chrome extension.
-By participating in SpaceTraders game, you can experiment with different trading strategies of planets' resources to earn the main resource – gold (BSC-tokens). 
-Fuel your ship to move between planets, use metal to improve the ship's level and mine gold on planets at a favorable rate! Each planet has different resource quotes based on the number of traders, production and minerals. The game features **7 planets**:<br>
+By participating in SpaceTraders game, you can experiment with different trading strategies of planets' resources to earn the main resource – **GOLD**. 
+Also, you need **FUEL** to move between planets and **IRON** to upgrade level of your spaceship. 
+- Each planet behaves like UniSwap and has different resource quotes (thanks for AMM).
+- Each movement bettwen planets costs FUEL and takes some blocks depends on your spaceship level 
+- To upgrade your spaceship you should spend resources **GOLD**, **IRON** and **FUEL**
+
+The game features **7 planets**:<br>
 
 ## Vicrion
 
