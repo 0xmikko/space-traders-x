@@ -23,19 +23,19 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 interface AddressRepositoryInterface extends ethers.utils.Interface {
   functions: {
     "getAddress(bytes32)": FunctionFragment;
+    "getGameService()": FunctionFragment;
     "getGoldToken()": FunctionFragment;
     "getIronToken()": FunctionFragment;
     "getOilToken()": FunctionFragment;
     "getPlanetRepository()": FunctionFragment;
-    "getPoolService()": FunctionFragment;
     "getStarshipRepository()": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
+    "setGameService(address)": FunctionFragment;
     "setGoldToken(address)": FunctionFragment;
     "setIronToken(address)": FunctionFragment;
     "setOilToken(address)": FunctionFragment;
     "setPlanetRepository(address)": FunctionFragment;
-    "setPoolService(address)": FunctionFragment;
     "setStarshipRepository(address)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
   };
@@ -43,6 +43,10 @@ interface AddressRepositoryInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "getAddress",
     values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getGameService",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getGoldToken",
@@ -61,10 +65,6 @@ interface AddressRepositoryInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getPoolService",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "getStarshipRepository",
     values?: undefined
   ): string;
@@ -72,6 +72,10 @@ interface AddressRepositoryInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "renounceOwnership",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setGameService",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setGoldToken",
@@ -87,10 +91,6 @@ interface AddressRepositoryInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: "setPoolService",
-    values: [string]
-  ): string;
-  encodeFunctionData(
     functionFragment: "setStarshipRepository",
     values: [string]
   ): string;
@@ -100,6 +100,10 @@ interface AddressRepositoryInterface extends ethers.utils.Interface {
   ): string;
 
   decodeFunctionResult(functionFragment: "getAddress", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getGameService",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "getGoldToken",
     data: BytesLike
@@ -117,16 +121,16 @@ interface AddressRepositoryInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getPoolService",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "getStarshipRepository",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setGameService",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -143,10 +147,6 @@ interface AddressRepositoryInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "setPlanetRepository",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setPoolService",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -186,6 +186,10 @@ export class AddressRepository extends Contract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    getGameService(overrides?: CallOverrides): Promise<[string]>;
+
+    "getGameService()"(overrides?: CallOverrides): Promise<[string]>;
+
     getGoldToken(overrides?: CallOverrides): Promise<[string]>;
 
     "getGoldToken()"(overrides?: CallOverrides): Promise<[string]>;
@@ -202,10 +206,6 @@ export class AddressRepository extends Contract {
 
     "getPlanetRepository()"(overrides?: CallOverrides): Promise<[string]>;
 
-    getPoolService(overrides?: CallOverrides): Promise<[string]>;
-
-    "getPoolService()"(overrides?: CallOverrides): Promise<[string]>;
-
     getStarshipRepository(overrides?: CallOverrides): Promise<[string]>;
 
     "getStarshipRepository()"(overrides?: CallOverrides): Promise<[string]>;
@@ -217,6 +217,16 @@ export class AddressRepository extends Contract {
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
 
     "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
+
+    setGameService(
+      _address: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "setGameService(address)"(
+      _address: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
 
     setGoldToken(
       _address: string,
@@ -258,16 +268,6 @@ export class AddressRepository extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    setPoolService(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    "setPoolService(address)"(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
     setStarshipRepository(
       _address: string,
       overrides?: Overrides
@@ -296,6 +296,10 @@ export class AddressRepository extends Contract {
     overrides?: CallOverrides
   ): Promise<string>;
 
+  getGameService(overrides?: CallOverrides): Promise<string>;
+
+  "getGameService()"(overrides?: CallOverrides): Promise<string>;
+
   getGoldToken(overrides?: CallOverrides): Promise<string>;
 
   "getGoldToken()"(overrides?: CallOverrides): Promise<string>;
@@ -312,10 +316,6 @@ export class AddressRepository extends Contract {
 
   "getPlanetRepository()"(overrides?: CallOverrides): Promise<string>;
 
-  getPoolService(overrides?: CallOverrides): Promise<string>;
-
-  "getPoolService()"(overrides?: CallOverrides): Promise<string>;
-
   getStarshipRepository(overrides?: CallOverrides): Promise<string>;
 
   "getStarshipRepository()"(overrides?: CallOverrides): Promise<string>;
@@ -327,6 +327,16 @@ export class AddressRepository extends Contract {
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
 
   "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
+
+  setGameService(
+    _address: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  "setGameService(address)"(
+    _address: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
 
   setGoldToken(
     _address: string,
@@ -368,16 +378,6 @@ export class AddressRepository extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  setPoolService(
-    _address: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  "setPoolService(address)"(
-    _address: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
   setStarshipRepository(
     _address: string,
     overrides?: Overrides
@@ -406,6 +406,10 @@ export class AddressRepository extends Contract {
       overrides?: CallOverrides
     ): Promise<string>;
 
+    getGameService(overrides?: CallOverrides): Promise<string>;
+
+    "getGameService()"(overrides?: CallOverrides): Promise<string>;
+
     getGoldToken(overrides?: CallOverrides): Promise<string>;
 
     "getGoldToken()"(overrides?: CallOverrides): Promise<string>;
@@ -422,10 +426,6 @@ export class AddressRepository extends Contract {
 
     "getPlanetRepository()"(overrides?: CallOverrides): Promise<string>;
 
-    getPoolService(overrides?: CallOverrides): Promise<string>;
-
-    "getPoolService()"(overrides?: CallOverrides): Promise<string>;
-
     getStarshipRepository(overrides?: CallOverrides): Promise<string>;
 
     "getStarshipRepository()"(overrides?: CallOverrides): Promise<string>;
@@ -437,6 +437,13 @@ export class AddressRepository extends Contract {
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     "renounceOwnership()"(overrides?: CallOverrides): Promise<void>;
+
+    setGameService(_address: string, overrides?: CallOverrides): Promise<void>;
+
+    "setGameService(address)"(
+      _address: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     setGoldToken(_address: string, overrides?: CallOverrides): Promise<void>;
 
@@ -465,13 +472,6 @@ export class AddressRepository extends Contract {
     ): Promise<void>;
 
     "setPlanetRepository(address)"(
-      _address: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setPoolService(_address: string, overrides?: CallOverrides): Promise<void>;
-
-    "setPoolService(address)"(
       _address: string,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -512,6 +512,10 @@ export class AddressRepository extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getGameService(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getGameService()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     getGoldToken(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getGoldToken()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -528,10 +532,6 @@ export class AddressRepository extends Contract {
 
     "getPlanetRepository()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getPoolService(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "getPoolService()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     getStarshipRepository(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getStarshipRepository()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -543,6 +543,13 @@ export class AddressRepository extends Contract {
     renounceOwnership(overrides?: Overrides): Promise<BigNumber>;
 
     "renounceOwnership()"(overrides?: Overrides): Promise<BigNumber>;
+
+    setGameService(_address: string, overrides?: Overrides): Promise<BigNumber>;
+
+    "setGameService(address)"(
+      _address: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
 
     setGoldToken(_address: string, overrides?: Overrides): Promise<BigNumber>;
 
@@ -571,13 +578,6 @@ export class AddressRepository extends Contract {
     ): Promise<BigNumber>;
 
     "setPlanetRepository(address)"(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    setPoolService(_address: string, overrides?: Overrides): Promise<BigNumber>;
-
-    "setPoolService(address)"(
       _address: string,
       overrides?: Overrides
     ): Promise<BigNumber>;
@@ -614,6 +614,12 @@ export class AddressRepository extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getGameService(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "getGameService()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getGoldToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "getGoldToken()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -634,12 +640,6 @@ export class AddressRepository extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getPoolService(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "getPoolService()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     getStarshipRepository(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -655,6 +655,16 @@ export class AddressRepository extends Contract {
     renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>;
 
     "renounceOwnership()"(overrides?: Overrides): Promise<PopulatedTransaction>;
+
+    setGameService(
+      _address: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "setGameService(address)"(
+      _address: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
 
     setGoldToken(
       _address: string,
@@ -692,16 +702,6 @@ export class AddressRepository extends Contract {
     ): Promise<PopulatedTransaction>;
 
     "setPlanetRepository(address)"(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    setPoolService(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    "setPoolService(address)"(
       _address: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;

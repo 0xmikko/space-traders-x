@@ -14,34 +14,41 @@ export async function finalDeploy() {
 
   const deployer = new Deployer();
   const game = await deployer.getGame(initGold, initIron, initOil);
-
   // Adds planets
-  planetsList.map(async (p) => {
-    await game.addPlanet(
-      p.name,
-      p.x,
-      p.y,
-      p.initGold,
-      p.generatesGold,
-      p.initIron,
-      p.generatesIron,
-      p.initOil,
-      p.generatesOil
-    );
 
-    starShipLevels.map(async (level) => {
+  for (let p of planetsList) {
+    console.log("Adding planet", p.name)
+    await game.addPlanet(
+        p.name,
+        p.x,
+        p.y,
+        p.initGold,
+        p.generatesGold,
+        p.initIron,
+        p.generatesIron,
+        p.initOil,
+        p.generatesOil
+    );
+  }
+
+    for (let level of starShipLevels) {
+      console.log("Adding level", level.velocity)
       await game.addStarshipLevel(
-        level.velocity,
-        level.fuelPerParsec,
-        level.gold,
-        level.iron,
-        level.oil
-      );
-    });
-  });
+          level.velocity,
+          level.fuelPerParsec,
+          level.gold,
+          level.iron,
+          level.oil
+        );
+    }
+
+    const addressRepository = await deployer.getAddressRepository();
+    console.log("Successfully deployed at: ", addressRepository.address);
 }
 
-finalDeploy().then(() => process.exit(0))
+finalDeploy().then(() => {
+  console.log("Ok")
+  process.exit(0)})
     .catch(error => {
       console.error(error);
       process.exit(1);

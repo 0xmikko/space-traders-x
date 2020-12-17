@@ -4,8 +4,8 @@ export interface Planet {
     y: number,
     description: string,
     image: string,
-    goldOilPrice: number,
-    goldIronPrice: number,
-    ironOilPrice: number,
+    goldOilPrice?: number,
+    goldIronPrice?: number,
+    ironOilPrice?: number,
 
 }

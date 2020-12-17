@@ -22,11 +22,11 @@ contract AddressRepository is Ownable, AddressStorage {
      * @dev returns the address of the LendingPool proxy
      * @return the lending pool proxy address
      **/
-    function getPoolService() public view returns (address) {
+    function getGameService() public view returns (address) {
         return getAddress(GAME_SERVICE);
     }
 
-    function setPoolService(address _address) public onlyOwner {
+    function setGameService(address _address) public onlyOwner {
         _setAddress(GAME_SERVICE, _address);
     }
 

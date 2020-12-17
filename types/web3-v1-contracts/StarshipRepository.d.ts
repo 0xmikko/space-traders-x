@@ -54,21 +54,6 @@ export interface StarshipRepository extends BaseContract {
   ): StarshipRepository;
   clone(): StarshipRepository;
   methods: {
-    /**
-     * Returns the address of the current owner.
-     */
-    owner(): NonPayableTransactionObject<string>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    renounceOwnership(): NonPayableTransactionObject<void>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    transferOwnership(newOwner: string): NonPayableTransactionObject<void>;
-
     addStarshipLevel(
       velocity: number | string,
       fuelPerParsec: number | string,
@@ -76,16 +61,6 @@ export interface StarshipRepository extends BaseContract {
       iron: number | string,
       oil: number | string
     ): NonPayableTransactionObject<void>;
-
-    getLevelsLength(): NonPayableTransactionObject<string>;
-
-    registerAccount(account: string): NonPayableTransactionObject<void>;
-
-    isAccountExists(account: string): NonPayableTransactionObject<boolean>;
-
-    getAccountPlanet(account: string): NonPayableTransactionObject<string>;
-
-    timeToArrive(account: string): NonPayableTransactionObject<string>;
 
     calculateFuelConsumption(
       account: string,
@@ -97,10 +72,37 @@ export interface StarshipRepository extends BaseContract {
       distance: number | string
     ): NonPayableTransactionObject<string>;
 
+    getAccountPlanet(account: string): NonPayableTransactionObject<string>;
+
+    getAccountStartshipProperties(
+      account: string
+    ): NonPayableTransactionObject<{
+      level: string;
+      velocity: string;
+      fuelPerParsec: string;
+      0: string;
+      1: string;
+      2: string;
+    }>;
+
+    getLevelsLength(): NonPayableTransactionObject<string>;
+
+    isAccountExists(account: string): NonPayableTransactionObject<boolean>;
+
     moveToPlanet(
       account: string,
       dstPlanet: string
     ): NonPayableTransactionObject<string>;
+
+    owner(): NonPayableTransactionObject<string>;
+
+    registerAccount(account: string): NonPayableTransactionObject<void>;
+
+    renounceOwnership(): NonPayableTransactionObject<void>;
+
+    timeToArrive(account: string): NonPayableTransactionObject<string>;
+
+    transferOwnership(newOwner: string): NonPayableTransactionObject<void>;
 
     upgradeStarShip(
       account: string

@@ -1,7 +1,7 @@
 import {ThunkAction} from 'redux-thunk';
 import {RootState} from '../index';
 import {TokenActions} from './index';
-import {Erc20} from '../../../../types/web3-v1-contracts/ERC20';
+import {ResourceToken} from '../../../../types/web3-v1-contracts/ResourceToken';
 import Web3 from 'web3';
 import {getContract} from '../../utils/getContract';
 import {Token} from '../../core/token';
@@ -9,6 +9,15 @@ import {tokenDecimals} from '../../utils/formaters';
 import { BigNumber } from 'bignumber.js';
 
 const erc20Json = require('../../contracts/ERC20.json');
+
+export const getAllowance = (): ThunkAction<void, RootState, unknown, TokenActions> => async (
+    dispatch,
+    getState
+) => {
+  const web3 = await getState().web3.web3;
+};
+
+
 
 export async function getTokenContract(web3: Web3, address: string): Promise<Erc20> {
   return ((await getContract(web3, erc20Json, address)) as unknown) as Erc20;
@@ -48,12 +57,7 @@ export const getTokenDetails = (
   })
 };
 
-export const getAllowance = (): ThunkAction<void, RootState, unknown, TokenActions> => async (
-  dispatch,
-  getState
-) => {
-  const web3 = await getState().web3.web3;
-};
+
 
 export const approve = (id: string, sum: number): ThunkAction<void, RootState, unknown, TokenActions> => async (
   dispatch,

@@ -40,30 +40,16 @@ export interface PlanetRepository extends BaseContract {
   ): PlanetRepository;
   clone(): PlanetRepository;
   methods: {
-    /**
-     * Returns the address of the current owner.
-     */
-    owner(): NonPayableTransactionObject<string>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    renounceOwnership(): NonPayableTransactionObject<void>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    transferOwnership(newOwner: string): NonPayableTransactionObject<void>;
-
     addPlanet(planet: string): NonPayableTransactionObject<void>;
 
-    getPlanetsLength(): NonPayableTransactionObject<string>;
+    calculateDistance(
+      planet1: string,
+      planet2: string
+    ): NonPayableTransactionObject<string>;
 
     getPlanetByIndex(
       index: number | string
     ): NonPayableTransactionObject<string>;
-
-    getPlanetName(index: number | string): NonPayableTransactionObject<string>;
 
     getPlanetCoord(
       index: number | string
@@ -74,10 +60,15 @@ export interface PlanetRepository extends BaseContract {
       1: string;
     }>;
 
-    calculateDistance(
-      planet1: string,
-      planet2: string
-    ): NonPayableTransactionObject<string>;
+    getPlanetName(index: number | string): NonPayableTransactionObject<string>;
+
+    getPlanetsLength(): NonPayableTransactionObject<string>;
+
+    owner(): NonPayableTransactionObject<string>;
+
+    renounceOwnership(): NonPayableTransactionObject<void>;
+
+    transferOwnership(newOwner: string): NonPayableTransactionObject<void>;
   };
   events: {
     NewPlanetAdded(cb?: Callback<NewPlanetAdded>): EventEmitter;

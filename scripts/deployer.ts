@@ -185,6 +185,7 @@ export class Deployer {
 
     await planetRepository.transferOwnership(game.address);
     await starshipRepository.transferOwnership(game.address);
+    await addressRepository.setGameService(game.address);
 
     return game;
   }

@@ -38,47 +38,35 @@ export interface AddressRepository extends BaseContract {
   methods: {
     getAddress(key: string | number[]): NonPayableTransactionObject<string>;
 
-    /**
-     * Returns the address of the current owner.
-     */
-    owner(): NonPayableTransactionObject<string>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    renounceOwnership(): NonPayableTransactionObject<void>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    transferOwnership(newOwner: string): NonPayableTransactionObject<void>;
-
-    /**
-     * returns the address of the LendingPool proxy
-     */
-    getPoolService(): NonPayableTransactionObject<string>;
-
-    setPoolService(_address: string): NonPayableTransactionObject<void>;
-
-    getPlanetRepository(): NonPayableTransactionObject<string>;
-
-    setPlanetRepository(_address: string): NonPayableTransactionObject<void>;
-
-    getStarshipRepository(): NonPayableTransactionObject<string>;
-
-    setStarshipRepository(_address: string): NonPayableTransactionObject<void>;
-
     getGoldToken(): NonPayableTransactionObject<string>;
-
-    setGoldToken(_address: string): NonPayableTransactionObject<void>;
 
     getIronToken(): NonPayableTransactionObject<string>;
 
-    setIronToken(_address: string): NonPayableTransactionObject<void>;
-
     getOilToken(): NonPayableTransactionObject<string>;
 
+    getPlanetRepository(): NonPayableTransactionObject<string>;
+
+    getPoolService(): NonPayableTransactionObject<string>;
+
+    getStarshipRepository(): NonPayableTransactionObject<string>;
+
+    owner(): NonPayableTransactionObject<string>;
+
+    renounceOwnership(): NonPayableTransactionObject<void>;
+
+    setGoldToken(_address: string): NonPayableTransactionObject<void>;
+
+    setIronToken(_address: string): NonPayableTransactionObject<void>;
+
     setOilToken(_address: string): NonPayableTransactionObject<void>;
+
+    setPlanetRepository(_address: string): NonPayableTransactionObject<void>;
+
+    setPoolService(_address: string): NonPayableTransactionObject<void>;
+
+    setStarshipRepository(_address: string): NonPayableTransactionObject<void>;
+
+    transferOwnership(newOwner: string): NonPayableTransactionObject<void>;
   };
   events: {
     OwnershipTransferred(cb?: Callback<OwnershipTransferred>): EventEmitter;

@@ -5,12 +5,12 @@
 
 import {combineReducers} from "redux";
 import tokens from "./tokens/reducer";
-import reserves from "./reserves/reducer";
+import planets from "./planets/reducer";
 import web3 from "./web3/reducer";
 
 
 export default combineReducers({
  tokens,
- reserves,
+ planets,
  web3
 });

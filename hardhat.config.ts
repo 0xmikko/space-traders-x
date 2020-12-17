@@ -17,7 +17,8 @@ const INFURA_API_KEY = process.env.INFURA_API_KEY || "";
 const RINKEBY_PRIVATE_KEY =
   process.env.RINKEBY_PRIVATE_KEY! ||
   "0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3"; // well known private key
-const BINANCE_TESNET_PRIVATE_KEY = process.env.BINANCE_TESNET_PRIVATE_KEY;
+const BINANCE_TESNET_PRIVATE_KEY = process.env.BINANCE_TESNET_PRIVATE_KEY ||
+    "0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3";// well known private keys
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 
 const config: HardhatUserConfig = {
@@ -49,6 +50,10 @@ const config: HardhatUserConfig = {
     outDir: "types/ethers-v5",
     target: "ethers-v5",
   },
+  // typechain: {
+  //   outDir: "types/web3-v1-contracts",
+  //   target: "web3-v1",
+  // },
 };
 
 export default config;

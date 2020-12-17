@@ -36,30 +36,33 @@ export interface ResourcePair extends BaseContract {
   ): ResourcePair;
   clone(): ResourcePair;
   methods: {
-    /**
-     * Returns the address of the current owner.
-     */
+    getLiquidity(): NonPayableTransactionObject<{
+      r1Liquidity: string;
+      r2Liquidity: string;
+      0: string;
+      1: string;
+    }>;
+
+    getResourcePrice1(): NonPayableTransactionObject<string>;
+
+    getResourcePrice2(): NonPayableTransactionObject<string>;
+
     owner(): NonPayableTransactionObject<string>;
 
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
     renounceOwnership(): NonPayableTransactionObject<void>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    transferOwnership(newOwner: string): NonPayableTransactionObject<void>;
 
     swap(
       account: string,
       amount1out: number | string,
       amount2out: number | string
-    ): NonPayableTransactionObject<void>;
+    ): NonPayableTransactionObject<{
+      amount1in: string;
+      amount2in: string;
+      0: string;
+      1: string;
+    }>;
 
-    getResourcePrice1(): NonPayableTransactionObject<string>;
-
-    getResourcePrice2(): NonPayableTransactionObject<string>;
+    transferOwnership(newOwner: string): NonPayableTransactionObject<void>;
   };
   events: {
     OwnershipTransferred(cb?: Callback<OwnershipTransferred>): EventEmitter;
