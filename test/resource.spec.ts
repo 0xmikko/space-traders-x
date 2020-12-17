@@ -83,6 +83,48 @@ describe("ResourceToken", function () {
     );
   });
 
+  it("should generates tokens correctly when new plannet added", async () => {
+    const generatePerBlock = 180;
 
-  
+    const tx1 = await oilToken.addPlanet(
+      planet.address,
+      10000,
+      generatePerBlock
+    );
+
+    // Some tx's to generate new blocks
+    await oilToken.mintTo(userAccount.address, 0);
+    await oilToken.burn(userAccount.address, 0);
+
+    // ADDING NEW PLANET
+    const planet2 = await deployer.addPlanet("Mars", 23, 20);
+    const generatePerBlock2 = 250;
+    const tx3 = await oilToken.addPlanet(planet2.address, 0, generatePerBlock2);
+
+    const blockDif = tx3.blockNumber - tx1.blockNumber;
+    expect(blockDif).to.be.at.least(1);
+
+    const intermediateSupply = blockDif * generatePerBlock;
+    expect(await oilToken.totalSupply()).to.be.equal(
+      10000 + intermediateSupply
+    );
+
+    // Check generation rate
+    expect(await oilToken.getCurrentGeneratePerBlock()).to.be.equal(
+      generatePerBlock + generatePerBlock2
+    );
+
+    // Some tx's to generate new blocks
+    await oilToken.mintTo(userAccount.address, 0);
+    const tx4 = await oilToken.burn(userAccount.address, 0);
+
+    const blockDif2 = tx4.blockNumber - tx3.blockNumber;
+    expect(blockDif2).to.be.at.least(1);
+
+    expect(await oilToken.totalSupply()).to.be.equal(
+      10000 +
+        intermediateSupply +
+        blockDif2 * (generatePerBlock + generatePerBlock2)
+    );
+  });
 });

@@ -67,7 +67,7 @@ contract ResourceToken is Context, IBEP20, Ownable {
             generatesPerBlock: generatePerBlock
         });
 
-        _generatedAtLastUpdate = calculatesTotalGenerateValue().add(initValue);
+        _generatedAtLastUpdate = _generatedAtLastUpdate.add(calculatesTotalGenerateValue().add(initValue));
         _blockLastUpdate = block.number;
         _currentGeneratePerBlock = _currentGeneratePerBlock.add(
             generatePerBlock
