@@ -5,7 +5,7 @@
 
 import { Deployer } from "./deployer";
 import { planetsList } from "./planetsList";
-import { starShipLevels } from "../test/levels";
+import { starShipLevels } from "./levels";
 
 export async function finalDeploy() {
   const initGold = "1000";

@@ -5,7 +5,7 @@
 
 import { BigNumberish } from "ethers";
 import { BigNumber } from "@ethersproject/bignumber";
-import { E18 } from "./helper";
+import { E18 } from "../test/helper";
 
 export interface StarshipLevel {
   velocity: BigNumberish;
