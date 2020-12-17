@@ -18,7 +18,7 @@ export function PlanetOnMap({
   return (
     <div className={`spacemap-${data.name}`}>
       <div>
-        <img src={data.image} onClick={onClick} />
+        <img src={`./img/spacemap-${data.name}.png`} onClick={onClick} />
         <br />
         <h6 className={"spacemap-planet-name"}>{data.name}</h6>
       </div>
