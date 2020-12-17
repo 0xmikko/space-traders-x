@@ -23,7 +23,6 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 interface PlanetRepositoryInterface extends ethers.utils.Interface {
   functions: {
     "addPlanet(address)": FunctionFragment;
-    "c_0xb0b4f59c(bytes32)": FunctionFragment;
     "calculateDistance(address,address)": FunctionFragment;
     "getPlanetByIndex(uint8)": FunctionFragment;
     "getPlanetCoord(uint8)": FunctionFragment;
@@ -35,10 +34,6 @@ interface PlanetRepositoryInterface extends ethers.utils.Interface {
   };
 
   encodeFunctionData(functionFragment: "addPlanet", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "c_0xb0b4f59c",
-    values: [BytesLike]
-  ): string;
   encodeFunctionData(
     functionFragment: "calculateDistance",
     values: [string, string]
@@ -70,10 +65,6 @@ interface PlanetRepositoryInterface extends ethers.utils.Interface {
   ): string;
 
   decodeFunctionResult(functionFragment: "addPlanet", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "c_0xb0b4f59c",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "calculateDistance",
     data: BytesLike
@@ -136,16 +127,6 @@ export class PlanetRepository extends Contract {
       planet: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
-
-    c_0xb0b4f59c(
-      c__0xb0b4f59c: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[void]>;
-
-    "c_0xb0b4f59c(bytes32)"(
-      c__0xb0b4f59c: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[void]>;
 
     calculateDistance(
       planet1: string,
@@ -222,16 +203,6 @@ export class PlanetRepository extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  c_0xb0b4f59c(
-    c__0xb0b4f59c: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<void>;
-
-  "c_0xb0b4f59c(bytes32)"(
-    c__0xb0b4f59c: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<void>;
-
   calculateDistance(
     planet1: string,
     planet2: string,
@@ -301,16 +272,6 @@ export class PlanetRepository extends Contract {
 
     "addPlanet(address)"(
       planet: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    c_0xb0b4f59c(
-      c__0xb0b4f59c: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "c_0xb0b4f59c(bytes32)"(
-      c__0xb0b4f59c: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -396,16 +357,6 @@ export class PlanetRepository extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    c_0xb0b4f59c(
-      c__0xb0b4f59c: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "c_0xb0b4f59c(bytes32)"(
-      c__0xb0b4f59c: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     calculateDistance(
       planet1: string,
       planet2: string,
@@ -480,16 +431,6 @@ export class PlanetRepository extends Contract {
     "addPlanet(address)"(
       planet: string,
       overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    c_0xb0b4f59c(
-      c__0xb0b4f59c: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "c_0xb0b4f59c(bytes32)"(
-      c__0xb0b4f59c: BytesLike,
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     calculateDistance(

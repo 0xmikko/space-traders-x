@@ -116,7 +116,7 @@ contract Planet is Ownable {
                 amount2out
             );
         } else {
-            (amount1in, amount2in) = pair.swap(
+            (amount2in, amount1in) = pair.swap(
                 msg.sender,
                 amount2out,
                 amount1out

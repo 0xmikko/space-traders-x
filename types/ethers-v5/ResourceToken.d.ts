@@ -22,13 +22,15 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface ResourceTokenInterface extends ethers.utils.Interface {
   functions: {
+    "addPlanet(address,uint256,uint256)": FunctionFragment;
     "allowance(address,address)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "burn(address,uint256)": FunctionFragment;
-    "c_0xf37461ee(bytes32)": FunctionFragment;
     "decimals()": FunctionFragment;
     "decreaseAllowance(address,uint256)": FunctionFragment;
+    "getCurrentGeneratePerBlock()": FunctionFragment;
+    "getGeneratedLastUpdate()": FunctionFragment;
     "getOwner()": FunctionFragment;
     "increaseAllowance(address,uint256)": FunctionFragment;
     "mint(uint256)": FunctionFragment;
@@ -37,12 +39,18 @@ interface ResourceTokenInterface extends ethers.utils.Interface {
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "symbol()": FunctionFragment;
+    "totalBurned()": FunctionFragment;
+    "totalMinted()": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "addPlanet",
+    values: [string, BigNumberish, BigNumberish]
+  ): string;
   encodeFunctionData(
     functionFragment: "allowance",
     values: [string, string]
@@ -56,14 +64,18 @@ interface ResourceTokenInterface extends ethers.utils.Interface {
     functionFragment: "burn",
     values: [string, BigNumberish]
   ): string;
-  encodeFunctionData(
-    functionFragment: "c_0xf37461ee",
-    values: [BytesLike]
-  ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "decreaseAllowance",
     values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getCurrentGeneratePerBlock",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getGeneratedLastUpdate",
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "getOwner", values?: undefined): string;
   encodeFunctionData(
@@ -83,6 +95,14 @@ interface ResourceTokenInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "totalBurned",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalMinted",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
   ): string;
@@ -99,17 +119,22 @@ interface ResourceTokenInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
 
+  decodeFunctionResult(functionFragment: "addPlanet", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "c_0xf37461ee",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "decreaseAllowance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getCurrentGeneratePerBlock",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getGeneratedLastUpdate",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getOwner", data: BytesLike): Result;
@@ -127,6 +152,14 @@ interface ResourceTokenInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "totalBurned",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalMinted",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
   ): Result;
@@ -142,11 +175,13 @@ interface ResourceTokenInterface extends ethers.utils.Interface {
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
+    "NewPlanetAdded(address,uint256,uint256)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "NewPlanetAdded"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
 }
@@ -165,6 +200,20 @@ export class ResourceToken extends Contract {
   interface: ResourceTokenInterface;
 
   functions: {
+    addPlanet(
+      planet: string,
+      initValue: BigNumberish,
+      generatePerBlock: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "addPlanet(address,uint256,uint256)"(
+      planet: string,
+      initValue: BigNumberish,
+      generatePerBlock: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
     allowance(
       owner: string,
       spender: string,
@@ -208,16 +257,6 @@ export class ResourceToken extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    c_0xf37461ee(
-      c__0xf37461ee: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[void]>;
-
-    "c_0xf37461ee(bytes32)"(
-      c__0xf37461ee: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[void]>;
-
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
     "decimals()"(overrides?: CallOverrides): Promise<[number]>;
@@ -233,6 +272,16 @@ export class ResourceToken extends Contract {
       subtractedValue: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
+
+    getCurrentGeneratePerBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "getCurrentGeneratePerBlock()"(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    getGeneratedLastUpdate(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "getGeneratedLastUpdate()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getOwner(overrides?: CallOverrides): Promise<[string]>;
 
@@ -288,6 +337,14 @@ export class ResourceToken extends Contract {
 
     "symbol()"(overrides?: CallOverrides): Promise<[string]>;
 
+    totalBurned(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "totalBurned()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    totalMinted(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "totalMinted()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "totalSupply()"(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -328,6 +385,20 @@ export class ResourceToken extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>;
   };
+
+  addPlanet(
+    planet: string,
+    initValue: BigNumberish,
+    generatePerBlock: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  "addPlanet(address,uint256,uint256)"(
+    planet: string,
+    initValue: BigNumberish,
+    generatePerBlock: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
 
   allowance(
     owner: string,
@@ -372,16 +443,6 @@ export class ResourceToken extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  c_0xf37461ee(
-    c__0xf37461ee: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<void>;
-
-  "c_0xf37461ee(bytes32)"(
-    c__0xf37461ee: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<void>;
-
   decimals(overrides?: CallOverrides): Promise<number>;
 
   "decimals()"(overrides?: CallOverrides): Promise<number>;
@@ -397,6 +458,14 @@ export class ResourceToken extends Contract {
     subtractedValue: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
+
+  getCurrentGeneratePerBlock(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "getCurrentGeneratePerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+  getGeneratedLastUpdate(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "getGeneratedLastUpdate()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   getOwner(overrides?: CallOverrides): Promise<string>;
 
@@ -452,6 +521,14 @@ export class ResourceToken extends Contract {
 
   "symbol()"(overrides?: CallOverrides): Promise<string>;
 
+  totalBurned(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "totalBurned()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+  totalMinted(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "totalMinted()"(overrides?: CallOverrides): Promise<BigNumber>;
+
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -493,6 +570,20 @@ export class ResourceToken extends Contract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    addPlanet(
+      planet: string,
+      initValue: BigNumberish,
+      generatePerBlock: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "addPlanet(address,uint256,uint256)"(
+      planet: string,
+      initValue: BigNumberish,
+      generatePerBlock: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     allowance(
       owner: string,
       spender: string,
@@ -536,16 +627,6 @@ export class ResourceToken extends Contract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    c_0xf37461ee(
-      c__0xf37461ee: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "c_0xf37461ee(bytes32)"(
-      c__0xf37461ee: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     decimals(overrides?: CallOverrides): Promise<number>;
 
     "decimals()"(overrides?: CallOverrides): Promise<number>;
@@ -561,6 +642,16 @@ export class ResourceToken extends Contract {
       subtractedValue: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    getCurrentGeneratePerBlock(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getCurrentGeneratePerBlock()"(
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getGeneratedLastUpdate(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getGeneratedLastUpdate()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     getOwner(overrides?: CallOverrides): Promise<string>;
 
@@ -613,6 +704,14 @@ export class ResourceToken extends Contract {
 
     "symbol()"(overrides?: CallOverrides): Promise<string>;
 
+    totalBurned(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "totalBurned()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalMinted(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "totalMinted()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -661,6 +760,12 @@ export class ResourceToken extends Contract {
       value: null
     ): EventFilter;
 
+    NewPlanetAdded(
+      planet: null,
+      initValue: null,
+      generatesPerBlock: null
+    ): EventFilter;
+
     OwnershipTransferred(
       previousOwner: string | null,
       newOwner: string | null
@@ -670,6 +775,20 @@ export class ResourceToken extends Contract {
   };
 
   estimateGas: {
+    addPlanet(
+      planet: string,
+      initValue: BigNumberish,
+      generatePerBlock: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    "addPlanet(address,uint256,uint256)"(
+      planet: string,
+      initValue: BigNumberish,
+      generatePerBlock: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
     allowance(
       owner: string,
       spender: string,
@@ -713,16 +832,6 @@ export class ResourceToken extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    c_0xf37461ee(
-      c__0xf37461ee: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "c_0xf37461ee(bytes32)"(
-      c__0xf37461ee: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
     "decimals()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -738,6 +847,16 @@ export class ResourceToken extends Contract {
       subtractedValue: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>;
+
+    getCurrentGeneratePerBlock(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getCurrentGeneratePerBlock()"(
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getGeneratedLastUpdate(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getGeneratedLastUpdate()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     getOwner(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -790,6 +909,14 @@ export class ResourceToken extends Contract {
 
     "symbol()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    totalBurned(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "totalBurned()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalMinted(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "totalMinted()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -832,6 +959,20 @@ export class ResourceToken extends Contract {
   };
 
   populateTransaction: {
+    addPlanet(
+      planet: string,
+      initValue: BigNumberish,
+      generatePerBlock: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "addPlanet(address,uint256,uint256)"(
+      planet: string,
+      initValue: BigNumberish,
+      generatePerBlock: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
     allowance(
       owner: string,
       spender: string,
@@ -878,16 +1019,6 @@ export class ResourceToken extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    c_0xf37461ee(
-      c__0xf37461ee: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "c_0xf37461ee(bytes32)"(
-      c__0xf37461ee: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "decimals()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -902,6 +1033,22 @@ export class ResourceToken extends Contract {
       spender: string,
       subtractedValue: BigNumberish,
       overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    getCurrentGeneratePerBlock(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "getCurrentGeneratePerBlock()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getGeneratedLastUpdate(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "getGeneratedLastUpdate()"(
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -957,6 +1104,14 @@ export class ResourceToken extends Contract {
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "symbol()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalBurned(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "totalBurned()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalMinted(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "totalMinted()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

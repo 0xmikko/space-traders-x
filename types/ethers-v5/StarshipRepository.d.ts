@@ -23,7 +23,6 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 interface StarshipRepositoryInterface extends ethers.utils.Interface {
   functions: {
     "addStarshipLevel(uint256,uint256,uint256,uint256,uint256)": FunctionFragment;
-    "c_0xfb02a7eb(bytes32)": FunctionFragment;
     "calculateFuelConsumption(address,uint256)": FunctionFragment;
     "calculateTimeToArrive(address,uint256)": FunctionFragment;
     "getAccountPlanet(address)": FunctionFragment;
@@ -48,10 +47,6 @@ interface StarshipRepositoryInterface extends ethers.utils.Interface {
       BigNumberish,
       BigNumberish
     ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "c_0xfb02a7eb",
-    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "calculateFuelConsumption",
@@ -105,10 +100,6 @@ interface StarshipRepositoryInterface extends ethers.utils.Interface {
 
   decodeFunctionResult(
     functionFragment: "addStarshipLevel",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "c_0xfb02a7eb",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -205,16 +196,6 @@ export class StarshipRepository extends Contract {
       oil: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
-
-    c_0xfb02a7eb(
-      c__0xfb02a7eb: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[void]>;
-
-    "c_0xfb02a7eb(bytes32)"(
-      c__0xfb02a7eb: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[void]>;
 
     calculateFuelConsumption(
       account: string,
@@ -365,16 +346,6 @@ export class StarshipRepository extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  c_0xfb02a7eb(
-    c__0xfb02a7eb: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<void>;
-
-  "c_0xfb02a7eb(bytes32)"(
-    c__0xfb02a7eb: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<void>;
-
   calculateFuelConsumption(
     account: string,
     distance: BigNumberish,
@@ -512,16 +483,6 @@ export class StarshipRepository extends Contract {
       gold: BigNumberish,
       iron: BigNumberish,
       oil: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    c_0xfb02a7eb(
-      c__0xfb02a7eb: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "c_0xfb02a7eb(bytes32)"(
-      c__0xfb02a7eb: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -697,16 +658,6 @@ export class StarshipRepository extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    c_0xfb02a7eb(
-      c__0xfb02a7eb: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "c_0xfb02a7eb(bytes32)"(
-      c__0xfb02a7eb: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     calculateFuelConsumption(
       account: string,
       distance: BigNumberish,
@@ -837,16 +788,6 @@ export class StarshipRepository extends Contract {
       iron: BigNumberish,
       oil: BigNumberish,
       overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    c_0xfb02a7eb(
-      c__0xfb02a7eb: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "c_0xfb02a7eb(bytes32)"(
-      c__0xfb02a7eb: BytesLike,
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     calculateFuelConsumption(

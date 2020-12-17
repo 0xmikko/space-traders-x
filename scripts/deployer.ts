@@ -137,7 +137,6 @@ export class Deployer {
       const starshipRepository = await this.getStarshipRepository();
       await this.addTestStarshipLevel();
       await starshipRepository.registerAccount(address);
-      console.log(await starshipRepository.getAccountPlanet(address));
   }
 
   async addTestStarshipLevel() {
