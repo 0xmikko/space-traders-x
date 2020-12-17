@@ -1,4 +1,12 @@
-# Planet description 
+# About
+
+Start your journey into the world of DeFi with SpaceTraders! Dive into fully realized crypto galactic, move between diferent planets, trade resources and earn BSC tokens! 
+
+# Rules 
+
+To start the game, you need connect your BSC-account througt Metamask browser Chrome extension.
+By participating in SpaceTraders game, you can experiment with different trading strategies of planets' resources to earn the main resource – gold (BSC-tokens). 
+Fuel your ship to move between planets, use metal to improve the ship's level and mine gold on planets at a favorable rate! Each planet has different resource quotes based on the number of traders, production and minerals. The game features **7 planets**:<br>
 
 ## Vicrion
 
@@ -27,6 +35,15 @@ An originally lush and forested planet that becomes volcanic and almost lifeless
 ## Zutis
 
 Medium mineral planet located in a remote section of the galaxy, its surface is covered with a layer of gray salt over its red-colored soil. Rich in minerals such as iron ore and aluminum. 
+
+# Team 
+
+**Mikhail Lazarev**<br>
+Tech Lead and Founder with 10+ experience in software development with expert knowledge and skills in blockchain technologies and developing in key programming languages, co-founder of Saint-Petersburg Blockchain Developers Association.
+
+**Ivan Fedorov**<br>
+PhD-student in Saint-Petersburg ITMO University with expert knowledge and skills in cryptography algorithms, blockhain technologies and infromation security.
+
 
 
 # Trash ? 
