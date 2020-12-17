@@ -47,15 +47,13 @@ contract SpaceTradersGame is Ownable {
             _addressRepository.getStarshipRepository()
         );
 
-        INITIAL_GOLD = initGold;
-        INITIAL_IRON = initIron;
-        INITIAL_OIL = initOil;
-    }
-
-    function connectTokens() onlyOwner external {
         _goldToken = ResourceToken(_addressRepository.getGoldToken());
         _ironToken = ResourceToken(_addressRepository.getIronToken());
         _oilToken = ResourceToken(_addressRepository.getOilToken());
+
+        INITIAL_GOLD = initGold;
+        INITIAL_IRON = initIron;
+        INITIAL_OIL = initOil;
     }
 
     function startGame() external {
