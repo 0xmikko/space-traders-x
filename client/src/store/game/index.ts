@@ -16,4 +16,8 @@ export type GameActions =
   | {
       type: "GAME_UPDATE_RESOURCES";
       payload: GameResources;
+    }
+  | {
+      type: "GAME_CURRENT_PLANET";
+      payload: string;
     };

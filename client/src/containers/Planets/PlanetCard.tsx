@@ -7,7 +7,7 @@ import { PlanetDescription } from "./PlanetDescription";
 import { PlanetCardHeader } from "./PlanetCardHeader";
 
 export interface PlanetCardProps {
-  data?: Planet;
+  data: Planet;
 }
 
 export function PlanetCard({ data }: PlanetCardProps) {
@@ -16,7 +16,7 @@ export function PlanetCard({ data }: PlanetCardProps) {
   return (
     <>
       <PlanetCardHeader setShow={setShowSpaceMap} />
-      <PlanetDescription />
+      <PlanetDescription data={data} />
       <SpaceMapWidget show={showSpaceMap} setShow={setShowSpaceMap} />
     </>
   );

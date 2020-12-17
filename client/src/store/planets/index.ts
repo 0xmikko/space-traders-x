@@ -6,7 +6,10 @@ export const planetsSelector = (state: RootState) => state.planets;
 export type PlanetActions =
   | {
       type: "PLANETS_LIST";
-      payload: Array<Planet>;
+      payload: {
+        array: Array<Planet>,
+        map: Record<string, Planet>
+      };
     }
   | {
       type: "PLANETS_FAILED";

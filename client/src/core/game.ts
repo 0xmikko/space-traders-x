@@ -12,7 +12,7 @@ export interface GameResources {
 
 export interface Game extends GameResources{
     isGameStarted: boolean,
-    currentPlanet: string,
+    currentPlanet: string | undefined,
     timeToArrive: number,
 
 }

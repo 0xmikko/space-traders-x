@@ -9,6 +9,7 @@ import { StarshipRepository } from "../../../../types/web3-v1-contracts/Starship
 import { AddressRepository } from "../../../../types/web3-v1-contracts/AddressRepository";
 import { ResourceToken } from "../../../../types/web3-v1-contracts/ResourceToken";
 import { getContract } from "../../utils/getContract";
+import {getPlanetsList} from "../planets/actions";
 
 declare global {
   interface Window {
@@ -94,6 +95,7 @@ export const connectWeb3 = (): ThunkAction<
       oilTokenAddress
     )) as unknown) as ResourceToken;
 
+    dispatch(getPlanetsList());
     dispatch({
       type: "WEB3_CONNECTED",
       payload: {
@@ -109,6 +111,8 @@ export const connectWeb3 = (): ThunkAction<
         oilToken,
       },
     });
+
+
   } else {
     dispatch({ type: "WEB3_FAILED", payload: { error: "CONNECTION_ERROR" } });
   }

@@ -89,3 +89,22 @@ export const updateTimeToArrive = (): ThunkAction<
   if (account === undefined || starshipRepository === undefined) return;
   await starshipRepository.methods.timeToArrive(account);
 };
+
+export const getCurrentPlanet = (): ThunkAction<
+    void,
+    RootState,
+    unknown,
+    GameActions
+    > => async (dispatch, getState) => {
+  const { accounts, starshipRepository } = getState().web3;
+
+  const account = accounts[0];
+  if (account === undefined || starshipRepository === undefined) return;
+
+  const planetAddress = await starshipRepository.methods.getAccountPlanet(account).call()
+  dispatch({
+    type: 'GAME_CURRENT_PLANET',
+    payload: planetAddress,
+  })
+
+};

@@ -3,10 +3,12 @@ import { Planet } from "../../core/planet";
 
 export interface PlanetState {
   data: Array<Planet>;
+  addressMap: Record<string, Planet>;
 }
 
 const initialState: PlanetState = {
   data: [],
+  addressMap: {},
 };
 
 export default function createReducer(
@@ -16,11 +18,14 @@ export default function createReducer(
   switch (action.type) {
     case "PLANETS_LIST":
       return {
-        data: action.payload,
+        ...state,
+        data: action.payload.array,
+        addressMap: action.payload.map,
       };
     case "PLANETS_FAILED":
       return {
         data: [],
+        addressMap: {},
       };
   }
 

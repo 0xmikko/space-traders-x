@@ -10,7 +10,7 @@ export interface GameState extends Game {}
 
 const initialState: GameState = {
   isGameStarted: false,
-  currentPlanet: "",
+  currentPlanet: undefined,
   gold: 0,
   iron: 0,
   oil: 0,
@@ -32,6 +32,11 @@ export default function createReducer(
         ...state,
         ...action.payload
       };
+    case "GAME_CURRENT_PLANET":
+      return {
+        ...state,
+        currentPlanet: action.payload.toLocaleLowerCase()
+      }
   }
 
   return state;

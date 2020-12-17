@@ -23,20 +23,29 @@ export const getPlanetsList = (): ThunkAction<
     await planetRepository.methods.getPlanetsLength().call()
   );
 
+  const addressMap: Record<string, Planet> = {};
+
   for (let i = 0; i < qty; i++) {
+    const address = await planetRepository.methods.getPlanetByIndex(i).call();
     const name = await planetRepository.methods.getPlanetName(i).call();
     const { x, y } = await planetRepository.methods.getPlanetCoord(i).call();
     // console.log('DA', data);
-    result.push({
+
+    const planet = {
       name,
       x: parseInt(x),
       y: parseInt(y),
-      description: additionalPlanetInfo[name].description || "",
-      image: additionalPlanetInfo[name].image || "",
-    });
+      description: additionalPlanetInfo[name]?.description || "",
+      image: additionalPlanetInfo[name]?.image || "",
+    };
+    result.push(planet);
+    addressMap[address.toLocaleLowerCase()] = planet;
   }
   dispatch({
     type: "PLANETS_LIST",
-    payload: result,
+    payload: {
+      array: result,
+      map: addressMap,
+    },
   });
 };
