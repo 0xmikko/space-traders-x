@@ -2,6 +2,10 @@
 
 Start your journey into the world of DeFi with SpaceTraders! Dive into fully realized crypto galactic, move between diferent planets, trade resources and earn GOLD tokens! 
 
+**Important links**:<br>
+- <a href="https://youtu.be/bHTzityc_7E" target="_blank">Video</a>
+- <a href="" target="_blank">Live demo</a>
+
 # Rules 
 
 To start the game, you need connect your BSC-account througt Metamask browser Chrome extension.
