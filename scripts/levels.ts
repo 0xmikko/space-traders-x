@@ -23,4 +23,18 @@ export const starShipLevels: Array<StarshipLevel> = [
     iron: BigNumber.from(1).mul(E18),
     oil: BigNumber.from(1).mul(E18),
   },
+  {
+    velocity: 200,
+    fuelPerParsec: 100,
+    gold: BigNumber.from(1).mul(E18),
+    iron: BigNumber.from(1).mul(E18),
+    oil: BigNumber.from(1).mul(E18),
+  },
+  {
+    velocity: 300,
+    fuelPerParsec: 100,
+    gold: BigNumber.from(1).mul(E18),
+    iron: BigNumber.from(1).mul(E18),
+    oil: BigNumber.from(1).mul(E18),
+  },
 ];
