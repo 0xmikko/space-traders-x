@@ -318,7 +318,6 @@ textarea:disabled{
   color: #FFFFFF;
   margin-top: 2em;
 }
-
 .exchange-card {
   background: #222437;
   border: 0.5px solid #4C92CE;
@@ -336,7 +335,7 @@ textarea:disabled{
   line-height: 19px;
   color: #FFFFFF;
   margin-top: 1.5em;
-  margin-left: 2em;
+  margin-left: 10%;
 }
 
 .exchange-card-input input {
@@ -351,7 +350,12 @@ textarea:disabled{
   line-height: 19px;
   color: #D6D6D6;
   margin-top: 1.5em;
-  margin-left: 2.5em;
+  margin-left: 10%;
+}
+
+.exchange-card-input input:focus {
+  background: #222437;
+  color: #D6D6D6;
 }
 
 .exchange-card-select select {
@@ -366,13 +370,19 @@ textarea:disabled{
   line-height: 19px;
   color: #D6D6D6;
   margin-top: 1.5em;
-  margin-left: 3em;
+  margin-left: 15%;
+}
+
+.exchange-card-select select:focus {
+  background: #222437;
+  color: #D6D6D6;
 }
 
 .switchButton {
   display: block;
   text-align: center;
 }
+
 .switchButton button {
   color: #FFFFFF;
   background: #4C92CE !important;
@@ -381,6 +391,12 @@ textarea:disabled{
   box-shadow: 0px 5px 13px rgba(76, 146, 206, 0.4), 0px -5px 13px rgba(76, 146, 206, 0.4) !important;
 }
 
+.switchButton button:hover {
+  color: #FFFFFF;
+  opacity: 0.8;
+}
+
+
 .changeButton {
   background: #4C92CE !important;
   box-shadow: 0px 5px 13px rgba(76, 146, 206, 0.4), 0px -5px 13px rgba(76, 146, 206, 0.4) !important;
@@ -388,7 +404,7 @@ textarea:disabled{
   border-color: #4C92CE !important;
   width: 100% !important;
   margin-top: 1em;
-  margin-left: 2.5em;
+  margin-left: 10%;
   margin-bottom: 2em;
   font-family: Exo 2;
   font-style: normal;
@@ -398,6 +414,13 @@ textarea:disabled{
 
   color: #FFFFFF;
 }
+
+button.changeButton:hover {
+  color: #FFFFFF;
+  opacity: 0.8;
+}
+
+
 
 .resourceItem {
   margin-top: 5em;
