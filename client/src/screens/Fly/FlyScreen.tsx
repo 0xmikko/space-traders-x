@@ -28,6 +28,7 @@ export function FlyScreen(): React.ReactElement {
               left: "15%",
               bottom: "10%",
             }}
+            alt={"arrow"}
           />
           <img
             src={"/img/spaceship.png"}
@@ -37,6 +38,7 @@ export function FlyScreen(): React.ReactElement {
               left: "10%",
               top: "70%",
             }}
+            alt={"spaceship"}
           />
           <img
             src={`/img/spacemap-${planetClassName}.png`}
@@ -47,6 +49,7 @@ export function FlyScreen(): React.ReactElement {
               position: "absolute",
               left: "85%",
             }}
+            alt={"spacemaps"}
           />
         </Row>
       </Container>

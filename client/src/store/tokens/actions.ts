@@ -2,14 +2,7 @@ import {ThunkAction} from 'redux-thunk';
 import {RootState} from '../index';
 import {TokenActions} from './index';
 
-export const updateTokenPrices = (): ThunkAction<void, RootState, unknown, TokenActions> => async (
-    dispatch,
-    getState
-) => {
-  const {currentPlanet} = await getState().game;
-  if (currentPlanet === undefined) return;
 
-};
 
 export const getAllowance = (): ThunkAction<void, RootState, unknown, TokenActions> => async (
     dispatch,

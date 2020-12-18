@@ -24,6 +24,7 @@ interface SpaceTradersGameInterface extends ethers.utils.Interface {
   functions: {
     "addPlanet(string,uint16,uint16,uint256,uint256,uint256,uint256,uint256,uint256)": FunctionFragment;
     "addStarshipLevel(uint256,uint256,uint256,uint256,uint256)": FunctionFragment;
+    "c_0x806e0e1a(bytes32)": FunctionFragment;
     "init(address,uint256,uint256,uint256)": FunctionFragment;
     "move(address)": FunctionFragment;
     "owner()": FunctionFragment;
@@ -58,6 +59,10 @@ interface SpaceTradersGameInterface extends ethers.utils.Interface {
     ]
   ): string;
   encodeFunctionData(
+    functionFragment: "c_0x806e0e1a",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
     functionFragment: "init",
     values: [string, BigNumberish, BigNumberish, BigNumberish]
   ): string;
@@ -80,6 +85,10 @@ interface SpaceTradersGameInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "addPlanet", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "addStarshipLevel",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "c_0x806e0e1a",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "init", data: BytesLike): Result;
@@ -163,6 +172,16 @@ export class SpaceTradersGame extends Contract {
       oil: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
+
+    c_0x806e0e1a(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[void]>;
+
+    "c_0x806e0e1a(bytes32)"(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[void]>;
 
     init(
       addressRepository: string,
@@ -261,6 +280,16 @@ export class SpaceTradersGame extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
+  c_0x806e0e1a(
+    c__0x806e0e1a: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<void>;
+
+  "c_0x806e0e1a(bytes32)"(
+    c__0x806e0e1a: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<void>;
+
   init(
     addressRepository: string,
     initGold: BigNumberish,
@@ -352,6 +381,16 @@ export class SpaceTradersGame extends Contract {
       gold: BigNumberish,
       iron: BigNumberish,
       oil: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    c_0x806e0e1a(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "c_0x806e0e1a(bytes32)"(
+      c__0x806e0e1a: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -457,6 +496,16 @@ export class SpaceTradersGame extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>;
 
+    c_0x806e0e1a(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "c_0x806e0e1a(bytes32)"(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     init(
       addressRepository: string,
       initGold: BigNumberish,
@@ -550,6 +599,16 @@ export class SpaceTradersGame extends Contract {
       iron: BigNumberish,
       oil: BigNumberish,
       overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    c_0x806e0e1a(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "c_0x806e0e1a(bytes32)"(
+      c__0x806e0e1a: BytesLike,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     init(

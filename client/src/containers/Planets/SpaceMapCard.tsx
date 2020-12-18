@@ -1,15 +1,16 @@
 import React from "react";
-import {useHistory} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import {Planet} from "../../core/planet";
 import {LoadingView} from "rn-web-components";
+import {useDispatch} from "react-redux";
+import actions from "../../store/actions";
 
 export interface SpaceMapCardProps {
   data?: Planet;
 }
 
 export function SpaceMapCard({ data }: SpaceMapCardProps) {
-  const history = useHistory();
+  const dispatch = useDispatch();
 
   if (data === undefined) return <LoadingView />;
 
@@ -17,8 +18,7 @@ export function SpaceMapCard({ data }: SpaceMapCardProps) {
     const card = document.querySelector(".spacemap-planet-card");
     // @ts-ignore
     card.classList.remove("visible");
-    let path = `/fly/${data.name}`;
-    history.push(path);
+    dispatch(actions.game.move(data.address))
   };
 
   return (

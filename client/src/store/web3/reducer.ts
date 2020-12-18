@@ -16,6 +16,10 @@ export interface Web3State {
   ironToken?: ResourceToken;
   oilToken?: ResourceToken;
 
+  goldTokenAddress?: string;
+  ironTokenAddress?: string;
+  oilTokenAddress?: string;
+
   status: "WEB3_STARTUP" | "WEB3_CONNECTED" | "NO_WEB3";
   error?: Web3Error;
 }

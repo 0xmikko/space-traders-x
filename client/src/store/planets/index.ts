@@ -1,5 +1,5 @@
-import {RootState} from "../index";
-import {Planet} from "../../core/planet";
+import { RootState } from "../index";
+import { Planet } from "../../core/planet";
 
 export const planetsSelector = (state: RootState) => state.planets;
 
@@ -7,12 +7,21 @@ export type PlanetActions =
   | {
       type: "PLANETS_LIST";
       payload: {
-        array: Array<Planet>,
-        map: Record<string, Planet>
+        array: Array<Planet>;
+        map: Record<string, Planet>;
       };
     }
   | {
       type: "PLANETS_FAILED";
+    }
+  | {
+      type: "PLANETS_UPDATE_PRICES";
+      payload: {
+        address: string;
+        goldOilPrice: number;
+        goldIronPrice: number;
+        oilIronPrice: number;
+      };
     };
 
 export interface AdditionalPlanetInfo {

@@ -29,7 +29,6 @@ export const connectWeb3 = (): ThunkAction<
   unknown,
   Web3Actions
 > => async (dispatch) => {
-  console.log("CW3");
   if (window.ethereum) {
     const web3 = new Web3(window.ethereum);
     window.ethereum.enable();
@@ -108,6 +107,10 @@ export const connectWeb3 = (): ThunkAction<
         goldToken,
         ironToken,
         oilToken,
+
+        goldTokenAddress,
+        ironTokenAddress,
+        oilTokenAddress,
       },
     });
 

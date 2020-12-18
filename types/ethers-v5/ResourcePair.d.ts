@@ -22,6 +22,7 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface ResourcePairInterface extends ethers.utils.Interface {
   functions: {
+    "c_0x1d3a5bf1(bytes32)": FunctionFragment;
     "getLiquidity()": FunctionFragment;
     "getResourcePrice1()": FunctionFragment;
     "getResourcePrice2()": FunctionFragment;
@@ -31,6 +32,10 @@ interface ResourcePairInterface extends ethers.utils.Interface {
     "transferOwnership(address)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "c_0x1d3a5bf1",
+    values: [BytesLike]
+  ): string;
   encodeFunctionData(
     functionFragment: "getLiquidity",
     values?: undefined
@@ -57,6 +62,10 @@ interface ResourcePairInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "c_0x1d3a5bf1",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "getLiquidity",
     data: BytesLike
@@ -101,6 +110,16 @@ export class ResourcePair extends Contract {
   interface: ResourcePairInterface;
 
   functions: {
+    c_0x1d3a5bf1(
+      c__0x1d3a5bf1: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[void]>;
+
+    "c_0x1d3a5bf1(bytes32)"(
+      c__0x1d3a5bf1: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[void]>;
+
     getLiquidity(
       overrides?: CallOverrides
     ): Promise<
@@ -160,6 +179,16 @@ export class ResourcePair extends Contract {
     ): Promise<ContractTransaction>;
   };
 
+  c_0x1d3a5bf1(
+    c__0x1d3a5bf1: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<void>;
+
+  "c_0x1d3a5bf1(bytes32)"(
+    c__0x1d3a5bf1: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<void>;
+
   getLiquidity(
     overrides?: CallOverrides
   ): Promise<
@@ -213,6 +242,16 @@ export class ResourcePair extends Contract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    c_0x1d3a5bf1(
+      c__0x1d3a5bf1: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "c_0x1d3a5bf1(bytes32)"(
+      c__0x1d3a5bf1: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     getLiquidity(
       overrides?: CallOverrides
     ): Promise<
@@ -284,6 +323,16 @@ export class ResourcePair extends Contract {
   };
 
   estimateGas: {
+    c_0x1d3a5bf1(
+      c__0x1d3a5bf1: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "c_0x1d3a5bf1(bytes32)"(
+      c__0x1d3a5bf1: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getLiquidity(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getLiquidity()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -330,6 +379,16 @@ export class ResourcePair extends Contract {
   };
 
   populateTransaction: {
+    c_0x1d3a5bf1(
+      c__0x1d3a5bf1: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "c_0x1d3a5bf1(bytes32)"(
+      c__0x1d3a5bf1: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getLiquidity(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "getLiquidity()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
