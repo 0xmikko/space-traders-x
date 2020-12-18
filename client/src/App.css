@@ -607,3 +607,56 @@ button.changeButton:hover {
   background-size: cover;
   margin: 0;
 }
+
+img.spaceMapButton:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+/*NOT TESTED*/
+
+.spacemap-vicrion img:hover  {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+
+.spacemap-gocury img:hover  {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.spacemap-uitania img:hover  {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.spacemap-dion img:hover  {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.spacemap-ocao img:hover  {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.spacemap-thubeon img:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.spacemap-zutis img:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+button.moveButton:hover {
+  color: #FFFFFF;
+  opacity: 0.8;
+}
+
+img.spacemap-close:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
