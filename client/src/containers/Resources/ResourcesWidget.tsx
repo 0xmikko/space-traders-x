@@ -11,6 +11,7 @@ export function ResourcesWidget() {
 
   useEffect(() => {
     dispatch(actions.game.updateResources());
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

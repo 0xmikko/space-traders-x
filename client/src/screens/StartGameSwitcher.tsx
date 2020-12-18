@@ -11,6 +11,7 @@ export function StartGameSwitcher(): React.ReactElement {
 
   useEffect(() => {
     dispatch(actions.game.isGameStarted());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (isGameStarted) {
     return <FlySwitcher />;

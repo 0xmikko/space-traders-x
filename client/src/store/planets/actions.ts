@@ -1,9 +1,8 @@
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "../index";
-import { additionalPlanetInfo, PlanetActions } from "./index";
-import { Planet } from "../../core/planet";
-import { Planet as PlanetContract } from "../../../../types/web3-v1-contracts/Planet";
-import { TokenActions } from "../tokens";
+import {ThunkAction} from "redux-thunk";
+import {RootState} from "../index";
+import {additionalPlanetInfo, PlanetActions} from "./index";
+import {Planet} from "../../core/planet";
+import {Planet as PlanetContract} from "../../../../types/web3-v1-contracts/Planet";
 
 const planetJson = require("../../contracts/core/Planet.sol/Planet.json");
 

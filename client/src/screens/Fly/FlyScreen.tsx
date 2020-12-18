@@ -2,11 +2,11 @@ import React from "react";
 
 import {Container, Row} from "react-bootstrap";
 import {Layout} from "../Layout";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {gameSelector} from "../../store/game";
 
 export function FlyScreen(): React.ReactElement {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const { timeToArrive } = useSelector(gameSelector);
 

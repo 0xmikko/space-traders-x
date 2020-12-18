@@ -17,6 +17,7 @@ export function MarketListScreen(): React.ReactElement {
 
   useEffect(() => {
     dispatch(actions.game.getCurrentPlanet());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (planets.data.length === 0) return <LoadingView />;

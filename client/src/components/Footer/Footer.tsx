@@ -18,8 +18,7 @@ export function Footer() {
         }}
         buttonWrapperClasses={"consent-button"}
         expires={150}
-      >
-        🍪 We need to talk about cookies! 🍪
+      >We need to talk about cookies!
         <br />
         <span style={{fontSize: "13px", lineHeight: 1}}>
           SpaceTraders and its partners use cookies to operate the website

@@ -17,7 +17,7 @@ export function PlanetCardHeader({ setShow, data }: PlanetCardHeaderProps) {
           <PlanetRatesWidget />
         </Col>
         <Col sm={3}>
-          <img src={"./img/spacemapbtn.png"} onClick={() => setShow(true)} />
+          <img src={"./img/spacemapbtn.png"} onClick={() => setShow(true)} alt={"spacebutton"}/>
         </Col>
       </Row>
     </React.Fragment>

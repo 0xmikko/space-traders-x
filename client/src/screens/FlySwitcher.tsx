@@ -24,6 +24,7 @@ export function FlySwitcher(): React.ReactElement {
       if (interval) clearInterval(interval);
       setIntl(undefined);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeToArrive]);
 
   return timeToArrive > 0 ? <FlyScreen /> : <MarketListScreen />;

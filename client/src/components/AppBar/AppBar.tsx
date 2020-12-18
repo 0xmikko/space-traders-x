@@ -6,9 +6,6 @@
 import React from "react";
 import {Container, Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {web3Selector} from "../../store/web3";
-import * as blockies from 'blockies-ts';
 
 
 export interface AppBarProps {
@@ -17,14 +14,13 @@ export interface AppBarProps {
 
 export const AppBar = ({backgroundColor}: AppBarProps) => {
 
-  const accounts = useSelector(web3Selector).accounts;
-  const address = accounts.length >0 ? accounts[0] : "";
-  const imgSrc = blockies.create({ seed: address }).toDataURL();
+  // const accounts = useSelector(web3Selector).accounts;
+  // const address = accounts.length >0 ? accounts[0] : "";
 
   return (
     <Navbar
       expand="md"
-      style={{backgroundColor: "#313652 !important"}}
+      style={{backgroundColor: backgroundColor || "#313652 !important"}}
     >
       <Container fluid style={{maxWidth: "92%"}}>
         <Navbar.Brand>

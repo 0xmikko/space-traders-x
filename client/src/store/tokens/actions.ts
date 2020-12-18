@@ -8,7 +8,7 @@ export const getAllowance = (): ThunkAction<void, RootState, unknown, TokenActio
     dispatch,
     getState
 ) => {
-  const web3 = await getState().web3.web3;
+  // const web3 = await getState().web3.web3;
 };
 
 //
