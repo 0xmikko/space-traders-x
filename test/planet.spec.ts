@@ -68,6 +68,14 @@ describe("Planet", function () {
    expect(await planet.getResourceLiquidity(ironToken.address)).to.be.equal(BigNumber.from(100).mul(E18));
   });
 
+  it("should revert for non-existing pair", async () => {
+    await expect(
+          planet.getResourcePair(goldToken.address, ironToken.address)
+    ).to.be.revertedWith("Token pair wasn't found");
+  });
+
+
+
   //
   // ==================== SWAP =====================
   //
@@ -165,7 +173,7 @@ describe("Planet", function () {
       .to.emit(goldToken, "Transfer")
       .withArgs(userAccount.address, planet.address, 0);
 
-    // Checking balances after swap  
+    // Checking balances after swap
     expect(await planet.getResourceLiquidity(goldToken.address)).to.be.equal(BigNumber.from(1).mul(E18).div(2));
     expect(await planet.getResourceLiquidity(ironToken.address)).to.be.equal(BigNumber.from(150).mul(E18));
     expect(await goldToken.balanceOf(userAccount.address)).to.be.equal(goldOut);

@@ -21,23 +21,14 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
 interface AddressStorageInterface extends ethers.utils.Interface {
   functions: {
-    "c_0xc99a04f0(bytes32)": FunctionFragment;
     "getAddress(bytes32)": FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: "c_0xc99a04f0",
-    values: [BytesLike]
-  ): string;
   encodeFunctionData(
     functionFragment: "getAddress",
     values: [BytesLike]
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "c_0xc99a04f0",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "getAddress", data: BytesLike): Result;
 
   events: {};
@@ -57,16 +48,6 @@ export class AddressStorage extends Contract {
   interface: AddressStorageInterface;
 
   functions: {
-    c_0xc99a04f0(
-      c__0xc99a04f0: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[void]>;
-
-    "c_0xc99a04f0(bytes32)"(
-      c__0xc99a04f0: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[void]>;
-
     getAddress(key: BytesLike, overrides?: CallOverrides): Promise<[string]>;
 
     "getAddress(bytes32)"(
@@ -74,16 +55,6 @@ export class AddressStorage extends Contract {
       overrides?: CallOverrides
     ): Promise<[string]>;
   };
-
-  c_0xc99a04f0(
-    c__0xc99a04f0: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<void>;
-
-  "c_0xc99a04f0(bytes32)"(
-    c__0xc99a04f0: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<void>;
 
   getAddress(key: BytesLike, overrides?: CallOverrides): Promise<string>;
 
@@ -93,16 +64,6 @@ export class AddressStorage extends Contract {
   ): Promise<string>;
 
   callStatic: {
-    c_0xc99a04f0(
-      c__0xc99a04f0: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "c_0xc99a04f0(bytes32)"(
-      c__0xc99a04f0: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     getAddress(key: BytesLike, overrides?: CallOverrides): Promise<string>;
 
     "getAddress(bytes32)"(
@@ -114,16 +75,6 @@ export class AddressStorage extends Contract {
   filters: {};
 
   estimateGas: {
-    c_0xc99a04f0(
-      c__0xc99a04f0: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "c_0xc99a04f0(bytes32)"(
-      c__0xc99a04f0: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     getAddress(key: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
     "getAddress(bytes32)"(
@@ -133,16 +84,6 @@ export class AddressStorage extends Contract {
   };
 
   populateTransaction: {
-    c_0xc99a04f0(
-      c__0xc99a04f0: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "c_0xc99a04f0(bytes32)"(
-      c__0xc99a04f0: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     getAddress(
       key: BytesLike,
       overrides?: CallOverrides

@@ -1,10 +1,13 @@
-import {Deployer} from "../scripts/deployer";
-import {ethers} from "hardhat";
-import {solidity} from "ethereum-waffle";
+import { Deployer } from "../scripts/deployer";
+import { ethers } from "hardhat";
+import { solidity } from "ethereum-waffle";
 
-import {SignerWithAddress} from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
-import {SpaceTradersGame} from "../types/ethers-v5/SpaceTradersGame";
-import {ResourceToken} from "../types/ethers-v5/ResourceToken";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
+import { SpaceTradersGame } from "../types/ethers-v5/SpaceTradersGame";
+import { ResourceToken } from "../types/ethers-v5/ResourceToken";
+import { Planet, Planet__factory } from "../types/ethers-v5";
+import { E18, priceToNumber } from "./helper";
+import { BigNumber } from "@ethersproject/bignumber";
 
 const chai = require("chai");
 
@@ -70,6 +73,35 @@ describe("SpaceTradersGame", function () {
     await expect(game.connect(userAccount).startGame()).to.be.revertedWith(
       "Account is already exists"
     );
+    // expect(await goldToken.balanceOf(userAccount.address)).to.be.equal()
+  });
+
+  it("should revert if player try start game twice", async () => {
+    await game.addPlanet(
+      "Earth",
+      1,
+      1,
+      BigNumber.from(1000000).mul(E18),
+      BigNumber.from(1000).mul(E18),
+      BigNumber.from(1000000).mul(E18),
+      BigNumber.from(1000).mul(E18),
+      BigNumber.from(10000).mul(E18),
+      BigNumber.from(10).mul(E18)
+    );
+    const planetRepository = await deployer.getPlanetRepository();
+    const planetAddress = await planetRepository.getPlanetByIndex(0);
+
+    const planetArtifact = (await ethers.getContractFactory(
+      "Planet"
+    )) as Planet__factory;
+
+    const planet = (await planetArtifact.attach(planetAddress)) as Planet;
+
+    expect(
+      priceToNumber(
+        await planet.getResourcePrice(goldToken.address, oilToken.address)
+      )
+    ).to.be.equal(100);
     // expect(await goldToken.balanceOf(userAccount.address)).to.be.equal()
   });
 });

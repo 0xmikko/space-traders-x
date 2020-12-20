@@ -23,7 +23,6 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 interface PlanetInterface extends ethers.utils.Interface {
   functions: {
     "addResourcePair(address,address)": FunctionFragment;
-    "c_0xe340a0fc(bytes32)": FunctionFragment;
     "getCoordinates()": FunctionFragment;
     "getName()": FunctionFragment;
     "getResourceLiquidity(address)": FunctionFragment;
@@ -38,10 +37,6 @@ interface PlanetInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "addResourcePair",
     values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "c_0xe340a0fc",
-    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "getCoordinates",
@@ -76,10 +71,6 @@ interface PlanetInterface extends ethers.utils.Interface {
 
   decodeFunctionResult(
     functionFragment: "addResourcePair",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "c_0xe340a0fc",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -144,16 +135,6 @@ export class Planet extends Contract {
       resource2: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
-
-    c_0xe340a0fc(
-      c__0xe340a0fc: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[void]>;
-
-    "c_0xe340a0fc(bytes32)"(
-      c__0xe340a0fc: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[void]>;
 
     getCoordinates(
       overrides?: CallOverrides
@@ -248,16 +229,6 @@ export class Planet extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  c_0xe340a0fc(
-    c__0xe340a0fc: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<void>;
-
-  "c_0xe340a0fc(bytes32)"(
-    c__0xe340a0fc: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<void>;
-
   getCoordinates(
     overrides?: CallOverrides
   ): Promise<[number, number] & { x: number; y: number }>;
@@ -348,16 +319,6 @@ export class Planet extends Contract {
     "addResourcePair(address,address)"(
       resource1: string,
       resource2: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    c_0xe340a0fc(
-      c__0xe340a0fc: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "c_0xe340a0fc(bytes32)"(
-      c__0xe340a0fc: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -464,16 +425,6 @@ export class Planet extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    c_0xe340a0fc(
-      c__0xe340a0fc: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "c_0xe340a0fc(bytes32)"(
-      c__0xe340a0fc: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     getCoordinates(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getCoordinates()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -562,16 +513,6 @@ export class Planet extends Contract {
       resource1: string,
       resource2: string,
       overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    c_0xe340a0fc(
-      c__0xe340a0fc: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "c_0xe340a0fc(bytes32)"(
-      c__0xe340a0fc: BytesLike,
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getCoordinates(overrides?: CallOverrides): Promise<PopulatedTransaction>;

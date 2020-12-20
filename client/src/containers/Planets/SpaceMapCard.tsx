@@ -32,9 +32,9 @@ export function SpaceMapCard({ data }: SpaceMapCardProps) {
       <br />
       <p>distance: 100 parsec</p>
       <br />
-      <p>GOLD/IRON: {data?.goldIronPrice}</p>
-      <p>GOLD/FUEL: {data?.goldOilPrice}</p>
-      <p>IRON/FUEL: {data?.ironOilPrice}</p>
+      <p>GOLD/IRON: {data?.goldIronPrice || "Loading..."}</p>
+      <p>GOLD/FUEL: {data?.goldOilPrice || "Loading..."}</p>
+      <p>IRON/FUEL: {data?.ironOilPrice || "Loading..."}</p>
       <br />
       <Button className={"moveButton"} onClick={move}>
         MOVE THERE

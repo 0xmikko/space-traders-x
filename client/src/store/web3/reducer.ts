@@ -1,13 +1,13 @@
-import Web3 from "web3";
-import {Web3Actions, Web3Error} from "./index";
-import {SpaceTradersGame} from "../../../../types/web3-v1-contracts/SpaceTradersGame";
-import {PlanetRepository} from "../../../../types/web3-v1-contracts/PlanetRepository";
-import {StarshipRepository} from "../../../../types/web3-v1-contracts/StarshipRepository";
-import {ResourceToken} from "../../../../types/web3-v1-contracts/ResourceToken";
+import { Web3Actions, Web3Error } from "./index";
+import { SpaceTradersGame } from "../../../../types/ethers-v5/SpaceTradersGame";
+import { PlanetRepository } from "../../../../types/ethers-v5/PlanetRepository";
+import { StarshipRepository } from "../../../../types/ethers-v5/StarshipRepository";
+import { ResourceToken } from "../../../../types/ethers-v5/ResourceToken";
+import { Signer } from "ethers";
 
 export interface Web3State {
-  web3: Web3 | null;
-  accounts: Array<string>;
+  account?: string;
+  signer?: Signer;
   game?: SpaceTradersGame;
   planetRepository?: PlanetRepository;
   starshipRepository?: StarshipRepository;
@@ -25,8 +25,6 @@ export interface Web3State {
 }
 
 const initialState: Web3State = {
-  web3: null,
-  accounts: [],
   status: "WEB3_STARTUP",
 };
 
@@ -42,8 +40,8 @@ export default function createReducer(
       };
     case "WEB3_FAILED":
       return {
-        web3: null,
-        accounts: [],
+        account: undefined,
+        signer: undefined,
         status: "NO_WEB3",
         error: action.payload.error,
       };

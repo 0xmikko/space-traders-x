@@ -1,4 +1,5 @@
-import {Planet as PlanetContract} from "../../../types/web3-v1-contracts/Planet";
+import {Planet as PlanetContract} from "../../../types/ethers-v5/Planet";
+import {BigNumber} from "ethers";
 
 export interface Planet {
     address: string,
@@ -7,9 +8,9 @@ export interface Planet {
     y: number,
     description: string,
     image: string,
-    goldOilPrice?: number,
-    goldIronPrice?: number,
-    ironOilPrice?: number,
+    goldOilPrice?: BigNumber,
+    goldIronPrice?: BigNumber,
+    ironOilPrice?: BigNumber,
     contract?: PlanetContract,
 
 }

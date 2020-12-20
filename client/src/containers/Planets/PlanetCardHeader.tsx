@@ -14,7 +14,7 @@ export function PlanetCardHeader({ setShow, data }: PlanetCardHeaderProps) {
       <Row>
         <Col sm={9}>
           <h2 className={"planet-card-header"}>{data.name}</h2>
-          <PlanetRatesWidget />
+          <PlanetRatesWidget data={data}/>
         </Col>
         <Col sm={3}>
           <img src={"./img/spacemapbtn.png"} onClick={() => setShow(true)} alt={"spacebutton"}/>

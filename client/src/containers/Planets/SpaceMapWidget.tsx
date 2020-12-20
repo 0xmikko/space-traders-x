@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import {Modal} from "react-bootstrap";
-import {Planet} from "../../core/planet";
-import {SpaceMapCard} from "./SpaceMapCard";
-import {useSelector} from "react-redux";
-import {planetsSelector} from "../../store/planets";
-import {LoadingView} from "rn-web-components";
-import {PlanetOnMap} from "./PlanetOnMap";
+import React, { useState } from "react";
+import { Modal } from "react-bootstrap";
+import { Planet } from "../../core/planet";
+import { SpaceMapCard } from "./SpaceMapCard";
+import { useSelector } from "react-redux";
+import { planetsSelector } from "../../store/planets";
+import { LoadingView } from "rn-web-components";
+import { PlanetOnMap } from "./PlanetOnMap";
 
 export interface SpaceMapProps {
   show: boolean;
@@ -16,28 +16,15 @@ export function SpaceMapWidget({
   show,
   setShow,
 }: SpaceMapProps): React.ReactElement {
-  // const dispatch = useDispatch();
   const [planet, setPlanet] = useState<Planet | undefined>(undefined);
 
-  const { data } = useSelector(planetsSelector);
+  const { addressMap } = useSelector(planetsSelector);
+  const data = Object.values(addressMap);
   if (data === undefined) return <LoadingView />;
 
-  // const setShowCard = (p: Planet) => {
-  //   const card = document.querySelector(".spacemap-planet-card");
-  //   setPlanet(p);
-  //   // @ts-ignore
-  //   card.classList.add("visible");
-  //   // @ts-ignore
-  //   card.style.left = p.x + "px";
-  //   // @ts-ignore
-  //   card.style.top = p.y + "px";
-  // };
 
   const planetsRendered = data.map((p) => (
-    <PlanetOnMap data={p} onClick={() => {
-      console.log("Sekeceed", p.name)
-      setPlanet(p)
-    }} />
+    <PlanetOnMap data={p} onClick={() => setPlanet(p)} />
   ));
 
   return (
@@ -48,7 +35,7 @@ export function SpaceMapWidget({
             src={"./img/spacemap-close.png"}
             className={"spacemap-close"}
             onClick={() => setShow(false)}
-             alt={"closeButton"}
+            alt={"closeButton"}
           />
           {planetsRendered}
           <SpaceMapCard data={planet} />

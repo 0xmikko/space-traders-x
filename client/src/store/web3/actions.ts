@@ -1,18 +1,17 @@
-import {ThunkAction} from "redux-thunk";
-import {RootState} from "../index";
-import {Web3Actions} from "./index";
-import Web3 from "web3";
-import {ADDRESS_REPOSITORY, REQUIRED_NETWORK} from "../../config";
-import {SpaceTradersGame} from "../../../../types/web3-v1-contracts/SpaceTradersGame";
-import {PlanetRepository} from "../../../../types/web3-v1-contracts/PlanetRepository";
-import {StarshipRepository} from "../../../../types/web3-v1-contracts/StarshipRepository";
-import {AddressRepository} from "../../../../types/web3-v1-contracts/AddressRepository";
-import {ResourceToken} from "../../../../types/web3-v1-contracts/ResourceToken";
-import {getPlanetsList} from "../planets/actions";
+import { ThunkAction } from "redux-thunk";
+import { RootState } from "../index";
+import { Web3Actions } from "./index";
+import { ADDRESS_REPOSITORY, REQUIRED_NETWORK } from "../../config";
+import { SpaceTradersGame } from "../../../../types/ethers-v5/SpaceTradersGame";
+import { PlanetRepository } from "../../../../types/ethers-v5/PlanetRepository";
+import { StarshipRepository } from "../../../../types/ethers-v5/StarshipRepository";
+import { AddressRepository } from "../../../../types/ethers-v5/AddressRepository";
+import { ResourceToken } from "../../../../types/ethers-v5/ResourceToken";
+import { getPlanetsList } from "../planets/actions";
+import { ethers } from "ethers";
 
 declare global {
   interface Window {
-    web3: Web3;
     ethereum: any;
   }
 }
@@ -30,12 +29,13 @@ export const connectWeb3 = (): ThunkAction<
   Web3Actions
 > => async (dispatch) => {
   if (window.ethereum) {
-    const web3 = new Web3(window.ethereum);
-    window.ethereum.enable();
-    const accounts = await web3.eth.getAccounts();
-    const networkId = await web3.eth.net.getId();
+    await window.ethereum.enable();
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
 
-    if (networkId !== REQUIRED_NETWORK) {
+    const networkId = await provider.detectNetwork();
+
+    if (networkId.chainId !== REQUIRED_NETWORK) {
       dispatch({
         type: "WEB3_FAILED",
         payload: { error: "WRONG_NETWORK_ERROR" },
@@ -43,63 +43,61 @@ export const connectWeb3 = (): ThunkAction<
       return;
     }
 
-    const addressRepository = ((await new web3.eth.Contract(
-      addressRepositoryJson.abi, ADDRESS_REPOSITORY
-    )) as unknown) as AddressRepository;
+    const addressRepository = (await ethers.ContractFactory.getContract(
+      ADDRESS_REPOSITORY,
+      addressRepositoryJson.abi,
+      signer
+    )) as AddressRepository;
 
-    const gameAddress = await addressRepository.methods.getGameService().call();
-    const game = ((await new web3.eth.Contract(
+    const gameAddress = await addressRepository.getGameService();
+    const game = (await ethers.ContractFactory.getContract(
+      gameAddress,
       gameJson.abi,
-      gameAddress
-    )) as unknown) as SpaceTradersGame;
+      signer
+    )) as SpaceTradersGame;
 
-    const planetRepositoryAddress = await addressRepository.methods
-      .getPlanetRepository()
-      .call();
-    const planetRepository = ((await new web3.eth.Contract(
+    const planetRepositoryAddress = await addressRepository.getPlanetRepository();
+
+    const planetRepository = (await ethers.ContractFactory.getContract(
+      planetRepositoryAddress,
       planetRepositoryJson.abi,
-      planetRepositoryAddress
-    )) as unknown) as PlanetRepository;
+      signer
+    )) as PlanetRepository;
 
-    const starshipRepositoryAddress = await addressRepository.methods
-      .getStarshipRepository()
-      .call();
-    const starshipRepository = ((await new web3.eth.Contract(
+    const starshipRepositoryAddress = await addressRepository.getStarshipRepository();
+    const starshipRepository = (await ethers.ContractFactory.getContract(
+      starshipRepositoryAddress,
       starshipRepositoryJson.abi,
-      starshipRepositoryAddress
-    )) as unknown) as StarshipRepository;
+      signer
+    )) as StarshipRepository;
 
-    const goldTokenAddress = await addressRepository.methods
-      .getGoldToken()
-      .call();
-    const goldToken = ((await new web3.eth.Contract(
+    const goldTokenAddress = await addressRepository.getGoldToken();
+    const goldToken = (await ethers.ContractFactory.getContract(
+      goldTokenAddress,
       resourceTokenJson.abi,
-      goldTokenAddress
-    )) as unknown) as ResourceToken;
+      signer
+    )) as ResourceToken;
 
-    const ironTokenAddress = await addressRepository.methods
-      .getGoldToken()
-      .call();
-    const ironToken = ((await new web3.eth.Contract(
+    const ironTokenAddress = await addressRepository.getIronToken();
+    const ironToken = (await ethers.ContractFactory.getContract(
+      ironTokenAddress,
       resourceTokenJson.abi,
-      ironTokenAddress
-    )) as unknown) as ResourceToken;
+      signer
+    )) as ResourceToken;
 
-    const oilTokenAddress = await addressRepository.methods
-      .getGoldToken()
-      .call();
-    const oilToken = ((await new web3.eth.Contract(
+    const oilTokenAddress = await addressRepository.getOilToken();
+    const oilToken = (await ethers.ContractFactory.getContract(
+      oilTokenAddress,
       resourceTokenJson.abi,
-      oilTokenAddress
-    )) as unknown) as ResourceToken;
+      signer
+    )) as ResourceToken;
 
-    dispatch(getPlanetsList());
-    dispatch({
+    await dispatch({
       type: "WEB3_CONNECTED",
       payload: {
-        web3,
-        accounts,
-        networkId,
+        account: await signer.getAddress(),
+        signer,
+        networkId: networkId.chainId,
         game,
         planetRepository,
         starshipRepository,
@@ -113,8 +111,7 @@ export const connectWeb3 = (): ThunkAction<
         oilTokenAddress,
       },
     });
-
-
+    dispatch(getPlanetsList());
   } else {
     dispatch({ type: "WEB3_FAILED", payload: { error: "CONNECTION_ERROR" } });
   }

@@ -13,13 +13,10 @@ export const isGameStarted = (): ThunkAction<
   unknown,
   GameActions
 > => async (dispatch, getState) => {
-  const { accounts, starshipRepository } = getState().web3;
+  const { account, starshipRepository } = getState().web3;
 
-  const account = accounts[0];
   if (account === undefined || starshipRepository === undefined) return;
-  const isGameStarted = await starshipRepository.methods
-    .isAccountExists(account)
-    .call();
+  const isGameStarted = await starshipRepository.isAccountExists(account);
   dispatch({ type: "GAME_UPDATE_STATUS", payload: isGameStarted });
 };
 
@@ -29,10 +26,9 @@ export const startGame = (): ThunkAction<
   unknown,
   GameActions
 > => async (dispatch, getState) => {
-  const { accounts, game } = getState().web3;
-  const account = accounts[0];
+  const { account, game } = getState().web3;
   if (account === undefined || game === undefined) return;
-  await game.methods.startGame().send({ from: account });
+  await game.startGame();
   dispatch(isGameStarted());
 };
 
@@ -42,8 +38,7 @@ export const updateResources = (): ThunkAction<
   unknown,
   GameActions
 > => async (dispatch, getState) => {
-  const { goldToken, oilToken, ironToken, accounts } = getState().web3;
-  const account = accounts[0];
+  const { goldToken, oilToken, ironToken, account } = getState().web3;
   if (
     account === undefined ||
     goldToken === undefined ||
@@ -52,9 +47,9 @@ export const updateResources = (): ThunkAction<
   ) {
     return;
   }
-  const gold = parseInt(await goldToken.methods.balanceOf(account).call());
-  const iron = parseInt(await ironToken.methods.balanceOf(account).call());
-  const oil = parseInt(await oilToken.methods.balanceOf(account).call());
+  const gold = await goldToken.balanceOf(account);
+  const iron = await ironToken.balanceOf(account);
+  const oil = await oilToken.balanceOf(account);
 
   dispatch({
     type: "GAME_UPDATE_RESOURCES",
@@ -72,10 +67,9 @@ export const move = (
   dispatch,
   getState
 ) => {
-  const { game, accounts } = getState().web3;
-  const account = accounts[0]
+  const { game, account } = getState().web3;
   if (account === undefined || game === undefined) return;
-  await game.methods.move(planet).send({ from: account });
+  await game.move(planet);
 };
 
 export const updateTimeToArrive = (): ThunkAction<
@@ -84,10 +78,9 @@ export const updateTimeToArrive = (): ThunkAction<
   unknown,
   GameActions
 > => async (dispatch, getState) => {
-  const { accounts, starshipRepository } = getState().web3;
-  const account = accounts[0];
+  const { account, starshipRepository } = getState().web3;
   if (account === undefined || starshipRepository === undefined) return;
-  await starshipRepository.methods.timeToArrive(account);
+  await starshipRepository.timeToArrive(account);
 };
 
 export const getCurrentPlanet = (): ThunkAction<
@@ -96,14 +89,11 @@ export const getCurrentPlanet = (): ThunkAction<
   unknown,
   GameActions
 > => async (dispatch, getState) => {
-  const { accounts, starshipRepository } = getState().web3;
+  const { account, starshipRepository } = getState().web3;
 
-  const account = accounts[0];
   if (account === undefined || starshipRepository === undefined) return;
 
-  const planetAddress = await starshipRepository.methods
-    .getAccountPlanet(account)
-    .call();
+  const planetAddress = await starshipRepository.getAccountPlanet(account)
   dispatch({
     type: "GAME_CURRENT_PLANET",
     payload: planetAddress,

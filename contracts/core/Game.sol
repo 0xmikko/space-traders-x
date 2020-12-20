@@ -102,6 +102,10 @@ contract SpaceTradersGame is Ownable {
         _goldToken.addPlanet(address(planet), initGold, generatesGold);
         _ironToken.addPlanet(address(planet), initIron, generatesIron);
         _oilToken.addPlanet(address(planet), initOil, generatesOil);
+
+        planet.addResourcePair(address(_goldToken), address(_ironToken));
+        planet.addResourcePair(address(_goldToken), address(_oilToken));
+        planet.addResourcePair(address(_oilToken), address(_ironToken));
     }
 
     function addStarshipLevel(

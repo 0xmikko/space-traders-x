@@ -5,15 +5,16 @@
 
 import {GameActions} from "./index";
 import {Game} from "../../core/game";
+import {BigNumber} from "ethers";
 
 export interface GameState extends Game {}
 
 const initialState: GameState = {
   isGameStarted: false,
   currentPlanet: undefined,
-  gold: 0,
-  iron: 0,
-  oil: 0,
+  gold: BigNumber.from(0),
+  iron: BigNumber.from(0),
+  oil: BigNumber.from(0),
   timeToArrive: 0,
 };
 

@@ -25,6 +25,7 @@
     "bignumber.js": "^9.0.1",
     "blockies-ts": "^1.0.0",
     "bootstrap": "^4.5.3",
+    "ethers": "^5.0.24",
     "formik": "^2.2.0",
     "moment": "^2.29.1",
     "rc-analytics": "^0.0.9",

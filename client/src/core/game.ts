@@ -4,10 +4,12 @@
  */
 
 
+import {BigNumber} from "@ethersproject/bignumber";
+
 export interface GameResources {
-    gold: number,
-    iron: number,
-    oil: number
+    gold: BigNumber,
+    iron: BigNumber,
+    oil: BigNumber
 }
 
 export interface Game extends GameResources{

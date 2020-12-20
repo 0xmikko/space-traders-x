@@ -2,12 +2,10 @@ import {PlanetActions} from "./index";
 import {Planet} from "../../core/planet";
 
 export interface PlanetState {
-  data: Array<Planet>;
   addressMap: Record<string, Planet>;
 }
 
 const initialState: PlanetState = {
-  data: [],
   addressMap: {},
 };
 
@@ -19,14 +17,23 @@ export default function createReducer(
     case "PLANETS_LIST":
       return {
         ...state,
-        data: action.payload.array,
-        addressMap: action.payload.map,
+        addressMap: action.payload,
       };
     case "PLANETS_FAILED":
       return {
-        data: [],
         addressMap: {},
       };
+    case "PLANETS_UPDATE_PRICES":
+      const addressMap = {...state.addressMap}
+      const {address, goldOilPrice, goldIronPrice, oilIronPrice } = action.payload
+      addressMap[address].goldOilPrice = goldOilPrice;
+      addressMap[address].goldIronPrice = goldIronPrice;
+      addressMap[address].ironOilPrice = oilIronPrice;
+
+      return {
+        ...state,
+        addressMap
+      }
   }
 
   return state;
