@@ -22,19 +22,22 @@ export function SpaceMapWidget({
   const { data } = useSelector(planetsSelector);
   if (data === undefined) return <LoadingView />;
 
-  const setShowCard = (p: Planet) => {
-    const card = document.querySelector(".spacemap-planet-card");
-    setPlanet(p);
-    // @ts-ignore
-    card.classList.add("visible");
-    // @ts-ignore
-    card.style.left = p.x + "px";
-    // @ts-ignore
-    card.style.top = p.y + "px";
-  };
+  // const setShowCard = (p: Planet) => {
+  //   const card = document.querySelector(".spacemap-planet-card");
+  //   setPlanet(p);
+  //   // @ts-ignore
+  //   card.classList.add("visible");
+  //   // @ts-ignore
+  //   card.style.left = p.x + "px";
+  //   // @ts-ignore
+  //   card.style.top = p.y + "px";
+  // };
 
   const planetsRendered = data.map((p) => (
-    <PlanetOnMap data={p} onClick={() => setShowCard(p)} />
+    <PlanetOnMap data={p} onClick={() => {
+      console.log("Sekeceed", p.name)
+      setPlanet(p)
+    }} />
   ));
 
   return (

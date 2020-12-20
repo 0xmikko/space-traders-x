@@ -72,9 +72,10 @@ export const move = (
   dispatch,
   getState
 ) => {
-  const { game } = getState().web3;
-  if (game === undefined) return;
-  await game.methods.move(planet).send();
+  const { game, accounts } = getState().web3;
+  const account = accounts[0]
+  if (account === undefined || game === undefined) return;
+  await game.methods.move(planet).send({ from: account });
 };
 
 export const updateTimeToArrive = (): ThunkAction<

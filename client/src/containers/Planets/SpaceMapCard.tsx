@@ -12,24 +12,29 @@ export interface SpaceMapCardProps {
 export function SpaceMapCard({ data }: SpaceMapCardProps) {
   const dispatch = useDispatch();
 
-  if (data === undefined) return <LoadingView />;
-
+  // if (data === undefined) return <div />;
+    console.log("JJ",data)
   const move = () => {
-    const card = document.querySelector(".spacemap-planet-card");
-    // @ts-ignore
-    card.classList.remove("visible");
-    dispatch(actions.game.move(data.address))
+    // const card = document.querySelector(".spacemap-planet-card");
+    // // @ts-ignore
+    // card.classList.remove("visible");
+    if (data?.address) dispatch(actions.game.move(data.address))
   };
 
-  return (
-    <div className={"spacemap-planet-card"}>
-      <h3>{data.name}</h3>
+    const visible = data === undefined ? "" : "visible"
+
+    return (
+    <div className={`spacemap-planet-card ${visible}`} style={{
+        left: data?.x,
+        top: data?.y,
+    }}>
+      <h3>{data?.name}</h3>
       <br />
       <p>distance: 100 parsec</p>
       <br />
-      <p>GOLD/IRON: {data.goldIronPrice}</p>
-      <p>GOLD/FUEL: {data.goldOilPrice}</p>
-      <p>IRON/FUEL: {data.ironOilPrice}</p>
+      <p>GOLD/IRON: {data?.goldIronPrice}</p>
+      <p>GOLD/FUEL: {data?.goldOilPrice}</p>
+      <p>IRON/FUEL: {data?.ironOilPrice}</p>
       <br />
       <Button className={"moveButton"} onClick={move}>
         MOVE THERE
