@@ -1,4 +1,5 @@
 import { Deployer } from "../scripts/deployer";
+// @ts-ignore
 import { ethers } from "hardhat";
 import { solidity } from "ethereum-waffle";
 

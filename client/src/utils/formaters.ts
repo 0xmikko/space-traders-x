@@ -18,7 +18,7 @@ export function tokenDecimals(
   number: BigNumber,
   decimals: number = 18
 ): number {
-  return parseFloat(number.div(eDecimals(decimals)).toString());
+  return number.div(eDecimals(decimals)).toNumber() ;
 }
 
 export function numberWithCommas(x: number | undefined) {

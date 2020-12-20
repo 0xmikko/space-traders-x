@@ -1,12 +1,13 @@
-import { waffle, ethers } from "hardhat";
-import { solidity } from "ethereum-waffle";
+// @ts-ignore
+import {ethers} from "hardhat";
+import {solidity} from "ethereum-waffle";
 
-import { AddressRepository } from "../types/ethers-v5/AddressRepository";
-import { PlanetRepository } from "../types/ethers-v5/PlanetRepository";
-import { Planet } from "../types/ethers-v5/Planet";
-import { Planet__factory } from "../types/ethers-v5/factories/Planet__factory";
+import {AddressRepository} from "../types/ethers-v5/AddressRepository";
+import {PlanetRepository} from "../types/ethers-v5/PlanetRepository";
+import {Planet} from "../types/ethers-v5/Planet";
+import {Planet__factory} from "../types/ethers-v5/factories/Planet__factory";
 
-import { Deployer } from "../scripts/deployer";
+import {Deployer} from "../scripts/deployer";
 
 const chai = require("chai");
 
@@ -23,7 +24,7 @@ describe("PlanetRepository", function () {
 
   beforeEach(async function () {
     deployer = new Deployer();
-  
+
     addressRepository = await deployer.getAddressRepository();
     planetRepository = await deployer.getPlanetRepository();
     await deployer.getStarshipRepository();

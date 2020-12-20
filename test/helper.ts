@@ -1,4 +1,5 @@
 import { BigNumber } from "@ethersproject/bignumber";
+// @ts-ignore
 import { ethers } from "hardhat";
 
 

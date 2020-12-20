@@ -10,9 +10,10 @@ import { planetsList } from "./planetsList";
 import { starShipLevels } from "./levels";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import { E18 } from "../test/helper";
+import {BigNumber} from "ethers";
 
 export async function finalDeploy() {
-  const initGold = "1000";
+  const initGold = BigNumber.from("100").mul(E18);
   const initIron = "0";
   const initOil = "0";
 

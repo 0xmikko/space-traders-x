@@ -1,16 +1,13 @@
-import { priceToNumber } from "./helper";
-import { waffle, ethers } from "hardhat";
-import { solidity } from "ethereum-waffle";
+import {E18, maxAddress, minAddress, priceToNumber, UINT256_MAX} from "./helper";
+// @ts-ignores
+import {ethers} from "hardhat";
+import {solidity} from "ethereum-waffle";
+import {Planet} from "../types/ethers-v5/Planet";
+import {ResourceToken} from "./../types/ethers-v5/ResourceToken";
+import {BigNumber} from "@ethersproject/bignumber";
+import {Deployer} from "../scripts/deployer";
+import {SignerWithAddress} from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 
-import { AddressRepository } from "../types/ethers-v5/AddressRepository";
-import { PlanetRepository } from "../types/ethers-v5/PlanetRepository";
-import { Planet } from "../types/ethers-v5/Planet";
-import { Planet__factory } from "../types/ethers-v5/factories/Planet__factory";
-import { ResourceToken } from "./../types/ethers-v5/ResourceToken";
-import { BigNumber } from "@ethersproject/bignumber";
-import { Deployer } from "../scripts/deployer";
-import { E18, maxAddress, minAddress, UINT256_MAX } from "./helper";
-import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 const chai = require("chai");
 
 chai.use(solidity);
