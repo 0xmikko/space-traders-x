@@ -32,13 +32,11 @@ export function Footer() {
         </span>
       </CookieConsent>
       <div className={"footer-content"} style={{color: "white"}}>
-        <Container fluid style={{paddingTop: '30px', paddingBottom: "30px", textAlign: "center"}}>
+        <Container fluid style={{paddingTop: '10px', paddingBottom: "1ac7", textAlign: "center"}}>
             <Media>
               <Media.Body style={{marginLeft: "30px"}}>
               <p>
-                &copy; Copyright 2020 SpaceTraders
-                <br />
-                All rights reserved
+                &copy; Copyright 2020 SpaceTraders. All rights reserved
               </p>
               </Media.Body>
             </Media>
