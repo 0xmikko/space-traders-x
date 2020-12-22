@@ -31,7 +31,8 @@ export const getPlanetsList = (): ThunkAction<
       address,
       planetJson.abi,
       signer
-    )) as PlanetContract;
+    )) as unknown as PlanetContract;
+
 
     const planet = {
       address,

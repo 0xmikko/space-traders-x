@@ -47,14 +47,14 @@ export const connectWeb3 = (): ThunkAction<
       ADDRESS_REPOSITORY,
       addressRepositoryJson.abi,
       signer
-    )) as AddressRepository;
+    )) as unknown as AddressRepository;
 
     const gameAddress = await addressRepository.getGameService();
     const game = (await ethers.ContractFactory.getContract(
       gameAddress,
       gameJson.abi,
       signer
-    )) as SpaceTradersGame;
+    )) as unknown as SpaceTradersGame;
 
     const planetRepositoryAddress = await addressRepository.getPlanetRepository();
 
@@ -62,35 +62,35 @@ export const connectWeb3 = (): ThunkAction<
       planetRepositoryAddress,
       planetRepositoryJson.abi,
       signer
-    )) as PlanetRepository;
+    )) as unknown as PlanetRepository;
 
     const starshipRepositoryAddress = await addressRepository.getStarshipRepository();
     const starshipRepository = (await ethers.ContractFactory.getContract(
       starshipRepositoryAddress,
       starshipRepositoryJson.abi,
       signer
-    )) as StarshipRepository;
+    )) as unknown as StarshipRepository;
 
     const goldTokenAddress = await addressRepository.getGoldToken();
     const goldToken = (await ethers.ContractFactory.getContract(
       goldTokenAddress,
       resourceTokenJson.abi,
       signer
-    )) as ResourceToken;
+    )) as unknown as ResourceToken;
 
     const ironTokenAddress = await addressRepository.getIronToken();
     const ironToken = (await ethers.ContractFactory.getContract(
       ironTokenAddress,
       resourceTokenJson.abi,
       signer
-    )) as ResourceToken;
+    )) as unknown as ResourceToken;
 
     const oilTokenAddress = await addressRepository.getOilToken();
     const oilToken = (await ethers.ContractFactory.getContract(
       oilTokenAddress,
       resourceTokenJson.abi,
       signer
-    )) as ResourceToken;
+    )) as unknown as ResourceToken;
 
     await dispatch({
       type: "WEB3_CONNECTED",
