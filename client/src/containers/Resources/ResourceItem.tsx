@@ -10,7 +10,7 @@ export function ResourceItem({ type, amount }: ResourceItemProps) {
     <React.Fragment>
       <div className={"resourceItem"}>
         <img src={`./img/${type}.png`} alt={type}/>
-        <p>${amount}</p>
+        <p>{amount}</p>
       </div>
     </React.Fragment>
   );
