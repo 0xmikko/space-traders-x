@@ -14,7 +14,7 @@ export type Web3Actions =
       type: "WEB3_CONNECTED";
       payload: {
         networkId: number;
-        account: string;K
+        account: string;
         signer: Signer;
         game?: SpaceTradersGame;
         planetRepository?: PlanetRepository;
