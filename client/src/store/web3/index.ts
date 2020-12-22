@@ -1,10 +1,9 @@
-import { RootState } from "../index";
-import { SpaceTradersGame } from "../../../../types/ethers-v5/SpaceTradersGame";
-import { PlanetRepository } from "../../../../types/ethers-v5/PlanetRepository";
-import { StarshipRepository } from "../../../../types/ethers-v5/StarshipRepository";
-import { ResourceToken } from "../../../../types/ethers-v5/ResourceToken";
-import { Signer } from "ethers";
-import { Web3Provider } from "@ethersproject/providers";
+import {RootState} from "../index";
+import {SpaceTradersGame} from "../../../../types/ethers-v5/SpaceTradersGame";
+import {PlanetRepository} from "../../../../types/ethers-v5/PlanetRepository";
+import {StarshipRepository} from "../../../../types/ethers-v5/StarshipRepository";
+import {ResourceToken} from "../../../../types/ethers-v5/ResourceToken";
+import {Signer} from "ethers";
 
 export const web3Selector = (state: RootState) => state.web3;
 
@@ -15,7 +14,7 @@ export type Web3Actions =
       type: "WEB3_CONNECTED";
       payload: {
         networkId: number;
-        account: string;
+        account: string;K
         signer: Signer;
         game?: SpaceTradersGame;
         planetRepository?: PlanetRepository;

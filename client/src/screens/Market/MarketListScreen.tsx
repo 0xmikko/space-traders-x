@@ -20,14 +20,17 @@ export function MarketListScreen(): React.ReactElement {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const planet = currentPlanet ? addressMap[currentPlanet] : undefined;
+
   useEffect(() => {
     if (currentPlanet && Object.keys(addressMap).length > 0) dispatch(actions.planets.updateTokenPrices())
-  }, [addressMap[currentPlanet || ""]])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [planet])
 
   if (Object.keys(addressMap).length === 0) return <LoadingView />;
   if (currentPlanet === undefined) return <LoadingView />;
 
-  const planet = addressMap[currentPlanet];
+
   if (planet === undefined)
     return <FailureView error={"Unknown planet" + currentPlanet} />;
 

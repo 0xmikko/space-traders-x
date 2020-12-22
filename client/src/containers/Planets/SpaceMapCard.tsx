@@ -1,7 +1,6 @@
 import React from "react";
 import {Button} from "react-bootstrap";
 import {Planet} from "../../core/planet";
-import {LoadingView} from "rn-web-components";
 import {useDispatch} from "react-redux";
 import actions from "../../store/actions";
 
